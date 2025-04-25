@@ -1,11 +1,8 @@
-import LoginSign from "./pages/loginSign.jsx";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes/routes";
 
 function App() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff]">
-      <LoginSign />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
