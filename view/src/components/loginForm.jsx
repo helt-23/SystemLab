@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 export function LoginForm() {
   return (
     <form action="#">
@@ -13,8 +14,10 @@ export function LoginForm() {
       <div className="forgot-link">
         <a href="#">Esqueceu sua Senha?</a>
       </div>
-      <button type="submit" className="btn">
-        Login
+      <button type="submit" className="btn" >
+      <Link to="/laboratorios" >
+         Login
+        </Link>
       </button>
     </form>
   );
