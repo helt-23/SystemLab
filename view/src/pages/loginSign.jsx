@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LoginForm, RegisterForm, TogglePanel } from "../components";
 import "../assets/styles/main.css";
 
-export function LoginSign () {
+export function LoginSign() {
   const [isActive, setIsActive] = useState(false);
 
   return (
