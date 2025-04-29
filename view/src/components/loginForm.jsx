@@ -15,8 +15,8 @@ export function LoginForm() {
         <a href="#">Esqueceu sua Senha?</a>
       </div>
       <button type="submit" className="btn" >
-      <Link to="/laboratorios" >
-         Login
+        <Link to="/laboratorios" >
+          Login
         </Link>
       </button>
     </form>
