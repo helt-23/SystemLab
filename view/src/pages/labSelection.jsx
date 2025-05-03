@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { Menu } from 'lucide-react';
-import { Sidebar, LaboratoryCard, Footer } from '../components';
-
+import { Sidebar, LaboratoryCard, Footer, Header } from '../components';
 
 export function LabSelection() {
   const blocos = ['Bloco A', 'Bloco B', 'Bloco C', 'Bloco D'];
@@ -60,12 +58,7 @@ export function LabSelection() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      <header className="flex items-center justify-between bg-blue-600 text-white p-4 shadow-lg">
-        <MenuButton />
-        <h1 className="text-xl font-bold tracking-tight">Seleção de Laboratórios</h1>
-        <div className="w-8" />
-      </header>
-
+      <Header />
       <main className="flex flex-1 overflow-hidden">
         <Sidebar
           blocos={blocos}
@@ -88,17 +81,7 @@ export function LabSelection() {
           </div>
         </section>
       </main>
-
       <Footer />
     </div>
   );
 }
-
-const MenuButton = () => (
-  <button
-    className="p-2 hover:bg-blue-700 rounded-lg transition-colors"
-    aria-label="Menu"
-  >
-    <Menu size={24} />
-  </button>
-);
