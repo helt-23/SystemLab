@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Users, CalendarClock } from 'lucide-react';
 
 export function LaboratoryCard({ lab, handleVerHorarios }) {
@@ -35,8 +36,10 @@ export function LaboratoryCard({ lab, handleVerHorarios }) {
           className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center font-medium"
         >
           <CalendarClock className="w-5 h-5 mr-2" />
-          Ver Horários
-        </button>
+          <Link to="/horarios" className="block w-full">
+            Ver horários
+          </Link>
+        </button >
       </div>
     </div>
   );
