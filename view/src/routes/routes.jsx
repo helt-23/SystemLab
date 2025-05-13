@@ -1,17 +1,17 @@
 // src/routes.jsx
 import { createBrowserRouter } from "react-router-dom";
-import { LabSelection, LoginSign } from "../pages";
+import { LabSelection, LoginSignForm } from "../pages";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LoginSign />,
+    element: <LoginSignForm />,
   },
   {
     path: "/laboratorios",
     element: <LabSelection />,
   },
-  // Adicione mais rotas conforme necessário
+  // Adicionar mais rotas conforme necessário
 ]);
 
 export default router;

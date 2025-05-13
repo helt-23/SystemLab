@@ -12,7 +12,7 @@ export function TogglePanel({ isActive, setIsActive }) {
           '-translate-x-full opacity-0' :
           'translate-x-0 opacity-100 delay-300 pointer-events-auto'
           }`}>
-          <h2 className="text-2xl mb-4 font-bold">Bem vindo ao SystemLab!</h2>
+          <h2 className="text-2xl mb-4 font-bold text-center">Bem vindo ao SystemLab!</h2>
           <p className="mb-6 text-sm">Não possui uma conta?</p>
           <button
             className="w-40 py-3 border-2 border-white rounded-lg bg-transparent font-semibold hover:bg-white hover:text-primary transition-colors"

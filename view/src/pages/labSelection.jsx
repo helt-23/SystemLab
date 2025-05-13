@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Sidebar, LaboratoryCard, Footer, Header } from '../components';
+import '../assets/styles/main.css';
 
 export function LabSelection() {
   const blocos = ['Bloco A', 'Bloco B', 'Bloco C', 'Bloco D'];
