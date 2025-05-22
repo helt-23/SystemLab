@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Sidebar, LaboratoryCard, Footer, Header } from '../components';
-import '../assets/styles/main.css';
+import { Sidebar, LaboratoryCard } from '../components';
+import '../assets/styles/labSec.css';
+import { Menu } from 'lucide-react';
 
 export function LabSelection() {
   const blocos = ['Bloco A', 'Bloco B', 'Bloco C', 'Bloco D'];
@@ -50,7 +51,6 @@ export function LabSelection() {
       }
     ]
   };
-
   const [blocoSelecionado, setBlocoSelecionado] = useState(blocos[0]);
 
   const handleVerHorarios = (labId) => {
@@ -58,20 +58,38 @@ export function LabSelection() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
-      <Header />
-      <main className="flex flex-1 overflow-hidden">
+    <div className="app-container">
+      <header className="main-header">
+        <button className="menu-button" aria-label="Menu">
+          <Menu size={24} />
+        </button>
+        <h1 className="app-title">Seleção de Laboratórios</h1>
+        <div className="header-spacer" />
+      </header>
+
+      <main className="main-content-lab">
         <Sidebar
           blocos={blocos}
           blocoSelecionado={blocoSelecionado}
           setBlocoSelecionado={setBlocoSelecionado}
         />
 
-        <section className="flex-1 overflow-auto p-6 bg-gray-50">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            Laboratórios em {blocoSelecionado}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section className="labs-section">
+          {/* Select dropdown for small screens */}
+          <select
+            className="block-select"
+            value={blocoSelecionado}
+            onChange={(e) => setBlocoSelecionado(e.target.value)}
+          >
+            {blocos.map((bloco) => (
+              <option key={bloco} value={bloco}>
+                {bloco}
+              </option>
+            ))}
+          </select>
+
+          <h2 className="section-title">Laboratórios em {blocoSelecionado}</h2>
+          <div className="labs-grid">
             {laboratoriosPorBloco[blocoSelecionado].map((lab) => (
               <LaboratoryCard
                 key={lab.id}
@@ -82,7 +100,12 @@ export function LabSelection() {
           </div>
         </section>
       </main>
-      <Footer />
+
+      <footer className="main-footer">
+        <div className="footer-content">
+          © {new Date().getFullYear()} UNIFESSPA - Engenharia da Computação | Todos os direitos reservados
+        </div>
+      </footer>
     </div>
   );
 }
