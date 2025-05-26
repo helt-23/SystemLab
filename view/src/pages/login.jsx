@@ -15,7 +15,7 @@ export function LoginSignForm() {
         {/* Login Form */}
         <div className={`form-box login ${!isActive ? 'active' : ''}`}>
           <form className="w-full" onSubmit={(e) => e.preventDefault()}>
-            <h1 className="text-3xl font-bold mb-8 text-gray-800">LOGIN</h1>
+            <h1 className="title">LOGIN</h1>
 
             <InputField
               type="text"
@@ -82,6 +82,11 @@ export function LoginSignForm() {
               name="passwordConfirm"
               icon={FaKey}
             />
+            <select className="user-type" id="">
+              <option value="student">Estudante</option>
+              <option value="teacher">Professor</option>
+              <option value="admin">Bolsista</option>
+            </select>
             <button type="submit" className="btn">Registrar</button>
           </form>
         </div>
