@@ -4,7 +4,7 @@ import { useLabData } from '../context/LabDataContext';
 import { Trash2, X } from 'lucide-react';
 import "../assets/styles/myReserva.css"
 
-export function ReservationModal() {
+export function MyReservation() {
   const {
     isBookingsModalOpen,
     closeBookingsModal,

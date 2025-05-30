@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header, Footer } from "../../components";
 import { Info, Clock, Users, Building, ChevronLeft, ChevronRight, X } from "lucide-react";
-import { ReservationModal } from "../reservations";
+import { MyReservation } from "../reservations";
 import { useLabData } from "../../context/LabDataContext";
 import { useSchedule } from "../../customHooks/useSchedule";
 import LabDetailModal from "./LabDetailModal";
 import AbbreviationPanel from "./AbbreviationPanel";
 import "./app.css";
+import ReservationModal from "../../components/reservationModal";
 
 export function LabScheduleComponent() {
   const navigate = useNavigate();
@@ -170,15 +171,16 @@ export function LabScheduleComponent() {
                     }
 
                     return (
-                      <td key={`${time}-${dia}`}>
-                        <div
-                          className={`cell-status ${cellType}`}
-                          onClick={() => {
-                            if (horario.tipo === "livre") {
-                              openReservationModal(dia);
-                            }
-                          }}
-                        >
+                      <td
+                        key={`${time}-${dia}`}
+                        className={cellType === "available" ? "clickable-cell" : ""}
+                        onClick={() => {
+                          if (horario.tipo === "livre") {
+                            openReservationModal(dia);
+                          }
+                        }}
+                      >
+                        <div className={`cell-status ${cellType}`}>
                           {cellContent}
                         </div>
                       </td>
@@ -201,7 +203,7 @@ export function LabScheduleComponent() {
         />
       </main>
       <Footer />
-      <ReservationModal />
+      <MyReservation />
     </div>
   );
 }

@@ -24,7 +24,7 @@ const ReservationModal = ({
   ];
 
   // Filtra apenas os horários livres do dia
-  const availableSlots = timeSlots.filter(slot => slot.tipo === 'livre');
+  const availableSlots = timeSlots.filter(slot => slot.tipo === "livre");
 
   const handleSlotChange = (slotTime) => {
     setSelectedSlots(prev => {
