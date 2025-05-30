@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Sidebar, LaboratoryCard, Header } from '../components';
+import { ReservationModal } from './reservations';
 import '../assets/styles/labSec.css';
 
 export function LabSelection() {
@@ -99,6 +100,7 @@ export function LabSelection() {
           © {new Date().getFullYear()} UNIFESSPA - Engenharia da Computação | Todos os direitos reservados
         </div>
       </footer>
+      <ReservationModal />
     </div>
   );
 }

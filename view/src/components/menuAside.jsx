@@ -8,16 +8,25 @@ import {
   LogOut,
   Info
 } from 'lucide-react';
+import { useLabData } from '../context/LabDataContext'; // Importe o hook
 
 const MenuAside = ({ user, isOpen, onClose }) => {
   const location = useLocation();
+  // Obtenha as funções do provider
+  const { openBookingsModal } = useLabData();
 
   // Corrigindo o loop infinito
   useEffect(() => {
     if (isOpen) {
       onClose();
     }
-  }, [location]); // Removi onClose das dependências
+  }, [location]);
+
+  // Função para lidar com o clique nas reservas
+  const handleBookingsClick = () => {
+    openBookingsModal(); // Abre o modal
+    onClose(); // Fecha o menu
+  };
 
   return (
     <>
@@ -64,10 +73,14 @@ const MenuAside = ({ user, isOpen, onClose }) => {
             <span>Editar Perfil</span>
           </Link>
 
-          <Link to="/minhas-reservas" className="menu-item">
+          {/* Altere este item para abrir o modal */}
+          <button
+            className="menu-item w-full text-left"
+            onClick={handleBookingsClick}
+          >
             <Calendar size={20} />
             <span>Minhas Reservas</span>
-          </Link>
+          </button>
 
           <Link to="/configuracoes" className="menu-item">
             <Settings size={20} />

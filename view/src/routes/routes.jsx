@@ -1,21 +1,18 @@
 // src/routes.jsx
-import { createBrowserRouter } from "react-router-dom";
-import { LabSelection, LoginSignForm, LabScheduleComponent } from "../pages";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { LabScheduleComponent, LabSelection, LoginSignForm, ReservationModal } from '../pages';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <LoginSignForm />,
-  },
-  {
-    path: "/laboratorios",
-    element: <LabSelection />,
-  },
-  {
-    path: "/horarios",
-    element: <LabScheduleComponent />,
-  }
-  // Adicionar mais rotas conforme necessário
-]);
+export default function AppRoutes() {
+  return (
+    <Routes>
 
-export default router;
+      <Route path="/" element={<LoginSignForm />} />
+
+      <Route path="/laboratorios" element={<LabSelection />} />
+
+      <Route path="/horarios" element={<LabScheduleComponent />} />
+
+    </Routes>
+  );
+}
