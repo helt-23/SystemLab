@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Header, Footer } from "../../components";
 import { Info, Clock, Users, Building, ChevronLeft, ChevronRight, X } from "lucide-react";
+import ReservationModal from "../../components/reservationModal"; // Importe o componente ReservationModal
 import "./app.css";
 
 // Helper function to extract start and end times
@@ -10,7 +11,7 @@ const extractTimeRange = (time) => {
   return { start, end };
 };
 
-// 1. Mock Data Service (será substituído pela API)
+// Mock Data Service
 const mockLabService = {
   getLabDetails: () => ({
     id: 1,
@@ -30,20 +31,56 @@ const mockLabService = {
     },
     reservas: [
       {
-        dia: "Seg",
+        dia: "Qua",
         horario: "07:00 - 07:50",
         usuario: { nome: "João Silva", matricula: "2023001" },
         data: "2024-03-15T07:00:00"
+      }
+    ],
+    aulas: [
+      {
+        dia: "Seg",
+        horario: "07:00 - 07:50",
+        materia: "IHC",
+        professor: "Prof. Marcela",
+        turma: "CC 2023"
+      },
+      {
+        dia: "Seg",
+        horario: "08:00 - 08:50",
+        materia: "IHC",
+        professor: "Prof. Marcela",
+        turma: "CC 2023"
+      },
+      {
+        dia: "Seg",
+        horario: "09:00 - 09:50",
+        materia: "IHC",
+        professor: "Prof. Marcela",
+        turma: "2025.2"
+      },
+      {
+        dia: "Seg",
+        horario: "10:00 - 10:50",
+        materia: "IHC",
+        professor: "Prof. Marcela",
+        turma: "CC 2025.2"
+      },
+      {
+        dia: "Sex",
+        horario: "14:00 - 14:50",
+        materia: "Redes",
+        professor: "Prof. Pedro",
+        turma: "CC 2023"
       }
     ]
   })
 };
 
-// 2. Componentes de UI
+// Componente Modal
 const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
   if (!isOpen) return null;
 
-  // Adicionar prevenção de propagação de evento no overlay
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -53,10 +90,7 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <button
-          className="modal__close"
-          onClick={onClose} // Garantir que chama onClose diretamente
-        >
+        <button className="modal__close" onClick={onClose}>
           <X size={20} />
         </button>
         <h3 className="modal__title">Detalhes do Laboratório</h3>
@@ -66,71 +100,127 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
   );
 };
 
+// Painel de Abreviações
 const AbbreviationPanel = () => (
   <section className="abbreviation-panel">
     <h3 className="abbreviation-panel__header">
       <Info size={18} /> Legenda de Abreviações
     </h3>
-    <span>Até segunda ordem, aqui não terá abreviações.</span>
-    {/*<div className="abbreviation-panel__list">
-      {mockLabService.getSchedule().diasSemana.map((dia, idx) => (
-        <div key={idx} className="abbreviation-panel__item">
-          <span className="abbreviation-panel__abbr">{dia}:</span>
-          <span className="abbreviation-panel__full">{`${dia}unda-feira`}</span>
-        </div>
-      ))}
-    </div>*/}
+    <div className="abbreviation-panel__list">
+      <div className="abbreviation-panel__item">
+        <span>Livre</span>
+        <span style={{ color: '#166534', fontWeight: '500' }}>●</span>
+      </div>
+      <div className="abbreviation-panel__item">
+        <span>Reservado</span>
+        <span style={{ color: '#991b1b', fontWeight: '500' }}>●</span>
+      </div>
+      <div className="abbreviation-panel__item">
+        <span>Aula</span>
+        <span style={{ color: '#143695', fontWeight: '500' }}>●</span>
+      </div>
+    </div>
   </section>
 );
 
-// 3. Componente Principal
+// Componente Principal
 export function LabScheduleComponent() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [currentShift, setCurrentShift] = useState("manhã");
   const [currentWeek, setCurrentWeek] = useState(0);
   const [showDetail, setShowDetail] = useState(false);
 
-  // Dados mockados (serão substituídos pela API)
+  // Estado para controlar o modal de reserva
+  const [reservationModal, setReservationModal] = useState({
+    open: false,
+    day: '',
+    timeSlots: []
+  });
+
+  // Dados mockados
   const labDetails = useMemo(() => mockLabService.getLabDetails(), []);
   const scheduleData = useMemo(() => mockLabService.getSchedule(), []);
 
-  // Estado compatível com a versão antiga
   const [horarios, setHorarios] = useState([]);
   const [diasSemana] = useState(scheduleData.diasSemana);
-  const [horariosUnicos] = useState(scheduleData.shifts[currentShift]);
+
+  // Calcular horários únicos baseado no turno atual
+  const horariosUnicos = useMemo(() => {
+    return scheduleData.shifts[currentShift] || [];
+  }, [currentShift, scheduleData.shifts]);
 
   // Simular busca de dados
   useEffect(() => {
     const loadData = () => {
-      const mockHorarios = scheduleData.shifts[currentShift].flatMap(time =>
-        diasSemana.map(dia => ({
-          horaInicio: extractTimeRange(time).start,
-          horaFim: extractTimeRange(time).end,
-          diaSemana: dia,
-          disponivel: !scheduleData.reservas.some(r => r.dia === dia && r.horario === time),
-          reservaHorario: scheduleData.reservas.find(r => r.dia === dia && r.horario === time) || null
-        }))
-      );
+      const mockHorarios = scheduleData.shifts[currentShift].flatMap(time => {
+        return diasSemana.map(dia => {
+          // Verificar se há reserva
+          const reserva = scheduleData.reservas.find(r =>
+            r.dia === dia && r.horario === time
+          );
+
+          // Verificar se há aula
+          const aula = scheduleData.aulas.find(a =>
+            a.dia === dia && a.horario === time
+          );
+
+          // Prioridade: Aula > Reserva > Livre
+          if (aula) {
+            return {
+              horaInicio: extractTimeRange(time).start,
+              horaFim: extractTimeRange(time).end,
+              diaSemana: dia,
+              tipo: "aula",
+              dados: aula,
+              horario: time // Adicionando o horário completo
+            };
+          } else if (reserva) {
+            return {
+              horaInicio: extractTimeRange(time).start,
+              horaFim: extractTimeRange(time).end,
+              diaSemana: dia,
+              tipo: "reservado",
+              dados: reserva,
+              horario: time
+            };
+          } else {
+            return {
+              horaInicio: extractTimeRange(time).start,
+              horaFim: extractTimeRange(time).end,
+              diaSemana: dia,
+              tipo: "livre",
+              dados: null,
+              horario: time
+            };
+          }
+        });
+      });
       setHorarios(mockHorarios);
     };
 
     loadData();
   }, [currentShift, diasSemana, scheduleData]);
 
-  // 4. Handlers compatíveis com a versão antiga
-  const navegarReserva = (diaSemana) => {
-    navigate("/realizarReservas", {
-      state: {
-        ...labDetails,
-        diaSemana,
-        week: currentWeek,
-        horarios: horarios.filter(h => h.diaSemana === diaSemana)
-      }
+  // Função para abrir o modal de reserva
+  const openReservationModal = (dia) => {
+    // Filtra todos os horários do dia selecionado
+    const daySlots = horarios.filter(h => h.diaSemana === dia);
+
+    setReservationModal({
+      open: true,
+      day: dia,
+      timeSlots: daySlots
     });
   };
 
-  // 5. Componentes Internos
+  // Função para submeter a reserva
+  const handleReserveSubmit = (reservationData) => {
+    console.log("Dados da reserva:", reservationData);
+    // Aqui você enviaria os dados para o backend
+    // Após o sucesso, você pode atualizar o estado para refletir a nova reserva
+  };
+
+  // Componentes Internos
   const ShiftSelector = () => (
     <div className="shift-selector">
       <div className="shift-selector__buttons">
@@ -166,24 +256,31 @@ export function LabScheduleComponent() {
         <Building size={20} />
       </div>
       <div>
-        <h2>{labDetails.descricao}</h2>
+        <h2 className="lab-info-card__title">{labDetails.descricao}</h2>
         <div className="lab-info-card__details">
-          <div><Building size={14} /> {labDetails.lugares} lugares</div>
-          <div><Clock size={14} /> {labDetails.sala}</div>
+          <div className="lab-info-card__details-item">
+            <Users size={14} /> {labDetails.lugares} lugares
+          </div>
+          <div className="lab-info-card__details-item">
+            <Clock size={14} /> {labDetails.sala}
+          </div>
         </div>
       </div>
-      <button onClick={() => setShowDetail(true)}>
+      <button
+        className="lab-info-card__button"
+        onClick={() => setShowDetail(true)}
+      >
         <Info size={18} />
       </button>
       <LabDetailModal
         isOpen={showDetail}
-        onClose={() => setShowDetail(false)} // Passar função de fechamento correta
+        onClose={() => setShowDetail(false)}
         labDetails={labDetails}
       />
     </div>
   );
 
-  // 6. Renderização
+  // Renderização
   return (
     <div className="lab-schedule">
       <Header />
@@ -205,20 +302,58 @@ export function LabScheduleComponent() {
                   <td>{time}</td>
                   {diasSemana.map(dia => {
                     const horario = horarios.find(h =>
-                      `${extractTimeRange(time).start} - ${extractTimeRange(time).end}` === time && h.diaSemana === dia
+                      h.diaSemana === dia &&
+                      `${h.horaInicio} - ${h.horaFim}` === time
                     );
+
+                    if (!horario) return <td key={`${time}-${dia}`}></td>;
+
+                    // Determinar o tipo de célula
+                    let cellType = '';
+                    let cellContent = null;
+
+                    switch (horario.tipo) {
+                      case "aula":
+                        cellType = 'class';
+                        cellContent = (
+                          <div className="cell-content">
+                            <div className="cell-title">{horario.dados.materia}</div>
+                            <div className="cell-subtitle">{horario.dados.professor}</div>
+                          </div>
+                        );
+                        break;
+
+                      case "reservado":
+                        cellType = 'reserved';
+                        cellContent = (
+                          <div className="cell-content">
+                            <div className="cell-title">Reservado</div>
+                            <div className="cell-subtitle">{horario.dados.usuario.nome}</div>
+                          </div>
+                        );
+                        break;
+
+                      default: // livre
+                        cellType = 'available';
+                        cellContent = (
+                          <div className="cell-content">
+                            <div className="cell-title">Livre</div>
+                            <div className="cell-subtitle">Clique para reservar</div>
+                          </div>
+                        );
+                    }
+
                     return (
                       <td key={`${time}-${dia}`}>
                         <div
-                          className={`card-status ${horario?.disponivel ? 'available' : 'reserved'}`}
-                          onClick={() => horario?.disponivel && navegarReserva(dia)}
+                          className={`cell-status ${cellType}`}
+                          onClick={() => {
+                            if (horario.tipo === "livre") {
+                              openReservationModal(dia);
+                            }
+                          }}
                         >
-                          {horario?.disponivel ? 'Livre' : (
-                            <>
-                              <span>Reservado</span>
-                              <small>{horario?.reservaHorario?.usuario.nome}</small>
-                            </>
-                          )}
+                          {cellContent}
                         </div>
                       </td>
                     );
@@ -230,6 +365,15 @@ export function LabScheduleComponent() {
         </div>
 
         <AbbreviationPanel />
+
+        {/* Modal de Reserva */}
+        <ReservationModal
+          isOpen={reservationModal.open}
+          onClose={() => setReservationModal({ open: false, day: '', timeSlots: [] })}
+          day={reservationModal.day}
+          timeSlots={reservationModal.timeSlots}
+          onReserve={handleReserveSubmit}
+        />
       </main>
       <Footer />
     </div>

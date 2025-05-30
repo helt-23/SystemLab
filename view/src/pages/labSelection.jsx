@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Sidebar, LaboratoryCard } from '../components';
+import { Sidebar, LaboratoryCard, Header } from '../components';
 import '../assets/styles/labSec.css';
-import { Menu } from 'lucide-react';
 
 export function LabSelection() {
   const blocos = ['Bloco A', 'Bloco B', 'Bloco C', 'Bloco D'];
@@ -59,13 +58,7 @@ export function LabSelection() {
 
   return (
     <div className="app-container">
-      <header className="main-header">
-        <button className="menu-button" aria-label="Menu">
-          <Menu size={24} />
-        </button>
-        <h1 className="app-title">Seleção de Laboratórios</h1>
-        <div className="header-spacer" />
-      </header>
+      <Header />
 
       <main className="main-content-lab">
         <Sidebar
