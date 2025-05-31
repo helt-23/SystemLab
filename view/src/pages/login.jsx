@@ -1,4 +1,4 @@
-import { InputField } from '../components/InputField';
+import { InputField } from '../components/inputField';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUser, FaLock, FaEnvelope, FaIdBadge, FaKey } from 'react-icons/fa';

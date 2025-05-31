@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { X, User, Mail, Lock, Camera } from 'lucide-react';
-import { InputField } from './InputField';
+import { InputField } from './inputField';
 import { useLabData } from '../context/LabDataContext';
 import "../assets/styles/editModal.css";
 
