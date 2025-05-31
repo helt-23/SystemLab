@@ -1,83 +1,78 @@
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 
-// Helper function to extract start and end times
 export const extractTimeRange = (time) => {
+  if (!time) return { start: "", end: "" };
   const [start, end] = time.split(" - ");
   return { start, end };
 };
 
 export const useSchedule = (scheduleData, currentShift) => {
-  const [horarios, setHorarios] = useState([]);
-  const [diasSemana, setDiasSemana] = useState([]);
-  const [horariosUnicos, setHorariosUnicos] = useState([]);
+  // 1. Hook SEMPRE executado
+  const diasSemana = useMemo(
+    () => scheduleData?.diasSemana || [],
+    [scheduleData]
+  );
 
-  useEffect(() => {
-    if (!scheduleData) return;
+  // 2. Hook SEMPRE executado
+  const horariosUnicos = useMemo(
+    () => scheduleData?.shifts?.[currentShift] || [],
+    [scheduleData, currentShift]
+  );
 
-    setDiasSemana(scheduleData.diasSemana || []);
+  // 3. Hook SEMPRE executado (remover condição inicial)
+  const horarios = useMemo(() => {
+    // Mover a condição para dentro do Hook
+    if (!scheduleData || !horariosUnicos.length) return [];
 
-    // Atualizar horários únicos baseados no turno
-    if (scheduleData.shifts && scheduleData.shifts[currentShift]) {
-      setHorariosUnicos(scheduleData.shifts[currentShift]);
-    } else {
-      setHorariosUnicos([]);
-    }
-  }, [scheduleData, currentShift]);
+    return horariosUnicos.flatMap((time) =>
+      diasSemana.map((dia) => {
+        const { start: horaInicio, end: horaFim } = extractTimeRange(time);
 
-  useEffect(() => {
-    if (!scheduleData || !horariosUnicos.length) return;
+        // Verifica se há aula cadastrada
+        const aula = scheduleData.aulas?.find(
+          (a) => a.dia === dia && a.horario === time
+        );
+        if (aula) {
+          return {
+            horaInicio,
+            horaFim,
+            diaSemana: dia,
+            tipo: "aula",
+            dados: aula,
+            horario: time,
+          };
+        }
 
-    const processHorarios = () => {
-      const mockHorarios = horariosUnicos.flatMap((time) => {
-        return diasSemana.map((dia) => {
-          const reserva = scheduleData.reservas?.find(
-            (r) => r.dia === dia && r.horario === time
-          );
+        // Verifica reserva confirmada
+        const reserva = scheduleData.reservas?.find(
+          (r) =>
+            r.dia === dia && r.horario === time && r.status === "Confirmada"
+        );
+        if (reserva) {
+          const isUserBooking = reserva.usuario?.matricula === "2023001";
+          return {
+            horaInicio,
+            horaFim,
+            diaSemana: dia,
+            tipo: "reservado",
+            dados: reserva,
+            horario: time,
+            isUserBooking,
+          };
+        }
 
-          const aula = scheduleData.aulas?.find(
-            (a) => a.dia === dia && a.horario === time
-          );
-
-          // Prioridade: Aula > Reserva > Livre
-          if (aula) {
-            return {
-              horaInicio: extractTimeRange(time).start,
-              horaFim: extractTimeRange(time).end,
-              diaSemana: dia,
-              tipo: "aula",
-              dados: aula,
-              horario: time,
-            };
-          } else if (reserva) {
-            return {
-              horaInicio: extractTimeRange(time).start,
-              horaFim: extractTimeRange(time).end,
-              diaSemana: dia,
-              tipo: "reservado",
-              dados: reserva,
-              horario: time,
-            };
-          } else {
-            return {
-              horaInicio: extractTimeRange(time).start,
-              horaFim: extractTimeRange(time).end,
-              diaSemana: dia,
-              tipo: "livre",
-              dados: null,
-              horario: time,
-            };
-          }
-        });
-      });
-      setHorarios(mockHorarios);
-    };
-
-    processHorarios();
+        // Caso não haja aula nem reserva
+        return {
+          horaInicio,
+          horaFim,
+          diaSemana: dia,
+          tipo: "livre",
+          dados: null,
+          horario: time,
+        };
+      })
+    );
   }, [scheduleData, diasSemana, horariosUnicos]);
 
-  return {
-    horarios,
-    horariosUnicos,
-    diasSemana,
-  };
+  return { diasSemana, horariosUnicos, horarios };
 };

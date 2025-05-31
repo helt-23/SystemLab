@@ -1,0 +1,207 @@
+/* --- Modal Overlay --- */
+.modal-overlay-edit {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+/* --- Modal Content --- */
+.modal-content-edit {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 800px;
+  max-height: 95vh;
+  padding: 2rem;
+  position: relative;
+  overflow-y: auto;
+}
+
+@media (min-width: 1024px) {
+  .modal-content {
+    max-width: 1000px;
+    padding: 3rem;
+  }
+}
+
+/* --- Modal Close Button --- */
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+/* --- Modal Title --- */
+.modal-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+  font-size: 2rem;
+}
+
+/* --- Profile Image --- */
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.profile-image-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.profile-image,
+.profile-image-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid #e5e7eb;
+  object-fit: cover;
+}
+
+.profile-image-placeholder {
+  background-color: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #9ca3af;
+}
+
+.change-image-btn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: #3b82f6;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.hidden-input {
+  display: none;
+}
+
+/* --- Password Section --- */
+.password-section {
+  margin-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+/* --- Modal Actions --- */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cancel-btn,
+.save-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancel-btn {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.cancel-btn:hover {
+  background-color: #e5e7eb;
+}
+
+.save-btn {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #2563eb;
+}
+
+/* --- Input Fields --- */
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #f3f4f6;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  color: #374151;
+  font-weight: 500;
+  transition: box-shadow 0.15s ease;
+}
+
+.input-field:focus {
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.input-field::placeholder {
+  color: #6b7280;
+  font-weight: 400;
+}
+
+/* --- Input Field Icon --- */
+.input-field-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+}
+
+.input-field-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* --- User Type --- */
+.user-type {
+  width: auto;
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 10px;
+  background-color: #f3f4f6;
+  border-radius: 0.3rem;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  font-weight: 500;
+  outline: none;
+}
+
+/* --- Error Messages --- */
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}

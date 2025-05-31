@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom"; // Adicionei useParams
 import { Header, Footer } from "../../components";
 import { Info, Clock, Users, Building, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { MyReservation } from "../reservations";
@@ -9,8 +9,10 @@ import LabDetailModal from "./LabDetailModal";
 import AbbreviationPanel from "./AbbreviationPanel";
 import "./app.css";
 import ReservationModal from "../../components/reservationModal";
+import ProfileEditModal from "../../components/profileEditModal";
 
 export function LabScheduleComponent() {
+  const { labId } = useParams(); // Obtém o ID do laboratório da URL
   const navigate = useNavigate();
   const [currentShift, setCurrentShift] = useState("manhã");
   const [currentWeek, setCurrentWeek] = useState(0);
@@ -21,14 +23,22 @@ export function LabScheduleComponent() {
     timeSlots: []
   });
 
-  // Usar dados do contexto
-  const { labDetails, scheduleData, loading, error } = useLabData();
+  // Use as funções que buscam pelo ID
+  const {
+    getLabDetails,
+    getLabSchedule,
+    addUserBooking
+  } = useLabData();
+
+  // Busque os dados usando o ID da URL
+  const labDetails = getLabDetails(labId);
+  const scheduleData = getLabSchedule(labId);
 
   // Usar hook para horários
   const { horarios, horariosUnicos, diasSemana } = useSchedule(scheduleData, currentShift);
 
   const openReservationModal = (dia) => {
-    const daySlots = horarios.filter(h => h.diaSemana === dia);
+    const daySlots = horarios.filter(h => h.diaSemana === dia && h.tipo === "livre");
     setReservationModal({
       open: true,
       day: dia,
@@ -37,8 +47,21 @@ export function LabScheduleComponent() {
   };
 
   const handleReserveSubmit = (reservationData) => {
-    console.log("Dados da reserva:", reservationData);
-    // Implementar lógica de reserva real aqui
+    const newBooking = {
+      labId: labId, // Use o ID da URL
+      status: "Em análise",
+      labSala: labDetails.sala,
+      requestDate: new Date().toISOString(),
+      bookingDate: reservationData.date,
+      startTime: reservationData.startTime,
+      endTime: reservationData.endTime,
+      dia: reservationData.day,
+      horario: `${reservationData.startTime} - ${reservationData.endTime}`,
+      usuario: { nome: "João Silva", matricula: "2023001" }
+    };
+
+    addUserBooking(newBooking);
+    setReservationModal({ open: false, day: '', timeSlots: [] });
   };
 
   // Componentes Internos
@@ -71,7 +94,7 @@ export function LabScheduleComponent() {
     </div>
   );
 
-  const LabInfoCard = () => (
+  const LabInfoCard = ({ labDetails, setShowDetail }) => (
     <div className="lab-info-card">
       <div className="lab-info-card__icon-container">
         <Building size={20} />
@@ -101,19 +124,15 @@ export function LabScheduleComponent() {
     </div>
   );
 
-  if (loading) {
-    return <div>Carregando dados...</div>;
-  }
-
-  if (error) {
-    return <div>Erro ao carregar dados: {error}</div>;
+  if (!labDetails || !scheduleData) {
+    return <div>Laboratório não encontrado</div>;
   }
 
   return (
     <div className="lab-schedule">
       <Header />
       <main className="main-content">
-        {labDetails && <LabInfoCard />}
+        <LabInfoCard labDetails={labDetails} setShowDetail={setShowDetail} />
         {scheduleData && <ShiftSelector />}
 
         <div className="schedule-table-wrapper">
@@ -154,8 +173,17 @@ export function LabScheduleComponent() {
                         cellType = 'reserved';
                         cellContent = (
                           <div className="cell-content">
-                            <div className="cell-title">Reservado</div>
-                            <div className="cell-subtitle">{horario.dados.usuario.nome}</div>
+                            <div className="cell-title">
+                              {horario.isUserBooking ? "Sua Reserva" : "Reservado"}
+                            </div>
+                            <div className="cell-subtitle">
+                              {horario.dados.usuario.nome}
+                            </div>
+                            <div className="cell-status-badge">
+                              {horario.dados.status === "Confirmada" && (
+                                <span className="status-confirmada">Confirmada</span>
+                              )}
+                            </div>
                           </div>
                         );
                         break;
@@ -199,11 +227,19 @@ export function LabScheduleComponent() {
           onClose={() => setReservationModal({ open: false, day: '', timeSlots: [] })}
           day={reservationModal.day}
           timeSlots={reservationModal.timeSlots}
+          labDetails={labDetails}
           onReserve={handleReserveSubmit}
+        />
+
+        <LabDetailModal
+          isOpen={showDetail}
+          onClose={() => setShowDetail(false)}
+          labDetails={labDetails}
         />
       </main>
       <Footer />
       <MyReservation />
+      <ProfileEditModal />
     </div>
   );
 }

@@ -6,13 +6,9 @@ import { LabScheduleComponent, LabSelection, LoginSignForm } from '../pages';
 export default function AppRoutes() {
   return (
     <Routes>
-
       <Route path="/" element={<LoginSignForm />} />
-
       <Route path="/laboratorios" element={<LabSelection />} />
-
-      <Route path="/horarios" element={<LabScheduleComponent />} />
-
+      <Route path="/laboratorios/:labId" element={<LabScheduleComponent />} />
     </Routes>
   );
 }

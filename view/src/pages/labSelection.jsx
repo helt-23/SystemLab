@@ -1,66 +1,37 @@
 import React, { useState } from 'react';
-import { Sidebar, LaboratoryCard, Header } from '../components';
+import { Sidebar, LaboratoryCard, Header, Footer } from '../components';
 import { MyReservation } from './reservations';
+import { useLabData } from '../context/LabDataContext';
 import '../assets/styles/labSec.css';
+import { useNavigate } from 'react-router-dom';
+import ProfileEditModal from '../components/profileEditModal';
 
 export function LabSelection() {
-  const blocos = ['Bloco A', 'Bloco B', 'Bloco C', 'Bloco D'];
+  const { blocos, laboratorios, loading, error, getLabSchedule } = useLabData();
+  const [blocoSelecionado, setBlocoSelecionado] = useState(
+    blocos.length > 0 ? blocos[0].id : ''
+  );
 
-  const laboratoriosPorBloco = {
-    'Bloco A': [
-      {
-        id: 1,
-        name: 'Lab 101',
-        capacity: 25,
-        description: 'Laboratório de Informática com equipamentos modernos e ar condicionado',
-        image: '/lab1.jpg'
-      },
-      {
-        id: 2,
-        name: 'Lab 102',
-        capacity: 30,
-        description: 'Laboratório de Eletrônica com bancadas equipadas',
-        image: '/lab2.jpg'
-      }
-    ],
-    'Bloco B': [
-      {
-        id: 3,
-        name: 'Lab 201',
-        capacity: 20,
-        description: 'Laboratório de Química com sistema de exaustão',
-        image: '/lab3.jpg'
-      }
-    ],
-    'Bloco C': [
-      {
-        id: 4,
-        name: 'Lab 301',
-        capacity: 35,
-        description: 'Laboratório Multiuso para projetos integrados',
-        image: '/lab4.jpg'
-      }
-    ],
-    'Bloco D': [
-      {
-        id: 5,
-        name: 'Lab 401',
-        capacity: 15,
-        description: 'Laboratório de Pesquisa Avançada',
-        image: '/lab5.jpg'
-      }
-    ]
-  };
-  const [blocoSelecionado, setBlocoSelecionado] = useState(blocos[0]);
+  const navigate = useNavigate();
+
+  if (loading) return <div>Carregando dados...</div>;
+  if (error) return <div>Erro ao carregar dados: {error}</div>;
+
+  const blocoAtual = blocos.find(b => b.id === blocoSelecionado);
+
+  // Obter laboratórios do bloco selecionado
+  const labsDoBloco = blocoAtual
+    ? blocoAtual.laboratorios.map(labId => laboratorios[labId])
+    : [];
 
   const handleVerHorarios = (labId) => {
-    console.log('Abrir horários do laboratório:', labId);
+    getLabSchedule(labId);
+    navigate(`/laboratorios/${labId}`);
   };
 
   return (
     <div className="app-container">
       <Header />
-
       <main className="main-content-lab">
         <Sidebar
           blocos={blocos}
@@ -69,25 +40,33 @@ export function LabSelection() {
         />
 
         <section className="labs-section">
-          {/* Select dropdown for small screens */}
           <select
             className="block-select"
             value={blocoSelecionado}
             onChange={(e) => setBlocoSelecionado(e.target.value)}
           >
             {blocos.map((bloco) => (
-              <option key={bloco} value={bloco}>
-                {bloco}
+              <option key={bloco.id} value={bloco.id}>
+                {bloco.nome}
               </option>
             ))}
           </select>
 
-          <h2 className="section-title">Laboratórios em {blocoSelecionado}</h2>
+          <h2 className="section-title">
+            Laboratórios em {blocoAtual?.nome}
+          </h2>
+
           <div className="labs-grid">
-            {laboratoriosPorBloco[blocoSelecionado].map((lab) => (
+            {labsDoBloco.map((lab) => (
               <LaboratoryCard
                 key={lab.id}
-                lab={lab}
+                lab={{
+                  ...lab,
+                  // Garanta que todas as propriedades necessárias existam
+                  name: lab.sala,
+                  capacity: lab.lugares,
+                  description: lab.descricao || lab.detalhe || ""
+                }}
                 handleVerHorarios={handleVerHorarios}
               />
             ))}
@@ -95,12 +74,9 @@ export function LabSelection() {
         </section>
       </main>
 
-      <footer className="main-footer">
-        <div className="footer-content">
-          © {new Date().getFullYear()} UNIFESSPA - Engenharia da Computação | Todos os direitos reservados
-        </div>
-      </footer>
+      <Footer />
       <MyReservation />
+      <ProfileEditModal />
     </div>
   );
 }

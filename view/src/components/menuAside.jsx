@@ -12,8 +12,7 @@ import { useLabData } from '../context/LabDataContext'; // Importe o hook
 
 const MenuAside = ({ user, isOpen, onClose }) => {
   const location = useLocation();
-  // Obtenha as funções do provider
-  const { openBookingsModal } = useLabData();
+  const { openBookingsModal, openProfileModal } = useLabData();
 
   // Corrigindo o loop infinito
   useEffect(() => {
@@ -22,11 +21,16 @@ const MenuAside = ({ user, isOpen, onClose }) => {
     }
   }, [location]);
 
-  // Função para lidar com o clique nas reservas
+
   const handleBookingsClick = () => {
-    openBookingsModal(); // Abre o modal
-    onClose(); // Fecha o menu
+    openBookingsModal();
+    onClose();
   };
+
+  const handleProfileClick = () => {
+    openProfileModal();
+    onClose();
+  }
 
   return (
     <>
@@ -68,10 +72,13 @@ const MenuAside = ({ user, isOpen, onClose }) => {
 
         {/* Itens do Menu */}
         <nav className="menu-items">
-          <Link to="/editar-perfil" className="menu-item">
+          <button
+            className="menu-item w-full text-left"
+            onClick={handleProfileClick}
+          >
             <User size={20} />
             <span>Editar Perfil</span>
-          </Link>
+          </button>
 
           {/* Altere este item para abrir o modal */}
           <button

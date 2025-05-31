@@ -1,4 +1,3 @@
-// components/BookingsModal.jsx
 import React from 'react';
 import { useLabData } from '../context/LabDataContext';
 import { Trash2, X } from 'lucide-react';
@@ -13,6 +12,7 @@ export function MyReservation() {
 
   const handleRemoveBooking = (id) => {
     console.log(`Remover reserva: ${id}`);
+    // Implementação real viria aqui
   };
 
   if (!isBookingsModalOpen) return null;
@@ -68,6 +68,11 @@ export function MyReservation() {
                     <div className="reservation-detail">
                       <strong>Horário:</strong>
                       {booking.startTime} - {booking.endTime}
+                    </div>
+
+                    <div className="reservation-detail">
+                      <strong>Dia:</strong>
+                      {booking.dia}
                     </div>
 
                     <div className="reservation-detail">

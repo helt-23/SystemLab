@@ -13,16 +13,16 @@ export function Sidebar({ blocos, blocoSelecionado, setBlocoSelecionado }) {
       <nav className="sidebar-nav">
         <ul>
           {blocos.map((bloco) => (
-            <li key={bloco}>
+            <li key={bloco.id}>
               <button
                 className={
-                  `sidebar-button ${bloco === blocoSelecionado ? 'selected' : 'unselected'
+                  `sidebar-button ${blocoSelecionado === bloco.id ? 'selected' : 'unselected'
                   }`
                 }
-                onClick={() => setBlocoSelecionado(bloco)}
+                onClick={() => setBlocoSelecionado(bloco.id)}
               >
                 <Building className="icon" />
-                {bloco}
+                {bloco.nome}
               </button>
             </li>
           ))}
