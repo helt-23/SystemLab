@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Header, Footer } from "../../components";
 import {
@@ -18,6 +18,7 @@ import AbbreviationPanel from "./AbbreviationPanel";
 import "./app.css";
 import ReservationModal from "../../components/reservationModal";
 import ProfileEditModal from "../../components/profileEditModal";
+import { useLoading } from "../../context/LoadingContext";
 
 export function LabScheduleComponent() {
   const { labId } = useParams(); // Pega o ID do laboratório da URL
@@ -30,6 +31,16 @@ export function LabScheduleComponent() {
     day: "",
     timeSlots: []
   });
+  const { finishLoading } = useLoading();
+
+  useEffect(() => {
+    // Simular carregamento de dados
+    const timer = setTimeout(() => {
+      finishLoading();
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, [labId, finishLoading]);
 
   // Função para voltar à lista de laboratórios
   const handleBackToLabs = () => {

@@ -1,16 +1,22 @@
-// src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { LabDataProvider } from './context/LabDataContext';
-import AppRoutes from './routes/routes'; // importa o arquivo de rotas
+import { LoadingProvider } from './context/LoadingContext';
+import AppRoutes from './routes/routes';
+import LoadingScreen from './public/LoadingScreen';
 
 function App() {
   return (
-    <Router>
-      <LabDataProvider>
-        <AppRoutes />
-      </LabDataProvider>
-    </Router>
+    <LoadingProvider>
+      <Router>
+        <LabDataProvider>
+          <div style={{ position: 'relative' }}>
+            <LoadingScreen />
+            <AppRoutes />
+          </div>
+        </LabDataProvider>
+      </Router>
+    </LoadingProvider>
   );
 }
 

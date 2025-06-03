@@ -1,0 +1,59 @@
+body {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+.app-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out 0.7s;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.icon-container {
+  position: relative;
+  width: 100px;
+  height: 110px;
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    opacity 0.5s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.icon-container.expanded {
+  transform: scale(8);
+  opacity: 0;
+}
+
+.loading-text {
+  font-size: 1.5em;
+  color: #555555;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.loading-text.hidden-text {
+  opacity: 0;
+}
