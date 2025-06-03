@@ -1,9 +1,11 @@
+// Footer.jsx
 import React from 'react';
+import '../assets/styles/Footer.css';
 
 export function Footer() {
   return (
-    <footer className="bg-gray-100 border-t border-gray-200 p-4 text-sm text-gray-600">
-      <div className="mx-auto text-center">
+    <footer className="footer">
+      <div className="footer-content">
         © {new Date().getFullYear()} UNIFESSPA - Engenharia da Computação | Todos os direitos reservados
       </div>
     </footer>

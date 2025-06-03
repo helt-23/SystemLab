@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Mock Data Service
+// ======================
+// Mock Data Service / Martins, não sei quando você vai implementar o serviço real, mas boa sorte!
+// ======================
 const mockLabService = {
   getBlocos: () => [
     {
@@ -33,8 +35,7 @@ const mockLabService = {
       lugares: 25,
       descricao: "Laboratório de Informática com computadores antigos",
       detalhe: "Definitivamente não possui hardwares e softwares de última geração. Possui vários computadores, pelo menos eles estão ligando.",
-      horarios: [],
-      image: "/lab1.jpg",
+      image: "/lab1.jpg"
     },
     'lab-102': {
       id: 'lab-102',
@@ -42,8 +43,7 @@ const mockLabService = {
       sala: "Sala 102 - Bloco 1",
       lugares: 30,
       descricao: "Laboratório de Eletrônica",
-      detalhe: "Bancadas equipadas para experiências de eletrônica.",
-      horarios: []
+      detalhe: "Bancadas equipadas para experiências de eletrônica."
     },
     'lab-201': {
       id: 'lab-201',
@@ -51,8 +51,7 @@ const mockLabService = {
       sala: "Sala 201 - Bloco B",
       lugares: 20,
       descricao: "Laboratório de Química",
-      detalhe: "Equipado com sistema de exaustão e bancadas resistentes.",
-      horarios: []
+      detalhe: "Equipado com sistema de exaustão e bancadas resistentes."
     },
     'lab-301': {
       id: 'lab-301',
@@ -60,8 +59,7 @@ const mockLabService = {
       sala: "Sala 301 - Bloco C",
       lugares: 35,
       descricao: "Laboratório Multiuso",
-      detalhe: "Espaço flexível para projetos integrados e atividades diversas.",
-      horarios: []
+      detalhe: "Espaço flexível para projetos integrados e atividades diversas."
     },
     'lab-401': {
       id: 'lab-401',
@@ -69,11 +67,11 @@ const mockLabService = {
       sala: "Sala 401 - Bloco D",
       lugares: 15,
       descricao: "Laboratório de Pesquisa",
-      detalhe: "Equipamentos avançados para pesquisas científicas.",
-      horarios: []
+      detalhe: "Equipamentos avançados para pesquisas científicas."
     }
   }),
 
+  // Horários e aulas fixas
   getSchedules: () => ({
     'lab-24': {
       diasSemana: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
@@ -119,9 +117,46 @@ const mockLabService = {
           turma: "CC 2023"
         }
       ]
+    },
+    'lab-102': {
+      diasSemana: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+      shifts: {
+        manhã: ["07:00 - 07:50", "08:00 - 08:50", "09:00 - 09:50", "10:00 - 10:50", "11:00 - 11:50"],
+        tarde: ["13:00 - 13:50", "14:00 - 14:50", "15:00 - 15:50", "16:00 - 16:50", "17:00 - 17:50"],
+        noite: ["19:00 - 19:50", "20:00 - 20:50", "21:00 - 21:50"]
+      },
+      aulas: []
+    },
+    'lab-201': {
+      diasSemana: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+      shifts: {
+        manhã: ["07:00 - 07:50", "08:00 - 08:50", "09:00 - 09:50", "10:00 - 10:50", "11:00 - 11:50"],
+        tarde: ["13:00 - 13:50", "14:00 - 14:50", "15:00 - 15:50", "16:00 - 16:50", "17:00 - 17:50"],
+        noite: ["19:00 - 19:50", "20:00 - 20:50", "21:00 - 21:50"]
+      },
+      aulas: []
+    },
+    'lab-301': {
+      diasSemana: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+      shifts: {
+        manhã: ["07:00 - 07:50", "08:00 - 08:50", "09:00 - 09:50", "10:00 - 10:50", "11:00 - 11:50"],
+        tarde: ["13:00 - 13:50", "14:00 - 14:50", "15:00 - 15:50", "16:00 - 16:50", "17:00 - 17:50"],
+        noite: ["19:00 - 19:50", "20:00 - 20:50", "21:00 - 21:50"]
+      },
+      aulas: []
+    },
+    'lab-401': {
+      diasSemana: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+      shifts: {
+        manhã: ["07:00 - 07:50", "08:00 - 08:50", "09:00 - 09:50", "10:00 - 10:50", "11:00 - 11:50"],
+        tarde: ["13:00 - 13:50", "14:00 - 14:50", "15:00 - 15:50", "16:00 - 16:50", "17:00 - 17:50"],
+        noite: ["19:00 - 19:50", "20:00 - 20:50", "21:00 - 21:50"]
+      },
+      aulas: []
     }
   }),
 
+  // todos os dados de reservas do usuário
   getUserBookings: () => [
     {
       id: 1,
@@ -134,7 +169,7 @@ const mockLabService = {
       endTime: "07:50",
       dia: "Qua",
       horario: "07:00 - 07:50",
-      usuario: { nome: "João Silva", matricula: "2023001" }
+      usuario: { nome: "Helton Pessoa", matricula: "2023001" }
     },
     {
       id: 2,
@@ -162,33 +197,12 @@ const mockLabService = {
       horario: "19:00 - 21:50",
       usuario: { nome: "João Silva", matricula: "2023001" }
     }
-  ],
-
-  // Método para adicionar nova reserva
-  addBooking: (newBooking) => {
-    const bookings = mockLabService.getUserBookings();
-    const newId = Math.max(...bookings.map(b => b.id), 0) + 1;
-    const bookingToAdd = { ...newBooking, id: newId };
-
-    // Atualizar schedule do laboratório
-    const labId = newBooking.labId;
-    const schedules = mockLabService.getSchedules();
-    if (schedules[labId]) {
-      if (!schedules[labId].reservas) {
-        schedules[labId].reservas = [];
-      }
-      schedules[labId].reservas.push({
-        dia: newBooking.dia,
-        horario: newBooking.horario,
-        usuario: newBooking.usuario,
-        data: newBooking.bookingDate
-      });
-    }
-
-    return [...bookings, bookingToAdd];
-  }
+  ]
 };
 
+// ======================
+// Context + Provider
+// ======================
 const LabDataContext = createContext();
 
 export const LabDataProvider = ({ children }) => {
@@ -199,13 +213,10 @@ export const LabDataProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isBookingsModalOpen, setIsBookingsModalOpen] = useState(false);
-  const [currentLabId, setCurrentLabId] = useState(null);
-  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false); // Novo estado
-
-
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
         setLoading(true);
 
@@ -214,29 +225,11 @@ export const LabDataProvider = ({ children }) => {
         const schedulesData = mockLabService.getSchedules();
         const bookingsData = mockLabService.getUserBookings();
 
-        // Preencher reservas nos schedules com status
-        bookingsData.forEach(booking => {
-          const labId = booking.labId;
-          if (schedulesData[labId]) {
-            if (!schedulesData[labId].reservas) {
-              schedulesData[labId].reservas = [];
-            }
-            schedulesData[labId].reservas.push({
-              dia: booking.dia,
-              horario: booking.horario,
-              usuario: booking.usuario,
-              data: booking.bookingDate,
-              status: booking.status // ADICIONE O STATUS
-            });
-          }
-        });
-
         setBlocos(blocosData);
         setLaboratorios(laboratoriosData);
         setSchedules(schedulesData);
         setUserBookings(bookingsData);
         setLoading(false);
-
       } catch (err) {
         setError(err.message);
         setLoading(false);
@@ -246,9 +239,9 @@ export const LabDataProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  // Abre/fecha modal, graças a Deus, existe isso 
   const openBookingsModal = () => setIsBookingsModalOpen(true);
   const closeBookingsModal = () => setIsBookingsModalOpen(false);
-
   const openProfileModal = () => setIsProfileModalOpen(true);
   const closeProfileModal = () => setIsProfileModalOpen(false);
 
@@ -261,29 +254,19 @@ export const LabDataProvider = ({ children }) => {
   };
 
   const addUserBooking = (newBooking) => {
-    const updatedBookings = [...userBookings, newBooking];
-    setUserBookings(updatedBookings);
+    const newId = userBookings.length > 0
+      ? Math.max(...userBookings.map(b => b.id)) + 1
+      : 1;
+    const bookingToAdd = { ...newBooking, id: newId };
 
-    // Atualizar schedule do laboratório apenas para reservas confirmadas
-    if (newBooking.status === "Confirmada") {
-      const labId = newBooking.labId;
-      if (schedules[labId]) {
-        const updatedSchedules = { ...schedules };
-        if (!updatedSchedules[labId].reservas) {
-          updatedSchedules[labId].reservas = [];
-        }
-        updatedSchedules[labId].reservas.push({
-          dia: newBooking.dia,
-          horario: newBooking.horario,
-          usuario: newBooking.usuario,
-          data: newBooking.bookingDate,
-          status: newBooking.status
-        });
-        setSchedules(updatedSchedules);
-      }
-    }
+    // Atualiza lista local
+    setUserBookings(prev => [...prev, bookingToAdd]);
+    return bookingToAdd;
+  };
 
-    return newBooking;
+  // Remove reserva pelo ID
+  const removeUserBooking = (bookingId) => {
+    setUserBookings(prev => prev.filter(b => b.id !== bookingId));
   };
 
   return (
@@ -302,7 +285,8 @@ export const LabDataProvider = ({ children }) => {
       closeProfileModal,
       getLabDetails,
       getLabSchedule,
-      addUserBooking
+      addUserBooking,
+      removeUserBooking
     }}>
       {children}
     </LabDataContext.Provider>
@@ -312,7 +296,7 @@ export const LabDataProvider = ({ children }) => {
 export const useLabData = () => {
   const context = useContext(LabDataContext);
   if (context === undefined) {
-    throw new Error('useLabData must be used within a LabDataProvider');
+    throw new Error('Alguma coisa deu Muito errado!');
   }
   return context;
 };

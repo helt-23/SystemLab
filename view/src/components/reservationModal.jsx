@@ -15,7 +15,7 @@ const ReservationModal = ({
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
 
-  // Tipos de reserva
+  // Tipos de reserva fixos
   const reservationTypes = [
     { value: 'aula', label: 'Aula' },
     { value: 'manutencao', label: 'Manutenção' },
@@ -23,7 +23,7 @@ const ReservationModal = ({
     { value: 'outro', label: 'Outro' }
   ];
 
-  // Filtra apenas os horários livres do dia
+  // Filtra só os horários “livres” (no prop timeSlots já vem só “livre”)
   const availableSlots = timeSlots.filter(slot => slot.tipo === "livre");
 
   const handleSlotChange = (slotTime) => {
@@ -128,7 +128,9 @@ const ReservationModal = ({
               </option>
             ))}
           </select>
-          {errors.reservationType && <p className="error-message">{errors.reservationType}</p>}
+          {errors.reservationType && (
+            <p className="error-message">{errors.reservationType}</p>
+          )}
         </div>
 
         <div className="form-section">
@@ -140,7 +142,9 @@ const ReservationModal = ({
             className="reservation-textarea"
             rows={4}
           />
-          {errors.description && <p className="error-message">{errors.description}</p>}
+          {errors.description && (
+            <p className="error-message">{errors.description}</p>
+          )}
         </div>
 
         <div className="form-section">

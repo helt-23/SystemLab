@@ -1,11 +1,42 @@
+/* Variáveis de cor para modo claro/escuro */
+:root {
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #e5e7eb;
+  --sidebar-shadow: rgba(0, 0, 0, 0.05);
+  --sidebar-text: #4a5568;
+  --sidebar-hover-bg: #f9fafb;
+  --sidebar-hover-text: #1a202c;
+  --sidebar-selected-bg: #2563eb;
+  --sidebar-selected-text: #ffffff;
+  --block-select-bg: #ffffff;
+  --block-select-border: #cbd5e0;
+  --block-select-text: #2d3748;
+  --block-select-arrow: #6b7280;
+}
+
+html.dark {
+  --sidebar-bg: #1f1f1f;
+  --sidebar-border: #4b5563;
+  --sidebar-shadow: rgba(0, 0, 0, 0.5);
+  --sidebar-text: #d1d5db;
+  --sidebar-hover-bg: #374151;
+  --sidebar-hover-text: #e5e7eb;
+  --sidebar-selected-bg: #1e40af;
+  --sidebar-selected-text: #e5e7eb;
+  --block-select-bg: #2a2a2a;
+  --block-select-border: #4b5563;
+  --block-select-text: #e5e7eb;
+  --block-select-arrow: #9ca3af;
+}
+
 /* Sidebar.css */
 .sidebar {
   width: 16rem;
-  background-color: #ffffff;
-  border-right: 1px solid #e5e7eb;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
   overflow: auto;
   padding: 1rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px var(--sidebar-shadow);
   box-sizing: border-box;
 }
 
@@ -15,7 +46,7 @@
   font-size: 1.25rem;
   line-height: 1.75rem;
   font-weight: 700;
-  color: #4a5568;
+  color: var(--sidebar-text);
   margin-bottom: 1.5rem;
 }
 
@@ -53,27 +84,28 @@
 }
 
 .sidebar-button.unselected {
-  color: #4a5568;
+  color: var(--sidebar-text);
 }
 
 .sidebar-button.unselected:hover {
-  background-color: #f9fafb;
-  color: #1a202c;
+  background-color: var(--sidebar-hover-bg);
+  color: var(--sidebar-hover-text);
 }
 
 .sidebar-button.selected {
-  background-color: #2563eb;
-  color: #ffffff;
+  background-color: var(--sidebar-selected-bg);
+  color: var(--sidebar-selected-text);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive: hide sidebar on small screens */
+/* Responsive: esconde a sidebar em telas pequenas */
 @media (max-width: 768px) {
   .sidebar {
     display: none;
   }
 }
-/* Select dropdown for blocks on small screens */
+
+/* Select dropdown para blocos em telas pequenas */
 .block-select {
   display: none;
   width: calc(100% - 2rem);
@@ -81,13 +113,13 @@
   padding: 0.75rem 1rem;
   margin: 1rem auto;
   font-size: 1rem;
-  color: #2d3748;
-  background-color: #ffffff;
-  border: 1px solid #cbd5e0;
+  color: var(--block-select-text);
+  background-color: var(--block-select-bg);
+  border: 1px solid var(--block-select-border);
   border-radius: 0.5rem;
   box-sizing: border-box;
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%227%22%20viewBox%3D%220%200%2010%207%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207L0%200h10L5%207z%22%20fill%3D%22%236b7280%22/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%227%22%20viewBox%3D%220%200%2010%207%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207L0%200h10L5%207z%22%20fill%3D%22var(--block-select-arrow)%22/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 0.5rem 0.375rem;
@@ -96,7 +128,7 @@
 
 .block-select:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: var(--sidebar-selected-bg);
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
 }
 

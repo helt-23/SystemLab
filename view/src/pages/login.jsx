@@ -46,7 +46,7 @@ export function LoginSignForm() {
         {/* Registration Form */}
         <div className={`form-box register ${isActive ? 'active' : ''}`}>
           <form className="w-full" onSubmit={(e) => e.preventDefault()}>
-            <h1 className="text-3xl font-bold mb-8 text-gray-800">AUTOREGISTRO</h1>
+            <h1 className="title">AUTOREGISTRO</h1>
 
             <InputField
               type="text"

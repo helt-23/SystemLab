@@ -1,13 +1,78 @@
+/* Variáveis de cor para modo claro/escuro */
+:root {
+  --header-bg: #2563eb; /* Azul do header */
+  --header-text: #ffffff;
+  --header-shadow: rgba(0, 0, 0, 0.2);
+
+  --toggle-span-bg: #ffffff;
+
+  --menu-overlay-bg: rgba(0, 0, 0, 0.5);
+  --menu-aside-bg: #ffffff;
+  --menu-aside-shadow: rgba(0, 0, 0, 0.1);
+
+  --close-menu-color: #1e3a8a;
+
+  --user-border: #e5e7eb;
+  --avatar-bg: #f1f5f9;
+  --avatar-placeholder-bg: #dbeafe;
+  --avatar-placeholder-text: #1e3a8a;
+
+  --user-name-text: #1e293b;
+  --user-role-text: #64748b;
+
+  --menu-item-text: #334155;
+  --menu-item-hover-bg: #f1f5f9;
+  --menu-item-hover-text: #1e3a8a;
+
+  --menu-footer-border: #e5e7eb;
+  --info-link-text: #64748b;
+  --info-link-hover-text: #1e3a8a;
+
+  --system-version-text: #94a3b8;
+}
+
+html.dark {
+  --header-bg: #1e40af; /* Tom mais escuro do azul */
+  --header-text: #e5e7eb;
+  --header-shadow: rgba(0, 0, 0, 0.5);
+
+  --toggle-span-bg: #e5e7eb;
+
+  --menu-overlay-bg: rgba(0, 0, 0, 0.7);
+  --menu-aside-bg: #2a2a2a;
+  --menu-aside-shadow: rgba(0, 0, 0, 0.5);
+
+  --close-menu-color: #93c5fd;
+
+  --user-border: #4b5563;
+  --avatar-bg: #374151;
+  --avatar-placeholder-bg: #4b5563;
+  --avatar-placeholder-text: #e5e7eb;
+
+  --user-name-text: #d1d5db;
+  --user-role-text: #9ca3af;
+
+  --menu-item-text: #d1d5db;
+  --menu-item-hover-bg: #374151;
+  --menu-item-hover-text: #e5e7eb;
+
+  --menu-footer-border: #4b5563;
+  --info-link-text: #9ca3af;
+  --info-link-hover-text: #e5e7eb;
+
+  --system-version-text: #6b7280;
+}
+
 /* Estilos do Header */
 .app-header {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #2563eb; /* Azul do header */
-  color: white;
+  background-color: var(--header-bg);
+  color: var(--header-text);
   padding: 1rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px var(--header-shadow);
   z-index: 100;
 }
 
@@ -23,7 +88,7 @@
   width: 40px; /* Mesma largura do botão para equilibrar */
 }
 
-/* Botão Hamburguer - Estilo específico para o header */
+/* Botão Hamburguer */
 .menu-toggle {
   width: 40px;
   height: 40px;
@@ -36,13 +101,14 @@
   cursor: pointer;
   padding: 0;
   transition: all 0.3s ease;
+  background: none;
 }
 
 .menu-toggle span {
   display: block;
   width: 20px;
   height: 2px;
-  background: white;
+  background: var(--toggle-span-bg);
   margin: 2px 0;
   transition: all 0.3s ease;
 }
@@ -59,14 +125,14 @@
   transform: translateY(-6px) rotate(-45deg);
 }
 
-/* Estilos do MenuAside - Mantidos do anterior com pequenos ajustes */
+/* Estilos do MenuAside */
 .menu-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--menu-overlay-bg);
   z-index: 99;
   backdrop-filter: blur(2px);
 }
@@ -77,12 +143,12 @@
   left: -300px;
   width: 280px;
   height: 100%;
-  background: white;
+  background: var(--menu-aside-bg);
   z-index: 1001;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 10px var(--menu-aside-shadow);
 }
 
 .menu-aside.open {
@@ -99,7 +165,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #1e3a8a;
+  color: var(--close-menu-color);
 }
 
 .user-profile {
@@ -107,14 +173,14 @@
   flex-direction: column;
   align-items: center;
   padding: 1.5rem 1rem 2rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--user-border);
 }
 
 .avatar {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background: #f1f5f9;
+  background: var(--avatar-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,20 +200,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #dbeafe;
-  color: #1e3a8a;
+  background: var(--avatar-placeholder-bg);
+  color: var(--avatar-placeholder-text);
   border-radius: 50%;
 }
 
 .user-name {
   margin: 0;
   font-size: 1.25rem;
-  color: #1e293b;
+  color: var(--user-name-text);
 }
 
 .user-role {
   margin: 0.25rem 0 0;
-  color: #64748b;
+  color: var(--user-role-text);
   font-size: 0.875rem;
 }
 
@@ -160,14 +226,14 @@
   display: flex;
   align-items: center;
   padding: 0.9rem 1.5rem;
-  color: #334155;
+  color: var(--menu-item-text);
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .menu-item:hover {
-  background: #f1f5f9;
-  color: #1e3a8a;
+  background: var(--menu-item-hover-bg);
+  color: var(--menu-item-hover-text);
 }
 
 .menu-item span {
@@ -177,19 +243,19 @@
 
 .menu-footer {
   padding: 1.5rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--menu-footer-border);
 }
 
 .info-link {
   display: flex;
   align-items: center;
-  color: #64748b;
+  color: var(--info-link-text);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .info-link:hover {
-  color: #1e3a8a;
+  color: var(--info-link-hover-text);
 }
 
 .info-link span {
@@ -200,6 +266,81 @@
 .system-version {
   margin-top: 0.5rem;
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: var(--system-version-text);
   text-align: center;
+}
+
+/* header-module.css */
+
+/* Container do toggle de tema */
+.theme-switch-container {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  margin-right: 1rem; /* Espaço entre o toggle e o menu */
+}
+
+/* Input checkbox oculto */
+.theme-switch-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+/* Label que faz o papel de track/background */
+.theme-switch-label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #e5e7eb; /* cinza-claro */
+  border-radius: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+/* Círculo interno que se move */
+.switch-circle {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Quando o checkbox estiver marcado, muda o background e move o círculo */
+.theme-switch-input:checked + .theme-switch-label {
+  background-color: #2563eb; /* azul principal */
+}
+
+.theme-switch-input:checked + .theme-switch-label .switch-circle {
+  transform: translateX(24px);
+  background-color: #1e3a8a; /* tom mais escuro do azul */
+}
+
+/* Ajustes ao passar hover no label */
+.theme-switch-label:hover {
+  background-color: #d1d5db; /* levemente mais escuro */
+}
+
+/* Se quiser inverter cores no modo dark (opcional) */
+html.dark .theme-switch-label {
+  background-color: #4b5563; /* track cinza-escuro no dark */
+}
+
+html.dark .theme-switch-input:checked + .theme-switch-label {
+  background-color: #93c5fd; /* track azul-claro no dark */
+}
+
+html.dark .switch-circle {
+  background-color: #1f2937; /* círculo escuro no dark */
+}
+
+html.dark .theme-switch-input:checked + .theme-switch-label .switch-circle {
+  background-color: #ffffff; /* círculo claro quando marcado no dark */
 }

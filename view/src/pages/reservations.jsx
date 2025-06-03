@@ -1,18 +1,19 @@
 import React from 'react';
 import { useLabData } from '../context/LabDataContext';
 import { Trash2, X } from 'lucide-react';
-import "../assets/styles/myReserva.css"
+import "../assets/styles/myReserva.css";
 
 export function MyReservation() {
   const {
     isBookingsModalOpen,
     closeBookingsModal,
-    userBookings
+    userBookings,
+    removeUserBooking
   } = useLabData();
 
   const handleRemoveBooking = (id) => {
-    console.log(`Remover reserva: ${id}`);
-    // Implementação real viria aqui
+    // Remove do contexto (update no state)
+    removeUserBooking(id);
   };
 
   if (!isBookingsModalOpen) return null;
@@ -31,7 +32,7 @@ export function MyReservation() {
             </div>
           ) : (
             <section className="reservation-list">
-              {userBookings.map(booking => (
+              {userBookings.map((booking) => (
                 <div className="reservation-card" key={booking.id}>
                   <div className="card-header">
                     <h3 className="room-number">
@@ -44,7 +45,7 @@ export function MyReservation() {
 
                   <div className="reservation-details">
                     <div className="reservation-detail">
-                      <strong>Solicitado em:</strong>
+                      <strong>Solicitado em:</strong>{" "}
                       {new Date(booking.requestDate).toLocaleDateString('pt-BR', {
                         day: '2-digit',
                         month: 'short',
@@ -53,30 +54,30 @@ export function MyReservation() {
                     </div>
 
                     <div className="reservation-detail">
-                      <strong>Data:</strong>
+                      <strong>Data:</strong>{" "}
                       {new Date(booking.bookingDate).toLocaleDateString('pt-BR', {
                         day: '2-digit',
                         month: 'short'
                       })}
                       <span className="weekday">
-                        ({new Date(booking.bookingDate).toLocaleDateString('pt-BR', {
+                        ({" "}
+                        {new Date(booking.bookingDate).toLocaleDateString('pt-BR', {
                           weekday: 'short'
-                        })})
+                        })}{" "}
+                        )
                       </span>
                     </div>
 
                     <div className="reservation-detail">
-                      <strong>Horário:</strong>
-                      {booking.startTime} - {booking.endTime}
+                      <strong>Horário:</strong> {booking.startTime} - {booking.endTime}
                     </div>
 
                     <div className="reservation-detail">
-                      <strong>Dia:</strong>
-                      {booking.dia}
+                      <strong>Dia:</strong> {booking.dia}
                     </div>
 
                     <div className="reservation-detail">
-                      <strong>Status:</strong>
+                      <strong>Status:</strong>{" "}
                       <span className={`status-badge ${booking.status.toLowerCase()}`}>
                         {booking.status}
                       </span>

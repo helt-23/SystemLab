@@ -1,78 +1,105 @@
 import { useMemo } from "react";
 
+// Extrai um par { start, end } de uma string “HH:mm - HH:mm”
 export const extractTimeRange = (time) => {
   if (!time) return { start: "", end: "" };
   const [start, end] = time.split(" - ");
   return { start, end };
 };
 
-export const useSchedule = (scheduleData, currentShift) => {
-  // 1. Hook SEMPRE executado
+/**
+ * useSchedule:
+ * @param {Object} scheduleData - { diasSemana: [...], shifts: {manhã: [...], tarde:[...], noite:[...]}, aulas: [...] }
+ * @param {string} currentShift - turno atual (ex: "manhã", "tarde", "noite")
+ * @param {Array} labBookings - lista de reservas (filtrada para aquele laboratório)
+ *
+ * Retorna: { diasSemana, horariosUnicos, horarios }, onde:
+ *  - diasSemana: ex: ["Seg","Ter","Qua","Qui","Sex","Sab"]
+ *  - horariosUnicos: array de strings de horários daquele turno (ex: ["13:00 - 13:50", "14:00 - 14:50", ...])
+ *  - horarios: array de objetos, um para cada combinação (turno × dia), com campos:
+ *      {
+ *        horaInicio: "14:00",
+ *        horaFim: "14:50",
+ *        diaSemana: "Seg",
+ *        tipo: "aula" | "reservado" | "livre",
+ *        dados: objeto de aula ou reserva (ou null),
+ *        horario: "14:00 - 14:50",
+ *        isUserBooking: boolean (true se for reserva do próprio usuário)
+ *      }
+ */
+export const useSchedule = (scheduleData, currentShift, labBookings) => {
+  // Dias da semana para este laboratório
   const diasSemana = useMemo(
     () => scheduleData?.diasSemana || [],
     [scheduleData]
   );
 
-  // 2. Hook SEMPRE executado
+  // Horários de cada “slot” para o turno selecionado
   const horariosUnicos = useMemo(
     () => scheduleData?.shifts?.[currentShift] || [],
     [scheduleData, currentShift]
   );
 
-  // 3. Hook SEMPRE executado (remover condição inicial)
+  // Monta a lista completa de células
   const horarios = useMemo(() => {
-    // Mover a condição para dentro do Hook
     if (!scheduleData || !horariosUnicos.length) return [];
 
-    return horariosUnicos.flatMap((time) =>
-      diasSemana.map((dia) => {
-        const { start: horaInicio, end: horaFim } = extractTimeRange(time);
+    return horariosUnicos.flatMap((timeSlot) => {
+      // timeSlot é uma string tipo "14:00 - 14:50"
+      const { start: slotStart, end: slotEnd } = extractTimeRange(timeSlot);
 
-        // Verifica se há aula cadastrada
+      return diasSemana.map((dia) => {
+        // 1) Verifica se existe 'aula' cadastrada para este dia/hora
         const aula = scheduleData.aulas?.find(
-          (a) => a.dia === dia && a.horario === time
+          (a) => a.dia === dia && a.horario === timeSlot
         );
         if (aula) {
           return {
-            horaInicio,
-            horaFim,
+            horaInicio: slotStart,
+            horaFim: slotEnd,
             diaSemana: dia,
             tipo: "aula",
             dados: aula,
-            horario: time,
+            horario: timeSlot,
           };
         }
 
-        // Verifica reserva confirmada
-        const reserva = scheduleData.reservas?.find(
-          (r) =>
-            r.dia === dia && r.horario === time && r.status === "Confirmada"
-        );
+        // 2) Verifica se existe alguma reserva (ovrelap) para este dia/hora
+        // Para cada reserva do labBookings, puxa início/fim da string reserva.horario (ex: "14:00 - 15:50")
+        const reserva = labBookings?.find((r) => {
+          if (r.dia !== dia) return false;
+          // Extrai início e fim da reserva
+          const { start: resStart, end: resEnd } = extractTimeRange(r.horario);
+          // Comparação de strings “HH:mm” funciona quando sempre estão no formato 24h com zero à esquerda
+          // Verifica se slot está totalmente dentro do intervalo [resStart, resEnd]
+          return slotStart >= resStart && slotEnd <= resEnd;
+        });
+
         if (reserva) {
           const isUserBooking = reserva.usuario?.matricula === "2023001";
           return {
-            horaInicio,
-            horaFim,
+            horaInicio: slotStart,
+            horaFim: slotEnd,
             diaSemana: dia,
             tipo: "reservado",
             dados: reserva,
-            horario: time,
+            horario: timeSlot,
             isUserBooking,
           };
         }
 
-        // Caso não haja aula nem reserva
+        // 3) Se não for aula nem reserva → “livre”
         return {
-          horaInicio,
-          horaFim,
+          horaInicio: slotStart,
+          horaFim: slotEnd,
           diaSemana: dia,
           tipo: "livre",
           dados: null,
-          horario: time,
+          horario: timeSlot,
         };
-      })
-    );
-  }, [scheduleData, diasSemana, horariosUnicos]);
+      });
+    });
+  }, [scheduleData, diasSemana, horariosUnicos, labBookings]);
 
   return { diasSemana, horariosUnicos, horarios };
 };

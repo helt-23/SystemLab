@@ -1,26 +1,53 @@
 import React from 'react';
 import { Info } from 'lucide-react';
 
-const AbbreviationPanel = () => (
-  <section className="abbreviation-panel">
-    <h3 className="abbreviation-panel__header">
-      <Info size={18} /> Legenda de Abreviações
-    </h3>
-    <div className="abbreviation-panel__list">
-      <div className="abbreviation-panel__item">
-        <span>Livre</span>
-        <span style={{ color: '#166534', fontWeight: '500' }}>●</span>
+// Dicionário de abreviações acadêmicas
+const academicAbbreviations = {
+  "IHC": "Interação Humano Computador",
+  "ES": "Engenharia de Software",
+  "BD": "Banco de Dados",
+  "SO": "Sistemas Operacionais",
+  "ML": "Machine Learning",
+  "EC": "Engenharia da Computação",
+  "SI": "Sistemas de Informação"
+};
+
+const AbbreviationPanel = () => {
+  // Converter o dicionário em array para mapeamento
+  const abbreviationsList = Object.entries(academicAbbreviations);
+
+  // Dividir em 2 colunas
+  const half = Math.ceil(abbreviationsList.length / 2);
+  const col1 = abbreviationsList.slice(0, half);
+  const col2 = abbreviationsList.slice(half);
+
+  return (
+    <section className="abbreviation-panel">
+      <h3 className="abbreviation-panel__header">
+        <Info size={18} /> Legenda de Disciplinas
+      </h3>
+
+      <div className="abbreviation-panel__columns">
+        <div className="abbreviation-panel__column">
+          {col1.map(([abbr, meaning]) => (
+            <div key={abbr} className="abbreviation-panel__item">
+              <span className="abbreviation-panel__abbr">{abbr}:</span>
+              <span className="abbreviation-panel__meaning">{meaning}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="abbreviation-panel__column">
+          {col2.map(([abbr, meaning]) => (
+            <div key={abbr} className="abbreviation-panel__item">
+              <span className="abbreviation-panel__abbr">{abbr}:</span>
+              <span className="abbreviation-panel__meaning">{meaning}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="abbreviation-panel__item">
-        <span>Reservado</span>
-        <span style={{ color: '#991b1b', fontWeight: '500' }}>●</span>
-      </div>
-      <div className="abbreviation-panel__item">
-        <span>Aula</span>
-        <span style={{ color: '#143695', fontWeight: '500' }}>●</span>
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default AbbreviationPanel;
