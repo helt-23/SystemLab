@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLabData } from '../context/LabDataContext';
 import { Trash2, X } from 'lucide-react';
 import "../assets/styles/myReserva.css";
+import ConfirmationDialog from '../pages/requestReservationPage/ConfirmationDialog '; // Importe o componente
 
 export function MyReservation() {
   const {
@@ -11,9 +12,26 @@ export function MyReservation() {
     removeUserBooking
   } = useLabData();
 
-  const handleRemoveBooking = (id) => {
-    // Remove do contexto (update no state)
-    removeUserBooking(id);
+  // Estados para controlar a confirmação
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [bookingToRemove, setBookingToRemove] = useState(null);
+
+  const handleRemoveClick = (id) => {
+    setBookingToRemove(id);
+    setIsConfirmationOpen(true);
+  };
+
+  const handleConfirmRemove = () => {
+    if (bookingToRemove) {
+      removeUserBooking(bookingToRemove);
+      setIsConfirmationOpen(false);
+      setBookingToRemove(null);
+    }
+  };
+
+  const handleCancelRemove = () => {
+    setIsConfirmationOpen(false);
+    setBookingToRemove(null);
   };
 
   if (!isBookingsModalOpen) return null;
@@ -84,9 +102,10 @@ export function MyReservation() {
                     </div>
                   </div>
 
+
                   <button
                     className="cancel-button"
-                    onClick={() => handleRemoveBooking(booking.id)}
+                    onClick={() => handleRemoveClick(booking.id)}
                   >
                     <Trash2 size={16} className="icon" />
                     Cancelar
@@ -104,6 +123,17 @@ export function MyReservation() {
           </button>
         </div>
       </main>
+
+      {/* Diálogo de confirmação para cancelar reserva */}
+      <ConfirmationDialog
+        isOpen={isConfirmationOpen}
+        onClose={handleCancelRemove}
+        onConfirm={handleConfirmRemove}
+        title="Cancelar Reserva"
+        message="Tem certeza que deseja cancelar esta reserva?"
+        confirmText="Confirmar Cancelamento"
+        cancelText="Voltar"
+      />
     </div>
   );
 }

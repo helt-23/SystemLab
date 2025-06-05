@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FaUser, FaLock, FaEnvelope, FaIdBadge, FaKey } from 'react-icons/fa';
 import { useLoading } from '../context/LoadingContext';
+import CenteredIcon from '../public/icones/unfesspaLogo'
 
 export function LoginSignForm() {
   const [isActive, setIsActive] = useState(false);
@@ -12,7 +13,6 @@ export function LoginSignForm() {
   const { labId } = useParams();
 
   useEffect(() => {
-    // Simular carregamento de dados
     const timer = setTimeout(() => {
       finishLoading();
     }, 1500);
@@ -105,6 +105,8 @@ export function LoginSignForm() {
         {/* Toggle Container */}
         <div className="toggle-box">
           <div className={`toggle-panel toggle-left ${!isActive ? 'active' : ''}`}>
+            {/* Ícone centralizado acima do título */}
+            <CenteredIcon />
             <h2 className="text-2xl mb-4 font-bold text-center">Bem vindo ao SystemLab!</h2>
             <p className="mb-6 text-sm">Não possui uma conta?</p>
             <button className="btn register-btn" onClick={handleRegisterClick}>
@@ -113,6 +115,8 @@ export function LoginSignForm() {
           </div>
 
           <div className={`toggle-panel toggle-right ${isActive ? 'active' : ''}`}>
+            {/* Ícone centralizado acima do título */}
+            <CenteredIcon />
             <h2 className="text-2xl mb-4 font-bold">Bem vindo de volta!</h2>
             <p className="mb-6 text-sm">Já possui uma conta?</p>
             <button className="btn login-btn" onClick={handleLoginClick}>

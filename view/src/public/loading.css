@@ -1,15 +1,4 @@
-body {
-  font-family: "Inter", sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f0f0f0;
-}
-
-.app-container {
-  text-align: center;
-  padding: 20px;
-}
-
+/* ===== Loading Screen ===== */
 .loading-screen {
   display: flex;
   flex-direction: column;
@@ -47,13 +36,24 @@ body {
   opacity: 0;
 }
 
+@keyframes fadePulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
 .loading-text {
   font-size: 1.5em;
   color: #555555;
-  opacity: 1;
+  animation: fadePulse 1.5s infinite ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
 
 .loading-text.hidden-text {
   opacity: 0;
+  animation: none;
 }

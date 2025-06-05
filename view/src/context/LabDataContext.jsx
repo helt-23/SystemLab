@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import Imagem from '../assets/styles/lab24.jpeg';
 
 // ======================
 // Mock Data Service / Martins, não sei quando você vai implementar o serviço real, mas boa sorte!
@@ -33,9 +34,9 @@ const mockLabService = {
       blocoId: 'bloco-a',
       sala: "Sala 24 - Bloco 1",
       lugares: 25,
-      descricao: "Laboratório de Informática com computadores antigos",
+      descricao: "Laboratório de Análise e Desenvolvimento de Software",
       detalhe: "Definitivamente não possui hardwares e softwares de última geração. Possui vários computadores, pelo menos eles estão ligando.",
-      image: "/lab1.jpg"
+      image: Imagem
     },
     'lab-102': {
       id: 'lab-102',
@@ -58,7 +59,7 @@ const mockLabService = {
       blocoId: 'bloco-c',
       sala: "Sala 301 - Bloco C",
       lugares: 35,
-      descricao: "Laboratório Multiuso",
+      descricao: "Computação",
       detalhe: "Espaço flexível para projetos integrados e atividades diversas."
     },
     'lab-401': {

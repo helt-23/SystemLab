@@ -1,6 +1,6 @@
 import React from 'react';
 import { Building } from 'lucide-react';
-import "../assets/styles/sidebar.css";
+import './BlockLabs.css';
 
 export function Sidebar({ blocos, blocoSelecionado, setBlocoSelecionado }) {
   return (

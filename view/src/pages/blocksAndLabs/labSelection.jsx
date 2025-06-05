@@ -1,21 +1,29 @@
-import React, { useState } from 'react';
-import { Sidebar, LaboratoryCard, Header, Footer } from '../components';
-import { MyReservation } from './reservations';
-import { useLabData } from '../context/LabDataContext';
-import '../assets/styles/labSec.css';
-import { useNavigate } from 'react-router-dom';
-import ProfileEditModal from '../components/profileEditModal';
+import React, { useState, useEffect } from 'react';
+import { Header, Footer } from '../../components';
+import { MyReservation } from '../reservations';
+import { useLabData } from '../../context/LabDataContext';
+import { useLoading } from '../../context/LoadingContext';
+import './BlockLabs.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import ProfileEditModal from '../../components/profileEditModal';
+import { LaboratoryCard } from './laboratoryCard';
+import { Sidebar } from './sidebar';
 
 export function LabSelection() {
-  const { blocos, laboratorios, loading, error, getLabSchedule } = useLabData();
-  const [blocoSelecionado, setBlocoSelecionado] = useState(
-    blocos.length > 0 ? blocos[0].id : ''
-  );
-
+  const { blocos, laboratorios, getLabSchedule } = useLabData();
+  const [blocoSelecionado, setBlocoSelecionado] = useState(blocos.length > 0 ? blocos[0].id : '');
   const navigate = useNavigate();
+  const { finishLoading } = useLoading();
+  const { labId } = useParams();
 
-  if (loading) return <div>Carregando dados...</div>;
-  if (error) return <div>Erro ao carregar dados: {error}</div>;
+  useEffect(() => {
+    // Simular carregamento de dados
+    const timer = setTimeout(() => {
+      finishLoading();
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, [labId, finishLoading]);
 
   const blocoAtual = blocos.find(b => b.id === blocoSelecionado);
 
@@ -62,10 +70,10 @@ export function LabSelection() {
                 key={lab.id}
                 lab={{
                   ...lab,
-                  // Garanta que todas as propriedades necessárias existam
                   name: lab.sala,
                   capacity: lab.lugares,
-                  description: lab.descricao || lab.detalhe || ""
+                  description: lab.descricao || lab.detalhe || "",
+                  image: lab.image
                 }}
                 handleVerHorarios={handleVerHorarios}
               />

@@ -1,80 +1,22 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { X, User, Mail, Lock, Camera } from 'lucide-react';
 import { InputField } from './inputField';
 import { useLabData } from '../context/LabDataContext';
+import { useProfileEdit } from '../customHooks/useProfileEdit';
 import "../assets/styles/editModal.css";
 
 const ProfileEditModal = () => {
-  const { isProfileModalOpen, closeProfileModal } = useLabData();
-  const [formData, setFormData] = useState({
-    name: "Helton Pessoa",
-    email: "helton@example.com",
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: ''
-  });
-
-  const [profileImage, setProfileImage] = useState(null);
-  const [errors, setErrors] = useState({});
-  const fileInputRef = useRef(null);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
-    }
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const triggerFileInput = () => {
-    fileInputRef.current.click();
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Nome é obrigatório';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email é obrigatório';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email inválido';
-    }
-
-    if (formData.newPassword && formData.newPassword.length < 6) {
-      newErrors.newPassword = 'Senha deve ter pelo menos 6 caracteres';
-    }
-
-    if (formData.newPassword !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'As senhas não coincidem';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      // Aqui você faria a chamada API para atualizar o perfil
-      console.log('Dados atualizados:', { ...formData, profileImage });
-      closeProfileModal();
-    }
-  };
+  const { isProfileModalOpen, closeProfileModal, userProfile } = useLabData();
+  const {
+    formData,
+    profileImage,
+    errors,
+    fileInputRef,
+    handleChange,
+    handleImageChange,
+    triggerFileInput,
+    handleSubmit
+  } = useProfileEdit(userProfile);
 
   if (!isProfileModalOpen) return null;
 
@@ -116,7 +58,7 @@ const ProfileEditModal = () => {
           />
         </div>
 
-        <form onSubmit={handleSubmit} className="profile-form">
+        <form onSubmit={(e) => handleSubmit(e, closeProfileModal)} className="profile-form">
           <InputField
             type="text"
             name="name"

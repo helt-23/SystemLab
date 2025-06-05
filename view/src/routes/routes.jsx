@@ -1,7 +1,7 @@
 // src/routes.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { LabScheduleComponent, LabSelection, LoginSignForm } from '../pages';
+import { LabScheduleComponent, LoginSignForm, LabSelection } from '../pages';
 
 export default function AppRoutes() {
   return (

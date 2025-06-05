@@ -188,23 +188,23 @@
 }
 
 .action-button.cancel {
-  background: #f1f5f9;
-  color: #4b5563;
-  font-weight: 500;
-}
-
-.action-button.cancel:hover {
-  background: #e5e7eb;
-}
-
-.action-button.confirm {
   background: #1e3a8a;
   color: white;
   font-weight: 500;
 }
 
+.action-button.cancel:hover {
+  background: #7888b8;
+}
+
+.action-button.confirm {
+  background: #61cb59;
+  color: white;
+  font-weight: 500;
+}
+
 .action-button.confirm:hover {
-  background: #1e40af;
+  background: #a0df9b;
 }
 
 .error-message {
@@ -233,4 +233,44 @@
 
 .time-slots::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+/* Estilos para o diálogo de confirmação genérico */
+.confirmation-dialog {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+}
+
+.dialog-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+}
+
+.dialog-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.dialog-message {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
 }
