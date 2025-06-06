@@ -1,24 +1,17 @@
-import { InputField } from '../components/inputField';
+import { InputField } from '../../components/inputField';
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaUser, FaLock, FaEnvelope, FaIdBadge, FaKey } from 'react-icons/fa';
-import { useLoading } from '../context/LoadingContext';
-import CenteredIcon from '../public/icones/unfesspaLogo'
+import { useFinishLoadingOnLabChange } from '../../public/usingLoadingScreen';
+import CenteredIcon from '../../public/icones/unfesspaLogo'
+import "./auth-module.css"
 
 export function LoginSignForm() {
   const [isActive, setIsActive] = useState(false);
   const handleRegisterClick = () => setIsActive(true);
   const handleLoginClick = () => setIsActive(false);
-  const { finishLoading } = useLoading();
-  const { labId } = useParams();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      finishLoading();
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, [labId, finishLoading]);
+  useFinishLoadingOnLabChange();
 
   return (
     <div className="login-sign-container flex justify-center items-center min-h-screen bg-gradient-to-r from-gray-200 to-blue-100">

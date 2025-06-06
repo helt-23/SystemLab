@@ -152,7 +152,7 @@ const ReservationModal = ({
         onConfirm={handleConfirmReservation}
         title="Confirmar Reserva"
         message="Tem certeza que deseja confirmar esta reserva?"
-        confirmText="Confirmar Solicitação"
+        confirmText="Confirmar"
         cancelText="Voltar"
       />
     </>

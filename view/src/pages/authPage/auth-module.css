@@ -243,7 +243,7 @@ html.dark {
 /* Estilo do campo de entrada */
 .input-field {
   width: 100%;
-  padding: 0.75rem 1.25rem 0.75rem 1rem;
+  padding: 0.75rem 1.25rem 0.75rem 3rem;
   background-color: var(--input-bg);
   border-radius: 0.5rem;
   border: none;

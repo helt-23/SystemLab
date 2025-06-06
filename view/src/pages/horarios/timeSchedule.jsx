@@ -13,6 +13,7 @@ import ScheduleTable from "./ScheduleTable";
 import ReservationModal from "../requestReservationPage/reservationModal";
 import ProfileEditModal from "../../components/profileEditModal";
 import AbbreviationPanel from "./AbbreviationPanel";
+import { useFinishLoadingOnLabChange } from "../../public/usingLoadingScreen"
 import "./app.css";
 
 export function LabScheduleComponent() {
@@ -26,12 +27,8 @@ export function LabScheduleComponent() {
     day: "",
     timeSlots: []
   });
-  const { finishLoading } = useLoading();
 
-  useEffect(() => {
-    const timer = setTimeout(() => finishLoading(), 1500);
-    return () => clearTimeout(timer);
-  }, [labId, finishLoading]);
+  useFinishLoadingOnLabChange();
 
   const handleBackToLabs = () => navigate("/laboratorios");
 

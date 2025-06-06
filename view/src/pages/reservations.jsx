@@ -131,7 +131,7 @@ export function MyReservation() {
         onConfirm={handleConfirmRemove}
         title="Cancelar Reserva"
         message="Tem certeza que deseja cancelar esta reserva?"
-        confirmText="Confirmar Cancelamento"
+        confirmText="Cancelar reserva"
         cancelText="Voltar"
       />
     </div>

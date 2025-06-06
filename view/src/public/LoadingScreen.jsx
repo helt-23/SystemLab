@@ -1,92 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useLoading } from '../context/LoadingContext';
-import './loading.css'; // CSS conforme já foi definido anteriormente
+import React from 'react';
+import useLoadingAnimation from '../customHooks/useLoadingAnimation'; // Novo caminho
+import './loading.css';
 
 const LoadingScreen = () => {
-  const { isLoading } = useLoading();
+  const { shouldRender, animationProps } = useLoadingAnimation();
+  const { filledParts, expand, showText } = animationProps;
 
-  // Quantas partes do ícone já foram preenchidas (0, 1, 2, 3)
-  const [filledParts, setFilledParts] = useState(0);
-
-  // Quando setar expand=true, aplicamos a classe .expanded no SVG
-  const [expand, setExpand] = useState(false);
-
-  // Mostra/ou não o texto "Carregando..."
-  const [showText, setShowText] = useState(true);
-
-  // Se false, nem chega a renderizar o componente
-  const [isVisible, setIsVisible] = useState(true);
-
-  // Sinaliza que o loading (isLoading) já foi dado como false pelo contexto
-  const [loadingCompleted, setLoadingCompleted] = useState(false);
-
-  /**
-   * 1) Preenche as partes do ícone (filledParts) de 0 → 3, 
-   *    independentemente de isLoading. 
-   *    Somente considera isVisible para não continuar preenchendo depois de sumir da tela.
-   */
-  useEffect(() => {
-    const totalParts = 3;
-
-    // Se o componente já não está mais visível, não dispara nada.
-    if (!isVisible) return;
-
-    // Se ainda não preencheu todas as partes, agenda o próximo incremento
-    if (filledParts < totalParts) {
-      const timer = setTimeout(() => {
-        setFilledParts(prev => prev + 1);
-      }, 500); // a cada 500ms, incrementa 1 parte
-
-      return () => clearTimeout(timer);
-    }
-    // Quando filledParts chegar a 3, para de agendar novos timers.
-  }, [filledParts, isVisible]);
-
-  /**
-   * 2) Monitora isLoading: 
-   *    – Se isLoading virar false, sinaliza loadingCompleted = true.
-   *    – Se voltar a ser true (novo ciclo de loading), resetamos tudo.
-   */
-  useEffect(() => {
-    if (!isLoading) {
-      setLoadingCompleted(true);
-    } else {
-      // Se o carregamento reiniciar do zero, resetamos estados para exibir o loading novamente
-      setFilledParts(0);
-      setExpand(false);
-      setShowText(true);
-      setIsVisible(true);
-      setLoadingCompleted(false);
-    }
-  }, [isLoading]);
-
-  /**
-   * 3) Somente quando:
-   *     a) loadingCompleted === true (isLoading já virou false)
-   *   E b) filledParts >= 3 (os três ícones já foram preenchidos)
-   *    => então dispara a expansão (expand) e oculta o texto.
-   *    Depois de 700ms (duração da animação de .expanded), 
-   *    usamos setIsVisible(false) para remover o componente.
-   */
-  useEffect(() => {
-    const totalParts = 3;
-
-    if (loadingCompleted && filledParts >= totalParts) {
-      // Oculta o texto e inicia a expansão do ícone
-      setShowText(false);
-      setExpand(true);
-
-      // Após 700ms (match com 'transform 0.7s' em .expanded), 
-      // marcamos isVisible = false para desmontar o componente
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-      }, 700);
-
-      return () => clearTimeout(timer);
-    }
-  }, [loadingCompleted, filledParts]);
-
-  if (!isVisible) return null;
+  if (!shouldRender) return null;
 
   return (
     <div className="loading-screen">
