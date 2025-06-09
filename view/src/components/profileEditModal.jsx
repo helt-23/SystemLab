@@ -27,7 +27,7 @@ const ProfileEditModal = () => {
           <X size={24} />
         </button>
 
-        <h2 className="modal-title">Editar Perfil</h2>
+        <h1 className="modal-title">Editar Perfil</h1>
 
         <div className="profile-image-container">
           <div className="profile-image-wrapper">

@@ -5,7 +5,6 @@ import { ArrowLeft } from "lucide-react";
 import { MyReservation } from "../reservations";
 import { useLabData } from "../../context/LabDataContext";
 import { useSchedule } from "../../customHooks/useSchedule";
-import { useLoading } from "../../context/LoadingContext";
 import LabInfoCard from "./LabInfoCard";
 import ShiftSelector from "./ShiftSelector";
 import WeekControls from "./WeekControls";
@@ -27,27 +26,23 @@ export function LabScheduleComponent() {
     day: "",
     timeSlots: []
   });
-
-  useFinishLoadingOnLabChange();
-
   const handleBackToLabs = () => navigate("/laboratorios");
-
   const {
     getLabDetails,
     getLabSchedule,
     addUserBooking,
     userBookings
   } = useLabData();
-
   const labDetails = getLabDetails(labId);
   const scheduleData = getLabSchedule(labId);
   const labBookings = userBookings.filter((b) => b.labId === labId);
-
   const { horarios, horariosUnicos, diasSemana } = useSchedule(
     scheduleData,
     currentShift,
     labBookings
   );
+
+  useFinishLoadingOnLabChange();
 
   const openReservationModal = (dia) => {
     const daySlots = horarios.filter(
@@ -84,7 +79,7 @@ export function LabScheduleComponent() {
 
   return (
     <div className="lab-schedule">
-      <Header />
+      <Header PageTitle={"Seleção de Horários"} />
 
       <div className="back-button-container">
         <button onClick={handleBackToLabs} className="back-to-labs-button">
@@ -101,16 +96,18 @@ export function LabScheduleComponent() {
         />
 
         {scheduleData && (
-          <div className="schedule-controls">
-            <ShiftSelector
-              scheduleData={scheduleData}
-              currentShift={currentShift}
-              setCurrentShift={setCurrentShift}
-            />
-            <WeekControls
-              currentWeek={currentWeek}
-              setCurrentWeek={setCurrentWeek}
-            />
+          <div className="schedule-controls-container">
+            <div className="schedule-controls">
+              <ShiftSelector
+                scheduleData={scheduleData}
+                currentShift={currentShift}
+                setCurrentShift={setCurrentShift}
+              />
+              <WeekControls
+                currentWeek={currentWeek}
+                setCurrentWeek={setCurrentWeek}
+              />
+            </div>
           </div>
         )}
 

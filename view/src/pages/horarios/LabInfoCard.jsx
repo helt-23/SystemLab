@@ -10,9 +10,6 @@ const LabInfoCard = ({ labDetails, setShowDetail, showDetail }) => {
     <>
       <div
         className="lab-info-card">
-        <div className="lab-info-card__icon-container pulse">
-          <Building size={24} />
-        </div>
 
         <div className="lab-info-card__content">
           <h2 className="lab-info-card__title">

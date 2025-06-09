@@ -43,7 +43,7 @@ body {
   background: linear-gradient(135deg, #1e3a8a, #2563eb);
   color: #f8fafc;
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1rem 1.2rem;
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-areas:
@@ -69,21 +69,9 @@ body {
     "content content content";
 }
 
-.lab-info-card__icon-container {
-  grid-area: icon;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 1.2rem;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: center;
-  transition: all 0.3s ease;
-}
-
 .lab-info-card__title {
   grid-area: title;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   margin: 0;
   font-weight: 700;
   letter-spacing: -0.5px;
@@ -198,12 +186,33 @@ body {
 }
 
 /* Controles */
+.schedule-controls-container {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeaea;
+}
+
+.schedule-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
 .shift-selector {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+}
+
+.shift-selector h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1e293b;
 }
 
 .shift-selector__buttons {
@@ -213,13 +222,14 @@ body {
 }
 
 .shift-selector__button {
-  padding: 0.5rem 1.25rem;
+  padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 9999px;
   background: var(--gray-200);
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 500;
+  font-size: 1rem;
 }
 
 .shift-selector__button--active {
@@ -233,16 +243,25 @@ body {
   align-items: center;
   gap: 0.75rem;
   font-weight: 500;
+  font-size: 1.1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .week-controls button {
-  padding: 0.25rem;
+  padding: 0.5rem;
   background: none;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.week-controls button:hover {
+  background: #f1f5f9;
 }
 
 /* Tabela de Horários */
@@ -483,6 +502,13 @@ body {
   .cell-subtitle {
     font-size: 0.7rem;
   }
+
+  .schedule-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -492,7 +518,8 @@ body {
   }
 
   .shift-selector__buttons {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
   }
 
   .week-controls {

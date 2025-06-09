@@ -1,10 +1,10 @@
 import { InputField } from '../../components/inputField';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUser, FaLock, FaEnvelope, FaIdBadge, FaKey } from 'react-icons/fa';
 import { useFinishLoadingOnLabChange } from '../../public/usingLoadingScreen';
 import CenteredIcon from '../../public/icones/unfesspaLogo'
-import "./auth-module.css"
+import "./authlogin.css"
 
 export function LoginSignForm() {
   const [isActive, setIsActive] = useState(false);
@@ -14,11 +14,11 @@ export function LoginSignForm() {
   useFinishLoadingOnLabChange();
 
   return (
-    <div className="login-sign-container flex justify-center items-center min-h-screen bg-gradient-to-r from-gray-200 to-blue-100">
+    <div className="login-sign-container">
       <div className={`form-container ${isActive ? 'active' : ''}`}>
         {/* Login Form */}
         <div className={`form-box login ${!isActive ? 'active' : ''}`}>
-          <form className="w-full" onSubmit={(e) => e.preventDefault()}>
+          <form className="login-form" onSubmit={(e) => e.preventDefault()}>
             <h1 className="title">LOGIN</h1>
 
             <InputField
@@ -33,14 +33,14 @@ export function LoginSignForm() {
               icon={FaLock}
             />
 
-            <div className="my-6">
-              <a href="#" className="text-sm text-gray-600 hover:underline">
+            <div className="forgot-password">
+              <a href="#" className="forgot-password-link">
                 Esqueceu sua Senha?
               </a>
             </div>
 
             <button type="submit" className="btn">
-              <Link to="/laboratorios" className="block w-full">
+              <Link to="/laboratorios" className="btn-link">
                 Acessar
               </Link>
             </button>
@@ -49,7 +49,7 @@ export function LoginSignForm() {
 
         {/* Registration Form */}
         <div className={`form-box register ${isActive ? 'active' : ''}`}>
-          <form className="w-full" onSubmit={(e) => e.preventDefault()}>
+          <form className="register-form" onSubmit={(e) => e.preventDefault()}>
             <h1 className="title">AUTOREGISTRO</h1>
 
             <InputField
@@ -86,11 +86,13 @@ export function LoginSignForm() {
               name="passwordConfirm"
               icon={FaKey}
             />
+
             <select className="user-type" id="">
               <option value="student">Estudante</option>
               <option value="teacher">Professor</option>
               <option value="admin">Bolsista</option>
             </select>
+
             <button type="submit" className="btn">Registrar</button>
           </form>
         </div>
@@ -98,20 +100,18 @@ export function LoginSignForm() {
         {/* Toggle Container */}
         <div className="toggle-box">
           <div className={`toggle-panel toggle-left ${!isActive ? 'active' : ''}`}>
-            {/* Ícone centralizado acima do título */}
             <CenteredIcon />
-            <h2 className="text-2xl mb-4 font-bold text-center">Bem vindo ao SystemLab!</h2>
-            <p className="mb-6 text-sm">Não possui uma conta?</p>
+            <h2 className="welcome-title">Bem vindo ao SystemLab!</h2>
+            <p className="welcome-text">Não possui uma conta?</p>
             <button className="btn register-btn" onClick={handleRegisterClick}>
               Registrar-se
             </button>
           </div>
 
           <div className={`toggle-panel toggle-right ${isActive ? 'active' : ''}`}>
-            {/* Ícone centralizado acima do título */}
             <CenteredIcon />
-            <h2 className="text-2xl mb-4 font-bold">Bem vindo de volta!</h2>
-            <p className="mb-6 text-sm">Já possui uma conta?</p>
+            <h2 className="welcome-title">Bem vindo de volta!</h2>
+            <p className="welcome-text">Já possui uma conta?</p>
             <button className="btn login-btn" onClick={handleLoginClick}>
               Login
             </button>

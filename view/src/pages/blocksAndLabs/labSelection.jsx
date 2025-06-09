@@ -30,7 +30,7 @@ export function LabSelection() {
 
   return (
     <div className="app-container">
-      <Header />
+      <Header PageTitle={"Seleção de Laboratórios"} />
       <main className="main-content-lab">
         <Sidebar
           blocos={blocos}
@@ -51,9 +51,9 @@ export function LabSelection() {
             ))}
           </select>
 
-          <h2 className="section-title">
+          <h3 className="section-title">
             Laboratórios em {blocoAtual?.nome}
-          </h2>
+          </h3>
 
           <div className="labs-grid">
             {labsDoBloco.map((lab) => (
