@@ -38,6 +38,15 @@ body {
   margin: 0 auto;
   width: 100%;
 }
+
+.schedule-container {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
 /* Estilos para LabInfoCard melhorado */
 .lab-info-card {
   background: linear-gradient(135deg, #1e3a8a, #2563eb);
@@ -205,6 +214,7 @@ body {
 .shift-selector {
   display: flex;
   flex-wrap: wrap;
+  align-self: center;
   gap: 1rem;
 }
 
@@ -474,10 +484,6 @@ body {
 
   .lab-info-card {
     grid-template-columns: 1fr;
-    grid-template-areas:
-      "title"
-      "details"
-      "button";
     gap: 0.75rem;
   }
 

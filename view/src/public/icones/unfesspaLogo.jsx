@@ -1,6 +1,6 @@
 export function CenteredIcon() {
   return (
-    <div className="flex justify-center mb-4">
+    <div className="flex justify-center mb-3">
       <div className="bg-white rounded-full p-2 shadow-md flex items-center justify-center w-14 h-14">
         <svg
           version="1.1"

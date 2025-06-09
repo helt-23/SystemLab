@@ -187,7 +187,7 @@ html.dark {
 /* Estilo do campo de entrada */
 .input-field {
   width: 100%;
-  padding: 0.75rem 1.25rem 0.75rem 3rem;
+  padding: 0.75rem 1rem 0.75rem 3rem;
   background-color: var(--input-bg);
   border-radius: 0.5rem;
   border: none;
@@ -223,7 +223,7 @@ html.dark {
 
 .user-type {
   width: 100%;
-  padding: 0.75rem 1.25rem;
+  padding: 0.5rem 1rem;
   margin-bottom: 10px;
   background-color: var(--input-bg);
   border-radius: 0.5rem;
@@ -232,6 +232,14 @@ html.dark {
   color: var(--input-text);
   font-weight: 500;
   transition: all 0.15s ease;
+}
+
+select.user-type {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236b7280'%3E%3Cpath d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.25rem;
 }
 
 .user-type:focus {

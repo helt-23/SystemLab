@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Imagem from '../assets/styles/lab24.jpeg';
 
-// ======================
+// ====================== (°--°)
 // Mock Data Service / Martins, não sei quando você vai implementar o serviço real, mas boa sorte!
 // ======================
 const mockLabService = {

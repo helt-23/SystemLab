@@ -89,36 +89,38 @@ export function LabScheduleComponent() {
       </div>
 
       <main className="main-content">
-        <LabInfoCard
-          labDetails={labDetails}
-          setShowDetail={setShowDetail}
-          showDetail={showDetail}
-        />
+        <div className="schedule-container">
+          <LabInfoCard
+            labDetails={labDetails}
+            setShowDetail={setShowDetail}
+            showDetail={showDetail}
+          />
 
-        {scheduleData && (
-          <div className="schedule-controls-container">
-            <div className="schedule-controls">
-              <ShiftSelector
-                scheduleData={scheduleData}
-                currentShift={currentShift}
-                setCurrentShift={setCurrentShift}
-              />
-              <WeekControls
-                currentWeek={currentWeek}
-                setCurrentWeek={setCurrentWeek}
-              />
+          {scheduleData && (
+            <div className="schedule-controls-container">
+              <div className="schedule-controls">
+                <ShiftSelector
+                  scheduleData={scheduleData}
+                  currentShift={currentShift}
+                  setCurrentShift={setCurrentShift}
+                />
+                <WeekControls
+                  currentWeek={currentWeek}
+                  setCurrentWeek={setCurrentWeek}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        <ScheduleTable
-          diasSemana={diasSemana}
-          horariosUnicos={horariosUnicos}
-          horarios={horarios}
-          onCellClick={openReservationModal}
-        />
+          <ScheduleTable
+            diasSemana={diasSemana}
+            horariosUnicos={horariosUnicos}
+            horarios={horarios}
+            onCellClick={openReservationModal}
+          />
 
-        <AbbreviationPanel />
+          <AbbreviationPanel />
+        </div>
 
         <ReservationModal
           isOpen={reservationModal.open}
