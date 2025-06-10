@@ -74,15 +74,6 @@
   font-weight: 500;
 }
 
-.section-title::before {
-  content: "";
-  display: inline-block;
-  vertical-align: middle;
-  width: 4px;
-  height: 16px;
-  border-radius: 2px;
-}
-
 .time-slots {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));

@@ -3,7 +3,7 @@ import { useFinishLoadingOnLabChange } from '../../public/usingLoadingScreen';
 import { LoginForm } from './loginForm';
 import { RegisterForm } from './registerForm';
 import { ToggleBox } from './toggleBox';
-import "./auth-module.css";
+import "./authlogin.css";
 
 export const LoginSignForm = () => {
   const [isActive, setIsActive] = useState(false);

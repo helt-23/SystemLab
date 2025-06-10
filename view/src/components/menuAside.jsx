@@ -106,7 +106,7 @@ const MenuAside = ({ user, isOpen, onClose }) => {
             <Info size={16} />
             <span>Sobre o sistema</span>
           </Link>
-          <p className="system-version">v1.0.0</p>
+          <p className="system-version">v2.0.0</p>
         </div>
       </aside>
     </>

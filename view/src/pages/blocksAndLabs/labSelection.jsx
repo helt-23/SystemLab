@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Header, Footer } from '../../components';
-import { MyReservation } from '../reservations';
+import { BookingReservs } from '../../pages';
 import { useLabData } from '../../context/LabDataContext';
 import { useFinishLoadingOnLabChange } from '../../public/usingLoadingScreen';
 import './BlockLabs.css';
@@ -74,7 +74,7 @@ export function LabSelection() {
       </main>
 
       <Footer />
-      <MyReservation />
+      <BookingReservs />
       <ProfileEditModal />
     </div>
   );

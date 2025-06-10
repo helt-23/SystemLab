@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useLabData } from '../context/LabDataContext';
+import { useLabData } from '../../context/LabDataContext';
 import { Trash2, X } from 'lucide-react';
-import "../assets/styles/myReserva.css";
-import ConfirmationDialog from '../pages/requestReservationPage/ConfirmationDialog '; // Importe o componente
+import "./myReserva.css";
+import ConfirmationDialog from '../requestReservationPage/ConfirmationDialog '; // Importe o componente
 
-export function MyReservation() {
+export function BookingReservs() {
   const {
     isBookingsModalOpen,
     closeBookingsModal,

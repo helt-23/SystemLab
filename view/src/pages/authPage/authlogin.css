@@ -183,6 +183,9 @@ html.dark {
   position: relative;
   margin: 1rem 0;
 }
+.focus\:ring-2:focus {
+  box-shadow: none;
+}
 
 /* Estilo do campo de entrada */
 .input-field {
@@ -248,7 +251,7 @@ select.user-type {
 
 .title {
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: bold;
   color: var(--text-secondary);
   margin-bottom: 1rem;
 }
@@ -366,4 +369,29 @@ select.user-type {
   .welcome-title {
     font-size: 1.3rem;
   }
+}
+
+/* Adicione no final do arquivo CSS existente */
+
+.input-box .error-message {
+  color: #ff3860;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  text-align: left;
+  width: 100%;
+  padding-left: 2.5rem; /* para alinhar com o ícone */
+}
+
+.input-field-wrapper {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+input:invalid {
+  border-color: #ff3860;
+}
+
+.required-star {
+  color: #ff3860;
+  margin-left: 0.25rem;
 }

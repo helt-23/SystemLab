@@ -1,4 +1,4 @@
 export { LabSelection } from "./blocksAndLabs/labSelection";
-export { LoginSignForm } from "./authPage/login";
+export { LoginSignForm } from "./authPage/loginSignForm";
 export { LabScheduleComponent } from "./horarios/scheduleContainer";
-export { MyReservation } from "./reservations";
+export { BookingReservs } from "./bookingReservs/reservationsBook";

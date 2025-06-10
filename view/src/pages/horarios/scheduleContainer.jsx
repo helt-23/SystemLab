@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+// src/components/LabScheduleComponent.js
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Header, Footer } from "../../components";
 import { ArrowLeft } from "lucide-react";
-import { MyReservation } from "../reservations";
+import { BookingReservs } from "../../pages";
 import { useLabData } from "../../context/LabDataContext";
 import { useSchedule } from "../../customHooks/useSchedule";
 import LabInfoCard from "./LabInfoCard";
@@ -12,7 +13,9 @@ import ScheduleTable from "./ScheduleTable";
 import ReservationModal from "../requestReservationPage/reservationModal";
 import ProfileEditModal from "../../components/profileEditModal";
 import AbbreviationPanel from "./AbbreviationPanel";
-import { useFinishLoadingOnLabChange } from "../../public/usingLoadingScreen"
+import LabDetailModal from "./LabDetailModal";
+import { useFinishLoadingOnLabChange } from "../../public/usingLoadingScreen";
+import { useReservation } from "../../customHooks/useReservation";
 import "./app.css";
 
 export function LabScheduleComponent() {
@@ -21,56 +24,40 @@ export function LabScheduleComponent() {
   const [currentShift, setCurrentShift] = useState("manhã");
   const [currentWeek, setCurrentWeek] = useState(0);
   const [showDetail, setShowDetail] = useState(false);
-  const [reservationModal, setReservationModal] = useState({
-    open: false,
-    day: "",
-    timeSlots: []
-  });
-  const handleBackToLabs = () => navigate("/laboratorios");
+
   const {
     getLabDetails,
     getLabSchedule,
     addUserBooking,
     userBookings
   } = useLabData();
+
   const labDetails = getLabDetails(labId);
   const scheduleData = getLabSchedule(labId);
   const labBookings = userBookings.filter((b) => b.labId === labId);
+
   const { horarios, horariosUnicos, diasSemana } = useSchedule(
     scheduleData,
     currentShift,
     labBookings
   );
 
+  const {
+    reservationModal,
+    openReservationModal,
+    closeReservationModal,
+    handleReserveSubmit
+  } = useReservation(labId, addUserBooking);
+
   useFinishLoadingOnLabChange();
 
-  const openReservationModal = (dia) => {
+  const handleBackToLabs = () => navigate("/laboratorios");
+
+  const handleCellClick = (dia) => {
     const daySlots = horarios.filter(
       (h) => h.diaSemana === dia && h.tipo === "livre"
     );
-    setReservationModal({
-      open: true,
-      day: dia,
-      timeSlots: daySlots
-    });
-  };
-
-  const handleReserveSubmit = (reservationData) => {
-    const newBooking = {
-      labId: labId,
-      status: "Em análise",
-      labSala: labDetails.sala,
-      requestDate: new Date().toISOString(),
-      bookingDate: reservationData.date,
-      startTime: reservationData.startTime,
-      endTime: reservationData.endTime,
-      dia: reservationData.day,
-      horario: `${reservationData.startTime} - ${reservationData.endTime}`,
-      usuario: { nome: "João Silva", matricula: "2023001" }
-    };
-
-    addUserBooking(newBooking);
-    setReservationModal({ open: false, day: "", timeSlots: [] });
+    openReservationModal(dia, daySlots);
   };
 
   if (!labDetails || !scheduleData) {
@@ -116,7 +103,7 @@ export function LabScheduleComponent() {
             diasSemana={diasSemana}
             horariosUnicos={horariosUnicos}
             horarios={horarios}
-            onCellClick={openReservationModal}
+            onCellClick={handleCellClick}
           />
 
           <AbbreviationPanel />
@@ -124,17 +111,21 @@ export function LabScheduleComponent() {
 
         <ReservationModal
           isOpen={reservationModal.open}
-          onClose={() => setReservationModal({ open: false, day: "", timeSlots: [] })}
+          onClose={closeReservationModal}
           day={reservationModal.day}
           timeSlots={reservationModal.timeSlots}
           labDetails={labDetails}
-          onReserve={handleReserveSubmit}
+          onReserve={(data) => { handleReserveSubmit(data, labDetails); console.log(data); }}
         />
-
-        <Footer />
-        <MyReservation />
+        <BookingReservs />
         <ProfileEditModal />
+        <LabDetailModal
+          isOpen={showDetail}
+          onClose={() => setShowDetail(false)}
+          labDetails={labDetails}
+        />
       </main>
+      <Footer />
     </div>
   );
 }

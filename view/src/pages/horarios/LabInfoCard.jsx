@@ -46,11 +46,6 @@ const LabInfoCard = ({ labDetails, setShowDetail, showDetail }) => {
         </div>
       </div>
 
-      <LabDetailModal
-        isOpen={showDetail}
-        onClose={() => setShowDetail(false)}
-        labDetails={labDetails}
-      />
     </>
   );
 };
