@@ -22,7 +22,7 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
         <div className="modal-header">
           <h2 className="modal__title">{labDetails.nome || "Laboratório"}</h2>
           <div className="lab-info">
-            <span className="lab-capacity">Capacidade: {labDetails.capacidade} pessoas</span>
+            <span className="lab-capacity">Capacidade: {labDetails.lugares} pessoas</span>
             <span className={`lab-status ${labDetails.disponivel ? 'available' : 'occupied'}`}>
               {labDetails.disponivel ? 'Disponível' : 'Ocupado'}
             </span>
