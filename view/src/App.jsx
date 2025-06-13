@@ -1,10 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { LabDataProvider } from './context/LabDataContext';
 import { LoadingProvider } from './context/LoadingContext';
 import { AuthProvider } from './context/authContext';
 import AppRoutes from './routes/routes';
 import LoadingScreen from './public/LoadingScreen';
+import { Header, Footer } from './components';
+function Layout() {
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
+  const isHomePage = location.pathname === '/';
+
+  return (
+    <>
+      {!isHomePage && !isLoginPage && <Header />}
+      <main>
+        <AppRoutes />
+      </main>
+      {!isHomePage && !isLoginPage && <Footer />}
+    </>
+  );
+}
 
 function App() {
   return (
@@ -14,7 +29,7 @@ function App() {
           <LabDataProvider>
             <div style={{ position: 'relative' }}>
               <LoadingScreen />
-              <AppRoutes />
+              <Layout />
             </div>
           </LabDataProvider>
         </Router>

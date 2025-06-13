@@ -63,9 +63,17 @@ html.dark {
   --system-version-text: #6b7280;
 }
 
-/* Estilos do Header */
+/* Layout principal */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header fixo */
 .app-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -73,7 +81,7 @@ html.dark {
   color: var(--header-text);
   padding: 1rem;
   box-shadow: 0 2px 5px var(--header-shadow);
-  z-index: 100;
+  z-index: 1000;
 }
 
 .header-title {

@@ -9,7 +9,7 @@ export const ToggleBox = ({
   <div className="toggle-box">
     <div className={`toggle-panel toggle-left ${!isActive ? 'active' : ''}`}>
       <CenteredIcon />
-      <h2 className="text-2xl mb-4 font-bold text-center">Bem vindo ao SystemLab!</h2>
+      <h2 className="text-2xl mb-4 font-bold text-center">Bem vindo ao SIRLAB!</h2>
       <p className="mb-6 text-sm">Não possui uma conta?</p>
       <button className="btn register-btn" onClick={handleRegisterClick}>
         Registrar-se

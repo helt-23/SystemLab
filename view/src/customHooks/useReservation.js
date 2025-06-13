@@ -35,7 +35,7 @@ export const useReservation = (labId, addUserBooking) => {
       endTime: reservationData.endTime,
       dia: reservationData.day,
       horario: `${reservationData.startTime} - ${reservationData.endTime}`,
-      usuario: { nome: "Helton Pessoa", matricula: "2023001" },
+      usuario: { nome: "Usuário", matricula: "2023001" },
     };
 
     addUserBooking(newBooking);

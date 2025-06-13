@@ -1,7 +1,7 @@
 // src/components/LabScheduleComponent.js
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Header, Footer } from "../../components";
+import { Breadcrumb } from "../../components";
 import { ArrowLeft } from "lucide-react";
 import { BookingReservs } from "../../pages";
 import { useLabData } from "../../context/LabDataContext";
@@ -24,35 +24,28 @@ export function LabScheduleComponent() {
   const [currentShift, setCurrentShift] = useState("manhã");
   const [currentWeek, setCurrentWeek] = useState(0);
   const [showDetail, setShowDetail] = useState(false);
-
   const {
     getLabDetails,
     getLabSchedule,
     addUserBooking,
     userBookings
   } = useLabData();
-
   const labDetails = getLabDetails(labId);
   const scheduleData = getLabSchedule(labId);
   const labBookings = userBookings.filter((b) => b.labId === labId);
-
   const { horarios, horariosUnicos, diasSemana } = useSchedule(
     scheduleData,
     currentShift,
     labBookings
   );
-
   const {
     reservationModal,
     openReservationModal,
     closeReservationModal,
     handleReserveSubmit
   } = useReservation(labId, addUserBooking);
-
   useFinishLoadingOnLabChange();
-
   const handleBackToLabs = () => navigate("/laboratorios");
-
   const handleCellClick = (dia) => {
     const daySlots = horarios.filter(
       (h) => h.diaSemana === dia && h.tipo === "livre"
@@ -66,16 +59,16 @@ export function LabScheduleComponent() {
 
   return (
     <div className="lab-schedule">
-      <Header PageTitle={"Seleção de Horários"} />
 
-      <div className="back-button-container">
+      {/*     <div className="back-button-container">
         <button onClick={handleBackToLabs} className="back-to-labs-button">
           <ArrowLeft size={18} />
           <span>Voltar</span>
         </button>
-      </div>
+      </div>*/}
 
       <main className="main-content">
+        <Breadcrumb />
         <div className="schedule-container">
           <LabInfoCard
             labDetails={labDetails}
@@ -115,7 +108,7 @@ export function LabScheduleComponent() {
           day={reservationModal.day}
           timeSlots={reservationModal.timeSlots}
           labDetails={labDetails}
-          onReserve={(data) => { handleReserveSubmit(data, labDetails); console.log(data); }}
+          onReserve={(data) => handleReserveSubmit(data, labDetails)}
         />
         <BookingReservs />
         <ProfileEditModal />
@@ -125,7 +118,6 @@ export function LabScheduleComponent() {
           labDetails={labDetails}
         />
       </main>
-      <Footer />
     </div>
   );
 }

@@ -8,7 +8,6 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
     if (e.target === e.currentTarget) onClose();
   };
 
-  // Verificação segura para arrays
   const hardwares = labDetails.hardwares || [];
   const softwares = labDetails.softwares || [];
 
@@ -33,6 +32,7 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
           <section className="info-section">
             <h3>Descrição</h3>
             <p className="modal__text">{labDetails.descricao || "Sem descrição disponível"}</p>
+            <p className="modal__text">{labDetails.detalhe || "Sem detalhe disponível"}</p>
           </section>
 
           <div className="grid-layout">

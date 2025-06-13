@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Header, Footer } from '../../components';
+import { useState, useEffect } from 'react';
+import { Breadcrumb } from '../../components';
 import { BookingReservs } from '../../pages';
 import { useLabData } from '../../context/LabDataContext';
 import { useFinishLoadingOnLabChange } from '../../public/usingLoadingScreen';
@@ -30,7 +30,6 @@ export function LabSelection() {
 
   return (
     <div className="app-container">
-      <Header PageTitle={"Seleção de Laboratórios"} />
       <main className="main-content-lab">
         <Sidebar
           blocos={blocos}
@@ -50,6 +49,7 @@ export function LabSelection() {
               </option>
             ))}
           </select>
+          <Breadcrumb />
 
           <h3 className="section-title">
             Laboratórios em {blocoAtual?.nome}
@@ -57,23 +57,22 @@ export function LabSelection() {
 
           <div className="labs-grid">
             {labsDoBloco.map((lab) => (
-              <LaboratoryCard
-                key={lab.id}
-                lab={{
-                  ...lab,
-                  name: lab.sala,
-                  capacity: lab.lugares,
-                  description: lab.descricao || lab.detalhe || "",
-                  image: lab.image
-                }}
-                handleVerHorarios={handleVerHorarios}
-              />
+              <div className="card-container" key={lab.id}>
+                <LaboratoryCard
+                  lab={{
+                    ...lab,
+                    name: lab.sala,
+                    capacity: lab.lugares,
+                    description: lab.descricao || lab.detalhe || "",
+                    image: lab.image
+                  }}
+                  handleVerHorarios={handleVerHorarios}
+                />
+              </div>
             ))}
           </div>
         </section>
       </main>
-
-      <Footer />
       <BookingReservs />
       <ProfileEditModal />
     </div>

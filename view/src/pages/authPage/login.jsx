@@ -235,7 +235,8 @@ export function LoginSignForm() {
         <div className="toggle-box">
           <div className={`toggle-panel toggle-left ${!isActive ? 'active' : ''}`}>
             <CenteredIcon />
-            <h2 className="welcome-title">Bem vindo ao SystemLab!</h2>
+            <h2 className="welcome-title">Bem vindo ao Sistema Integrado de Reservas de Laboratórios (SIRLAB)
+              !</h2>
             <p className="welcome-text">Não possui uma conta?</p>
             <button className="btn register-btn" onClick={handleRegisterClick}>
               Registrar-se

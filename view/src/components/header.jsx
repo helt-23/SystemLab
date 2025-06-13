@@ -1,17 +1,23 @@
-import React, { useState, useCallback } from 'react'; // Adicionei useCallback
+import React, { useState, useCallback } from 'react';
 import MenuAside from './menuAside';
-import '../assets/styles/header-module.css';
+import { useBreadcrumb } from '../customHooks/usebreadcrumb';
+import '../assets/styles/headerModule.css';
 
-export function Header({ PageTitle }) {
+export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const breadcrumbs = useBreadcrumb();
+  const isHomePage = location.pathname === '/';
+
+  const pagetitle = breadcrumbs.length > 0
+    ? breadcrumbs[breadcrumbs.length - 1].label
+    : 'Sistema Integrado de Reservas de Laboratórios (SIRLAB)';
 
   const user = {
-    name: "Helton Pessoa",
+    name: "Usuário",
     role: "Sobrevivente",
     photo: null
   };
 
-  // Corrigindo com useCallback para evitar recriação da função
   const toggleMenu = useCallback(() => {
     setMenuOpen(prev => !prev);
   }, []);
@@ -19,7 +25,7 @@ export function Header({ PageTitle }) {
   return (
     <>
       <header className="app-header">
-        <button
+        {!isHomePage && <button
           className={`menu-toggle ${menuOpen ? 'open' : ''}`}
           onClick={toggleMenu}
           aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
@@ -27,9 +33,9 @@ export function Header({ PageTitle }) {
           <span></span>
           <span></span>
           <span></span>
-        </button>
+        </button>}
 
-        <h1 className="header-title">{PageTitle}</h1>
+        <h1 className="header-title">{pagetitle}</h1>
         <div className="header-spacer"></div>
 
         <MenuAside
