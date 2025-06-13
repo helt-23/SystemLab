@@ -21,7 +21,7 @@ html.dark {
   padding: 1rem;
   font-size: 0.875rem;
   color: var(--footer-text);
-  z-index: 1000;
+  z-index: 800;
 }
 
 .footer-content {
