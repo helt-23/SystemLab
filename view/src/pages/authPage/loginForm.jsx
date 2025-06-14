@@ -1,5 +1,5 @@
 // src/pages/LoginForm.jsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputField } from "../../components/inputField";
 import { FaUser, FaLock } from "react-icons/fa";
@@ -35,7 +35,6 @@ export const LoginForm = () => {
       setFieldErrors(newErrors);
       return;
     }
-
     try {
       await login(formData);
       navigate("/laboratorios");
@@ -48,13 +47,11 @@ export const LoginForm = () => {
     <div className="form-box login active">
       <form className="w-full" onSubmit={handleSubmit}>
         <h1 className="title">LOGIN</h1>
-
         {error && (
           <div className="error-message">
             {error}
           </div>
         )}
-
         <InputField
           name="username"
           type="text"
@@ -65,7 +62,6 @@ export const LoginForm = () => {
           error={fieldErrors.username}
           required
         />
-
         <InputField
           name="password"
           type="password"
@@ -76,13 +72,11 @@ export const LoginForm = () => {
           error={fieldErrors.password}
           required
         />
-
         <div className="my-6">
           <a href="#" className="text-sm hover:underline">
             Esqueceu sua Senha?
           </a>
         </div>
-
         <button
           type="submit"
           className="btn"

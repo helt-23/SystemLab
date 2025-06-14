@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 export const useProfileEdit = (initialData = {}) => {
   const [formData, setFormData] = useState({
     name: initialData.name || "Usuário",
-    email: initialData.email || "Usuário@example.com",
+    email: initialData.email || "usuario@example.com",
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
@@ -77,7 +77,7 @@ export const useProfileEdit = (initialData = {}) => {
   const resetForm = () => {
     setFormData({
       name: initialData.name || "Usuário",
-      email: initialData.email || "Usuário@example.com",
+      email: initialData.email || "usuario@example.com",
       currentPassword: "",
       newPassword: "",
       confirmPassword: "",

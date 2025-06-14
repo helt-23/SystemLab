@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Variáveis de cor para facilitar o modo claro/escuro */
 :root {
   --primary: #1d4ed8;
   --primary-hover: #1e40af;
@@ -185,43 +184,6 @@ html.dark {
 }
 .focus\:ring-2:focus {
   box-shadow: none;
-}
-
-/* Estilo do campo de entrada */
-.input-field {
-  width: 100%;
-  padding: 0.75rem 1rem 0.75rem 3rem;
-  background-color: var(--input-bg);
-  border-radius: 0.5rem;
-  border: none;
-  outline: none;
-  color: var(--input-text);
-  font-weight: 500;
-  transition: all 0.15s ease;
-}
-
-.input-field:focus {
-  box-shadow: 0 0 0 2px var(--primary);
-}
-
-/* Placeholder */
-.input-field::placeholder {
-  color: var(--input-placeholder);
-  font-weight: 400;
-}
-
-/* Ícone */
-.input-field-icon {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--input-placeholder);
-}
-
-.input-field-icon svg {
-  width: 1.25rem;
-  height: 1.25rem;
 }
 
 .user-type {

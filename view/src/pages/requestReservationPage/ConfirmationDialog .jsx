@@ -1,5 +1,4 @@
-import React from 'react';
-import './reservation-module.css';
+import './reservation.css';
 import { X } from 'lucide-react';
 
 const ConfirmationDialog = ({

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useFinishLoadingOnLabChange } from '../../public/usingLoadingScreen';
 import { LoginForm } from './loginForm';
 import { RegisterForm } from './registerForm';

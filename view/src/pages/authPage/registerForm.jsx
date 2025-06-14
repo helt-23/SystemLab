@@ -28,7 +28,6 @@ export const RegisterForm = () => {
   const handleSubmit = async () => {
     setError(null);
 
-    // simples validação de senha
     if (formData.password !== formData.passwordConfirm) {
       setError("As senhas não coincidem");
       return;

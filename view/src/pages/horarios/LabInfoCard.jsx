@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { Building, Users, Clock, Info, ChevronDown, ChevronUp } from "lucide-react";
-import LabDetailModal from "./LabDetailModal";
+import { Users, Clock, Info, ChevronDown, ChevronUp } from "lucide-react";
 import "./app.css";
 
 const LabInfoCard = ({ labDetails, setShowDetail, showDetail }) => {
@@ -8,9 +6,7 @@ const LabInfoCard = ({ labDetails, setShowDetail, showDetail }) => {
 
   return (
     <>
-      <div
-        className="lab-info-card">
-
+      <div className="lab-info-card">
         <div className="lab-info-card__content">
           <h2 className="lab-info-card__title">
             {labDetails.descricao}

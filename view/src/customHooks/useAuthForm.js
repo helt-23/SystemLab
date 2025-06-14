@@ -13,7 +13,6 @@ export const useAuthForm = (initialState, validate) => {
       [name]: value,
     });
 
-    // Limpar erro quando usuário digita
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: null }));
     }

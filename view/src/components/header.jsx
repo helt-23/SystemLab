@@ -13,7 +13,7 @@ export function Header() {
     : 'Sistema Integrado de Reservas de Laboratórios (SIRLAB)';
 
   const user = {
-    name: "Usuário",
+    name: "usuario",
     role: "Sobrevivente",
     photo: null
   };

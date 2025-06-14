@@ -76,14 +76,12 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  // Logout
   const logout = () => {
     setCurrentUser(null);
     setIsAuthenticated(false);
     localStorage.removeItem('user');
   };
 
-  // Atualizar usuário
   const updateUser = (updatedData) => {
     const updatedUser = { ...currentUser, ...updatedData };
     setCurrentUser(updatedUser);

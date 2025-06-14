@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './reservation-module.css';
+import './reservation.css';
 import { X, File } from 'lucide-react';
 import useReservationForm from '../../customHooks/useReservationForm';
 import ConfirmationDialog from './ConfirmationDialog .jsx';

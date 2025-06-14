@@ -1,3 +1,6 @@
+import '../assets/styles/input.css';
+import { useState } from 'react';
+
 export const InputField = ({
   type = 'text',
   placeholder,
@@ -7,11 +10,14 @@ export const InputField = ({
   required,
   ...props
 }) => {
+  const [touched, setTouched] = useState(false);
+  const showError = Boolean(error) && touched;
+
   return (
-    <div className="input-field-container relative mb-4">
-      <div className="relative">
+    <div className="input-field-container">
+      <div className="input-wrapper">
         {Icon && (
-          <div className="input-field-icon absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10 pointer-events-none">
+          <div className="input-field-icon">
             <Icon />
           </div>
         )}
@@ -19,21 +25,17 @@ export const InputField = ({
           type={type}
           placeholder={placeholder}
           name={name}
-          className={`input-field w-full px-4 py-2 ${Icon ? 'pl-10' : 'pl-4'
-            } pr-4 border rounded-lg focus:outline-none focus:ring-2 ${error ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
-            } relative z-0 bg-transparent`}
+          className={`input-field${Icon ? ' has-icon' : ''}${showError ? ' error' : ''}`}
           required={required}
-          aria-invalid={!!error}
-          aria-describedby={error ? `${name}-error` : undefined}
+          aria-invalid={showError}
+          aria-describedby={showError ? `${name}-error` : undefined}
+          onBlur={() => setTouched(true)}
           {...props}
         />
       </div>
 
-      {error && (
-        <div
-          id={`${name}-error`}
-          className="error-text text-red-500 text-xs mt-1 pl-1"
-        >
+      {showError && (
+        <div id={`${name}-error`} className="error-text">
           {error}
         </div>
       )}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   X,
@@ -8,19 +8,16 @@ import {
   LogOut,
   Info
 } from 'lucide-react';
-import { useLabData } from '../context/LabDataContext'; // Importe o hook
+import { useLabData } from '../context/LabDataContext';
+import '../assets/styles/menuaside.css'
 
 const MenuAside = ({ user, isOpen, onClose }) => {
   const location = useLocation();
   const { openBookingsModal, openProfileModal } = useLabData();
 
-  // Corrigindo o loop infinito
   useEffect(() => {
-    if (isOpen) {
-      onClose();
-    }
+    if (isOpen) onClose();
   }, [location]);
-
 
   const handleBookingsClick = () => {
     openBookingsModal();
@@ -30,41 +27,24 @@ const MenuAside = ({ user, isOpen, onClose }) => {
   const handleProfileClick = () => {
     openProfileModal();
     onClose();
-  }
+  };
 
   return (
     <>
       {/* Overlay de fundo */}
-      {isOpen && (
-        <div
-          className="menu-overlay"
-          onClick={onClose}
-          aria-hidden="true"
-        />
-      )}
+      {isOpen && <div className="menu-overlay" onClick={onClose} aria-hidden="true" />}
 
       {/* Menu Lateral */}
       <aside className={`menu-aside ${isOpen ? 'open' : ''}`}>
         <div className="menu-header">
-          <button
-            className="close-menu"
-            onClick={onClose}
-            aria-label="Fechar menu"
-          >
+          <button className="close-menu" onClick={onClose} aria-label="Fechar menu">
             <X size={24} />
           </button>
         </div>
 
-        {/* Perfil do Usuário */}
         <div className="user-profile">
           <div className="avatar">
-            {user.photo ? (
-              <img src={user.photo} alt={user.name} />
-            ) : (
-              <div className="avatar-placeholder">
-                <User size={40} />
-              </div>
-            )}
+            {user.photo ? <img src={user.photo} alt={user.name} /> : <div className="avatar-placeholder"><User size={40} /></div>}
           </div>
           <h3 className="user-name">{user.name}</h3>
           <p className="user-role">{user.role}</p>
@@ -72,19 +52,12 @@ const MenuAside = ({ user, isOpen, onClose }) => {
 
         {/* Itens do Menu */}
         <nav className="menu-items">
-          <button
-            className="menu-item w-full text-left"
-            onClick={handleProfileClick}
-          >
+          <button className="menu-item" onClick={handleProfileClick}>
             <User size={20} />
             <span>Editar Perfil</span>
           </button>
 
-          {/* Altere este item para abrir o modal */}
-          <button
-            className="menu-item w-full text-left"
-            onClick={handleBookingsClick}
-          >
+          <button className="menu-item" onClick={handleBookingsClick}>
             <Calendar size={20} />
             <span>Minhas Reservas</span>
           </button>

@@ -1,0 +1,54 @@
+.input-field-container {
+  position: relative;
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-field-icon {
+  position: absolute;
+  left: 0.75rem; /* 3 */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af; /* text-gray-400 */
+  pointer-events: none;
+  z-index: 10;
+}
+
+.input-field {
+  width: 100%; /* w-full */
+  padding: 0.5rem 1rem; /* py-2 px-4 */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  border-radius: 0.5rem; /* rounded-lg */
+  background: transparent;
+  outline: none;
+  position: relative;
+  z-index: 0;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.input-field.has-icon {
+  padding-left: 2.5rem; /* pl-10 when icon present */
+}
+
+.input-field:focus {
+  border-color: #3b82f6; /* focus:border-blue-500 fallback */
+  box-shadow: 0 0 0 2px rgba(191, 219, 254, 0.5); /* focus:ring-2 focus:ring-blue-200 */
+}
+
+.input-field.error {
+  border-color: #ef4444; /* border-red-500 */
+}
+
+.input-field.error:focus {
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.5); /* focus:ring-red-200 */
+}
+
+.error-text {
+  color: #ef4444; /* text-red-500 */
+  font-size: 0.75rem; /* text-xs */
+  margin-top: 0.25rem; /* mt-1 */
+  padding-left: 0.25rem; /* pl-1 */
+}

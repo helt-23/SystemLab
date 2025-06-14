@@ -220,7 +220,6 @@
   color: var(--pending);
 }
 
-/* Buttons */
 .cancel-button {
   background-color: var(--cancel);
   color: white;

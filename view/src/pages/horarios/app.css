@@ -47,7 +47,7 @@ body {
   margin-bottom: 2rem;
 }
 
-/* Estilos para LabInfoCard melhorado */
+/* Estilos para LabInfoCard*/
 .lab-info-card {
   background: linear-gradient(135deg, #1e3a8a, #2563eb);
   color: #f8fafc;
@@ -111,7 +111,7 @@ body {
   align-items: center;
   gap: 0.8rem;
   background: rgba(255, 255, 255, 0.15);
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1rem;
   border-radius: 12px;
   backdrop-filter: blur(4px);
   transition: all 0.3s ease;
@@ -123,9 +123,8 @@ body {
 }
 
 .lab-info-card__details-item .icon {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.5rem;
-  border-radius: 50%;
+  height: 30%;
+  width: 30%;
 }
 
 .lab-info-card__details-item div {
@@ -187,6 +186,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: none;
 }
 
 .lab-info-card__button:hover {

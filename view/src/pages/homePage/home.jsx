@@ -1,9 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import './home.css';
 import { LogoSystem } from '../../public/icones/SystemLogo'
 import { useFinishLoadingOnLabChange } from '../../public/usingLoadingScreen';
-import mapImage from '../../assets/styles/mapUnfifesspa.jpeg'
+import mapImage from '../../assets/images/mapUnfifesspa.jpeg'
 
 
 export function HomePage() {

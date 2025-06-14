@@ -1,16 +1,13 @@
-/* Footer.css */
-
-/* Variáveis de cor para modo claro/escuro */
 :root {
-  --footer-bg: #f3f4f6; /* bg-gray-100 */
-  --footer-border: #e5e7eb; /* border-gray-200 */
-  --footer-text: #4b5563; /* text-gray-600 */
+  --footer-bg: #f3f4f6;
+  --footer-border: #e5e7eb;
+  --footer-text: #4b5563;
 }
 
 html.dark {
-  --footer-bg: #374151; /* um cinza escuro para fundo */
-  --footer-border: #4b5563; /* borda um pouco mais clara */
-  --footer-text: #9ca3af; /* cinza médio para texto */
+  --footer-bg: #374151;
+  --footer-border: #4b5563;
+  --footer-text: #9ca3af;
 }
 
 .footer {

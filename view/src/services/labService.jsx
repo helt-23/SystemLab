@@ -1,5 +1,5 @@
 // src/services/labService.js
-import Imagem from '../assets/styles/lab24.jpeg';
+import Imagem from '../assets/images/lab24.jpeg';
 
 export const getBlocos = () => [
   {
