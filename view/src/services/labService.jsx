@@ -5,22 +5,22 @@ export const getBlocos = () => [
   {
     id: 'bloco-a',
     nome: 'Bloco 1',
-    laboratorios: ['lab-24', 'lab-102', 'lab-103', 'lab-104'] // +2 labs
+    laboratorios: ['lab-24', 'lab-102', 'lab-103', 'lab-104']
   },
   {
     id: 'bloco-b',
     nome: 'Bloco 2',
-    laboratorios: ['lab-201', 'lab-202', 'lab-203'] // +2 labs
+    laboratorios: ['lab-201', 'lab-202', 'lab-203']
   },
   {
     id: 'bloco-c',
     nome: 'Bloco 3',
-    laboratorios: ['lab-301', 'lab-302'] // +1 lab
+    laboratorios: ['lab-301', 'lab-302']
   },
   {
     id: 'bloco-d',
     nome: 'Bloco 4',
-    laboratorios: ['lab-401', 'lab-402', 'lab-403'] // +2 labs
+    laboratorios: ['lab-401', 'lab-402', 'lab-403']
   }
 ];
 export const getLaboratorios = () => ({

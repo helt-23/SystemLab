@@ -1,5 +1,5 @@
 // src/components/LabScheduleComponent.js
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Breadcrumb } from "../../components";
 import { BookingReservs } from "../../pages";
@@ -23,33 +23,100 @@ export function LabScheduleComponent() {
   const [currentShift, setCurrentShift] = useState("manhã");
   const [currentWeek, setCurrentWeek] = useState(0);
   const [showDetail, setShowDetail] = useState(false);
+
   const {
     getLabDetails,
     getLabSchedule,
     addUserBooking,
     userBookings
   } = useLabData();
+
   const labDetails = getLabDetails(labId);
   const scheduleData = getLabSchedule(labId);
   const labBookings = userBookings.filter((b) => b.labId === labId);
+
   const { horarios, horariosUnicos, diasSemana } = useSchedule(
     scheduleData,
     currentShift,
     labBookings
   );
+
+  // Usando o hook unificado
   const {
     reservationModal,
     openReservationModal,
     closeReservationModal,
-    handleReserveSubmit
+    selectedSlots,
+    reservationType,
+    description,
+    file,
+    formErrors,
+    showConfirmation,
+    reservationTypes,
+    handleSlotChange,
+    handleFileChange,
+    setReservationType,
+    setDescription,
+    validateForm,
+    resetForm,
+    handleReserveSubmit,
+    handleConfirmReservation,
+    setShowConfirmation
   } = useReservation(labId, addUserBooking);
+
   useFinishLoadingOnLabChange();
-  {/* const handleBackToLabs = () => navigate("/laboratorios"); */ }
+
+  // Calcular a data base para a semana atual
+  const weekStartDate = useMemo(() => {
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    const monday = new Date(today);
+    monday.setDate(today.getDate() + diffToMonday + currentWeek * 7);
+
+    // Garantir que a data é válida
+    if (isNaN(monday.getTime())) {
+      console.error("Data inválida calculada, usando data atual");
+      return new Date();
+    }
+
+    return monday;
+  }, [currentWeek]);
+
   const handleCellClick = (dia) => {
     const daySlots = horarios.filter(
       (h) => h.diaSemana === dia && h.tipo === "livre"
     );
-    openReservationModal(dia, daySlots);
+
+    // Mapeamento robusto para nomes completos e abreviados
+    const dayMapping = {
+      "seg": "segunda", "segunda": "segunda",
+      "ter": "terça", "terça": "terça", "terca": "terça",
+      "qua": "quarta", "quarta": "quarta",
+      "qui": "quinta", "quinta": "quinta",
+      "sex": "sexta", "sexta": "sexta"
+    };
+
+    const diaNormalizado = dayMapping[dia.toLowerCase()] || dia;
+
+    const dateForDay = new Date(weekStartDate);
+
+    const dayIndexMap = {
+      "segunda": 0,
+      "terça": 1,
+      "quarta": 2,
+      "quinta": 3,
+      "sexta": 4
+    };
+
+    if (dayIndexMap[diaNormalizado] !== undefined) {
+      dateForDay.setDate(weekStartDate.getDate() + dayIndexMap[diaNormalizado]);
+    } else {
+      console.warn(`Dia da semana não mapeado: ${dia} (normalizado: ${diaNormalizado})`);
+    }
+
+    // Passamos também os detalhes do laboratório para o modal
+    openReservationModal(diaNormalizado, dateForDay, daySlots, labDetails);
   };
 
   if (!labDetails || !scheduleData) {
@@ -58,14 +125,6 @@ export function LabScheduleComponent() {
 
   return (
     <div className="lab-schedule">
-
-      {/*     <div className="back-button-container">
-        <button onClick={handleBackToLabs} className="back-to-labs-button">
-          <ArrowLeft size={18} />
-          <span>Voltar</span>
-        </button>
-      </div>*/}
-
       <main className="main-content">
         <Breadcrumb />
         <div className="schedule-container">
@@ -105,10 +164,26 @@ export function LabScheduleComponent() {
           isOpen={reservationModal.open}
           onClose={closeReservationModal}
           day={reservationModal.day}
+          date={reservationModal.date}
           timeSlots={reservationModal.timeSlots}
-          labDetails={labDetails}
-          onReserve={(data) => handleReserveSubmit(data, labDetails)}
+          labDetails={reservationModal.labDetails}
+
+          selectedSlots={selectedSlots}
+          handleSlotChange={handleSlotChange}
+          reservationType={reservationType}
+          setReservationType={setReservationType}
+          description={description}
+          setDescription={setDescription}
+          file={file}
+          handleFileChange={handleFileChange}
+          formErrors={formErrors}
+          reservationTypes={reservationTypes}
+          validateForm={validateForm}
+          showConfirmation={showConfirmation}
+          setShowConfirmation={setShowConfirmation}
+          handleConfirmReservation={handleConfirmReservation}
         />
+
         <BookingReservs />
         <ProfileEditModal />
         <LabDetailModal

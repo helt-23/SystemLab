@@ -27,7 +27,6 @@ export function LabSelection() {
     getLabSchedule(labId);
     navigate(`/laboratorios/${labId}`);
   };
-
   return (
     <div className="app-container">
       <main className="main-content-lab">
@@ -36,7 +35,6 @@ export function LabSelection() {
           blocoSelecionado={blocoSelecionado}
           setBlocoSelecionado={setBlocoSelecionado}
         />
-
         <section className="labs-section">
           <select
             className="block-select"
@@ -50,11 +48,9 @@ export function LabSelection() {
             ))}
           </select>
           <Breadcrumb />
-
           <h3 className="section-title">
             Laboratórios em {blocoAtual?.nome}
           </h3>
-
           <div className="labs-grid">
             {labsDoBloco.map((lab) => (
               <div className="card-container" key={lab.id}>

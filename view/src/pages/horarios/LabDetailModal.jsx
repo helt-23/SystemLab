@@ -20,68 +20,97 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
 
         <div className="modal-header">
           <h2 className="modal__title">{labDetails.nome || "Laboratório"}</h2>
-          <div className="lab-info">
-            <span className="lab-capacity">Capacidade: {labDetails.lugares} pessoas</span>
+          <div className="lab-status-container">
             <span className={`lab-status ${labDetails.disponivel ? 'available' : 'occupied'}`}>
               {labDetails.disponivel ? 'Disponível' : 'Ocupado'}
+            </span>
+            <span className="lab-capacity">
+              {labDetails.lugares} lugares
             </span>
           </div>
         </div>
 
         <div className="modal-content">
-          <section className="info-section">
-            <h3>Descrição</h3>
-            <p className="modal__text">{labDetails.descricao || "Sem descrição disponível"}</p>
-            <p className="modal__text">{labDetails.detalhe || "Sem detalhe disponível"}</p>
-          </section>
+          <div className="info-card">
+            <div className="info-card-header">
+              <h3>Descrição</h3>
+            </div>
+            <div className="info-card-content">
+              <p className="modal__text">{labDetails.descricao || "Sem descrição disponível"}</p>
+              <p className="modal__text">{labDetails.detalhe || "Sem detalhe disponível"}</p>
+            </div>
+          </div>
 
           <div className="grid-layout">
-            <section className="info-section">
-              <h3>Hardwares</h3>
-              <ul className="item-list">
+            <div className="info-card">
+              <div className="info-card-header">
+                <h3>Hardwares</h3>
+              </div>
+              <div className="info-card-content">
                 {hardwares.length > 0 ? (
-                  hardwares.map((hardware, index) => (
-                    <li key={index} className="item">
-                      <span className="item-name">{hardware.nome}</span>
-                      <span className="item-details">
-                        {hardware.quantidade} unidades • {hardware.especificacao}
-                      </span>
-                    </li>
-                  ))
+                  <ul className="item-list">
+                    {hardwares.map((hardware, index) => (
+                      <li key={index} className="item">
+                        <div className="item-info">
+                          <span className="item-name">{hardware.nome}</span>
+                          <span className="item-spec">{hardware.especificacao}</span>
+                        </div>
+                        <span className="item-quantity">{hardware.quantidade} unidades</span>
+                      </li>
+                    ))}
+                  </ul>
                 ) : (
-                  <p>Nenhum hardware cadastrado</p>
+                  <p className="no-items">Nenhum hardware cadastrado</p>
                 )}
-              </ul>
-            </section>
+              </div>
+            </div>
 
-            <section className="info-section">
-              <h3>Softwares</h3>
-              <ul className="item-list">
+            <div className="info-card">
+              <div className="info-card-header">
+                <h3>Softwares</h3>
+              </div>
+              <div className="info-card-content">
                 {softwares.length > 0 ? (
-                  softwares.map((software, index) => (
-                    <li key={index} className="item">
-                      <span className="item-name">{software.nome}</span>
-                      <span className="item-details">
-                        Versão {software.versao} • {software.licenca}
-                      </span>
-                    </li>
-                  ))
+                  <ul className="item-list">
+                    {softwares.map((software, index) => (
+                      <li key={index} className="item">
+                        <div className="item-info">
+                          <span className="item-name">{software.nome}</span>
+                          <span className="item-spec">Versão {software.versao}</span>
+                        </div>
+                        <span className="item-license">{software.licenca}</span>
+                      </li>
+                    ))}
+                  </ul>
                 ) : (
-                  <p>Nenhum software cadastrado</p>
+                  <p className="no-items">Nenhum software cadastrado</p>
                 )}
-              </ul>
-            </section>
+              </div>
+            </div>
           </div>
 
           {labDetails.responsavel && (
-            <section className="info-section">
-              <h3>Responsável</h3>
-              <div className="responsavel-info">
-                <span>{labDetails.responsavel.nome}</span>
-                <span>{labDetails.responsavel.email}</span>
-                <span>{labDetails.responsavel.telefone}</span>
+            <div className="info-card">
+              <div className="info-card-header">
+                <h3>Responsável</h3>
               </div>
-            </section>
+              <div className="info-card-content">
+                <div className="contact-info">
+                  <div className="contact-item">
+                    <span className="contact-label">Nome:</span>
+                    <span className="contact-value">{labDetails.responsavel.nome}</span>
+                  </div>
+                  <div className="contact-item">
+                    <span className="contact-label">Email:</span>
+                    <span className="contact-value">{labDetails.responsavel.email}</span>
+                  </div>
+                  <div className="contact-item">
+                    <span className="contact-label">Telefone:</span>
+                    <span className="contact-value">{labDetails.responsavel.telefone}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>

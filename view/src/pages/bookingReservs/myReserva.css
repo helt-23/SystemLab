@@ -13,7 +13,7 @@
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Modal Overlay */
+/* Modal Overlay - Modificado para centralizar verticalmente */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -24,18 +24,19 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
   z-index: 1000;
   padding: 20px;
   overflow-y: auto;
 }
 
-/* Reservations Page */
+/* Reservations Page - Altura aumentada */
 .reservations-page {
   width: 100%;
   max-width: 1100px;
-  max-height: 90vh;
+  height: 90vh; /* Altura fixa em 90% da viewport */
+  max-height: 90vh; /* Altura máxima */
   background: linear-gradient(
     135deg,
     var(--primary-dark),
@@ -44,19 +45,20 @@
   box-shadow: var(--shadow);
   border-radius: var(--border-radius);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Reservations Container */
+/* Reservations Container - Altura ajustada */
 .reservations-container {
   width: 100%;
-  max-height: calc(100vh - 40px);
+  height: 100%; /* Ocupa toda altura disponível */
   background: var(--light-bg);
-  padding: 10px;
+  padding: 20px; /* Padding aumentado */
   position: relative;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  max-height: calc(90vh - 60px);
   border-radius: var(--border-radius);
 }
 
@@ -68,13 +70,13 @@
 }
 
 .reservations-title {
-  font-size: 1.6rem;
+  font-size: 1.8rem; /* Tamanho aumentado */
   font-weight: bold;
   color: var(--secondary);
   position: relative;
   display: inline-block;
-  padding-bottom: 12px;
-  margin-top: -5px;
+  padding-bottom: 15px; /* Espaçamento aumentado */
+  margin-top: 5px;
 }
 
 .reservations-title::after {
@@ -83,24 +85,25 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 70px;
-  height: 4px;
+  width: 90px; /* Largura aumentada */
+  height: 5px; /* Altura aumentada */
   background-color: var(--secondary);
 }
 
-/* Reservation List */
+/* Reservation List - Altura ajustada */
 .reservation-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 25px;
   padding: 15px;
-  flex-grow: 1;
+  flex-grow: 1; /* Ocupa espaço disponível */
   overflow-y: auto;
+  max-height: calc(90vh - 200px); /* Altura máxima calculada */
 }
 
 /* Scrollbar */
 .reservation-list::-webkit-scrollbar {
-  width: 8px;
+  width: 10px; /* Largura aumentada */
 }
 
 .reservation-list::-webkit-scrollbar-track {
@@ -113,17 +116,17 @@
   border-radius: 10px;
 }
 
-/* Reservation Card */
+/* Reservation Card - Altura aumentada */
 .reservation-card {
   background: var(--light-bg);
   border-radius: var(--border-radius);
-  padding: 20px;
+  padding: 25px; /* Padding aumentado */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   border-left: 5px solid var(--primary-medium);
   display: flex;
   flex-direction: column;
-  min-height: 280px;
+  min-height: 320px; /* Altura mínima aumentada */
 }
 
 .reservation-card:hover {
@@ -133,8 +136,8 @@
 
 /* Card Header */
 .card-header {
-  margin-bottom: 15px;
-  padding-bottom: 12px;
+  margin-bottom: 20px; /* Espaçamento aumentado */
+  padding-bottom: 15px; /* Espaçamento aumentado */
   border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
@@ -142,7 +145,7 @@
 }
 
 .room-number {
-  font-size: 1.3rem;
+  font-size: 1.4rem; /* Tamanho aumentado */
   color: var(--secondary);
   font-weight: 600;
   display: flex;
@@ -153,9 +156,9 @@
   background: var(--primary-medium);
   color: white;
   border-radius: 4px;
-  padding: 3px 10px;
-  margin-right: 10px;
-  font-size: 0.95rem;
+  padding: 4px 12px; /* Padding aumentado */
+  margin-right: 12px; /* Espaçamento aumentado */
+  font-size: 1rem; /* Tamanho aumentado */
   font-weight: 500;
 }
 
@@ -165,25 +168,25 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 5px 0;
+  padding: 10px 0; /* Padding aumentado */
 }
 
 .detail-row {
   display: flex;
-  margin-bottom: 12px;
+  margin-bottom: 15px; /* Espaçamento aumentado */
   align-items: flex-start;
 }
 
 .detail-label {
   color: var(--secondary);
   font-weight: 600;
-  min-width: 120px;
-  font-size: 0.95rem;
+  min-width: 140px; /* Largura aumentada */
+  font-size: 1rem; /* Tamanho aumentado */
 }
 
 .detail-value {
   color: #555;
-  font-size: 0.95rem;
+  font-size: 1rem; /* Tamanho aumentado */
   flex-grow: 1;
 }
 
@@ -192,15 +195,15 @@
   color: var(--primary-medium);
   font-weight: 600;
   background: rgba(59, 130, 246, 0.1);
-  padding: 2px 8px;
+  padding: 3px 10px; /* Padding aumentado */
   border-radius: 4px;
-  font-size: 0.85rem;
+  font-size: 0.9rem; /* Tamanho aumentado */
 }
 
 .status-badge {
-  padding: 4px 12px;
+  padding: 5px 15px; /* Padding aumentado */
   border-radius: 15px;
-  font-size: 0.85rem;
+  font-size: 0.9rem; /* Tamanho aumentado */
   font-weight: 600;
   display: inline-block;
 }
@@ -224,7 +227,7 @@
   background-color: var(--cancel);
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 12px 18px; /* Padding aumentado */
   border-radius: 5px;
   cursor: pointer;
   font-weight: 500;
@@ -232,9 +235,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 1rem;
-  margin-top: 15px;
+  gap: 10px; /* Espaçamento aumentado */
+  font-size: 1.1rem; /* Tamanho aumentado */
+  margin-top: 20px; /* Espaçamento aumentado */
   width: 100%;
 }
 
@@ -244,18 +247,18 @@
 
 .close-modal {
   position: absolute;
-  top: 25px;
-  right: 25px;
+  top: 30px; /* Posição ajustada */
+  right: 30px; /* Posição ajustada */
   background: none;
   border: none;
   color: var(--secondary);
   cursor: pointer;
-  font-size: 1.8rem;
+  font-size: 2rem; /* Tamanho aumentado */
   transition: all 0.2s;
   padding: 5px;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 45px; /* Largura aumentada */
+  height: 45px; /* Altura aumentada */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -273,19 +276,20 @@
   align-items: center;
   justify-content: center;
   flex-grow: 1;
-  padding: 40px 20px;
+  padding: 50px 20px; /* Padding aumentado */
   text-align: center;
+  height: 100%; /* Altura total */
 }
 
 .div-semReserva h3 {
-  font-size: 1.8rem;
+  font-size: 2rem; /* Tamanho aumentado */
   color: #555;
-  margin-bottom: 15px;
+  margin-bottom: 20px; /* Espaçamento aumentado */
 }
 
 .div-semReserva p {
   color: #777;
-  font-size: 1.1rem;
+  font-size: 1.2rem; /* Tamanho aumentado */
   max-width: 500px;
 }
 
@@ -296,28 +300,29 @@
   }
 
   .reservations-container {
-    padding: 25px 15px;
+    padding: 30px 20px; /* Padding aumentado */
   }
 
   .reservations-title {
-    font-size: 1.8rem;
+    font-size: 1.9rem; /* Tamanho aumentado */
     font-weight: bold;
   }
 
   .close-modal {
-    top: 15px;
-    right: 15px;
+    top: 20px; /* Posição ajustada */
+    right: 20px; /* Posição ajustada */
   }
 }
 
 @media (max-width: 500px) {
   .reservation-card {
     min-height: auto;
+    padding: 20px; /* Padding mantido */
   }
 
   .detail-row {
     flex-direction: column;
-    gap: 5px;
+    gap: 8px; /* Espaçamento aumentado */
   }
 
   .detail-label {
@@ -325,6 +330,10 @@
   }
 
   .reservations-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem; /* Tamanho aumentado */
+  }
+
+  .modal-overlay {
+    padding: 10px; /* Padding reduzido em mobile */
   }
 }

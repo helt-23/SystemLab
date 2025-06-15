@@ -1,52 +1,40 @@
-import React, { useState } from 'react';
+// src/components/requestReservationPage/reservationModal.jsx
+import React from 'react';
 import './reservation.css';
 import { X, File } from 'lucide-react';
-import useReservationForm from '../../customHooks/useReservationForm';
-import ConfirmationDialog from './ConfirmationDialog .jsx';
+import ConfirmationDialog from '../../public/ConfirmationDialog ';
 
 const ReservationModal = ({
   isOpen,
   onClose,
   day,
-  timeSlots,
-  onReserve
+  date,
+  timeSlots = [],
+  labDetails,
+
+  // Propriedades do hook
+  selectedSlots,
+  handleSlotChange,
+  reservationType,
+  setReservationType,
+  description,
+  setDescription,
+  file,
+  handleFileChange,
+  formErrors,
+  reservationTypes,
+  validateForm,
+  showConfirmation,
+  setShowConfirmation,
+  handleConfirmReservation
 }) => {
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const availableSlots = timeSlots.filter(slot => slot?.tipo === "livre");
 
-  const {
-    selectedSlots,
-    reservationType,
-    description,
-    file,
-    errors,
-    reservationTypes,
-    handleSlotChange,
-    handleFileChange,
-    setReservationType,
-    setDescription,
-    validateForm,
-    resetForm
-  } = useReservationForm();
-
-  const availableSlots = timeSlots.filter(slot => slot.tipo === "livre");
-
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (validateForm()) {
       setShowConfirmation(true);
     }
-  };
-
-  const handleConfirmReservation = () => {
-    onReserve({
-      day,
-      slots: selectedSlots,
-      type: reservationType,
-      description,
-      file
-    });
-    resetForm();
-    setShowConfirmation(false);
-    onClose();
   };
 
   if (!isOpen) return null;
@@ -60,98 +48,120 @@ const ReservationModal = ({
           </button>
 
           <h2 className="modal-title">Solicitar Reserva</h2>
-          <p className="modal-subtitle">Dia: {day}</p>
-          <div className="form-section">
-            <h3 className="section-title">Horários Disponíveis</h3>
-            {availableSlots.length === 0 ? (
-              <p>Não há horários disponíveis para este dia.</p>
-            ) : (
-              <div className="time-slots">
-                {availableSlots.map((slot, index) => (
-                  <div key={index} className="slot-item">
-                    <label className="slot-label">
-                      <input
-                        type="checkbox"
-                        checked={selectedSlots.includes(slot.horario)}
-                        onChange={() => handleSlotChange(slot.horario)}
-                        className="slot-checkbox"
-                      />
-                      <span className="slot-time">{slot.horario}</span>
-                    </label>
-                  </div>
+          <div className="modal-subtitle">
+            <p>Dia: {day || "Não especificado"}</p>
+            {date && <p>Data: {date.toLocaleDateString('pt-BR')}</p>}
+          </div>
+
+          <form onSubmit={handleSubmit}>
+            <div className="form-section">
+              <h3 className="section-title">Horários Disponíveis</h3>
+              {availableSlots.length === 0 ? (
+                <p>Não há horários disponíveis para este dia.</p>
+              ) : (
+                <div className="time-slots">
+                  {availableSlots.map((slot, index) => {
+                    const horario = slot.horario || `Slot ${index + 1}`;
+                    return (
+                      <div key={`${horario}-${index}`} className="slot-item">
+                        <label className="slot-label">
+                          <input
+                            type="checkbox"
+                            checked={selectedSlots.includes(horario)}
+                            onChange={() => handleSlotChange(horario)}
+                            className="slot-checkbox"
+                          />
+                          <span className="slot-time">{horario}</span>
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+              {formErrors.slots && <p className="error-message">{formErrors.slots}</p>}
+            </div>
+
+            <div className="form-section">
+              <h3 className="section-title">Tipo de Reserva</h3>
+              <select
+                value={reservationType}
+                onChange={(e) => setReservationType(e.target.value)}
+                className="reservation-select"
+              >
+                <option value="">Selecione um tipo</option>
+                {reservationTypes.map((type) => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
+                  </option>
                 ))}
-              </div>
-            )}
-            {errors.slots && <p className="error-message">{errors.slots}</p>}
-          </div>
+              </select>
+              {formErrors.reservationType && (
+                <p className="error-message">{formErrors.reservationType}</p>
+              )}
+            </div>
 
-          <div className="form-section">
-            <h3 className="section-title">Tipo de Reserva</h3>
-            <select
-              value={reservationType}
-              onChange={(e) => setReservationType(e.target.value)}
-              className="reservation-select"
-            >
-              <option value="">Selecione um tipo</option>
-              {reservationTypes.map((type) => (
-                <option key={type.value} value={type.value}>
-                  {type.label}
-                </option>
-              ))}
-            </select>
-            {errors.reservationType && (
-              <p className="error-message">{errors.reservationType}</p>
-            )}
-          </div>
-
-          <div className="form-section">
-            <h3 className="section-title">Descrição</h3>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Descreva o objetivo da reserva..."
-              className="reservation-textarea"
-              rows={4}
-            />
-            {errors.description && (
-              <p className="error-message">{errors.description}</p>
-            )}
-          </div>
-
-          <div className="form-section">
-            <h3 className="section-title">Documento (PDF)</h3>
-            <label className="file-upload">
-              <input
-                type="file"
-                accept=".pdf"
-                onChange={handleFileChange}
-                className="file-input"
+            <div className="form-section">
+              <h3 className="section-title">Descrição</h3>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Descreva o objetivo da reserva..."
+                className="reservation-textarea"
+                rows={4}
               />
-              <div className="file-upload-label">
-                <File size={16} />
-                <span>{file ? file.name : 'Selecionar arquivo'}</span>
-              </div>
-            </label>
-            {errors.file && <p className="error-message">{errors.file}</p>}
-          </div>
-          <div className="modal-actions">
-            <button className="action-button cancel" onClick={onClose}>
-              Voltar
-            </button>
-            <button className="action-button confirm" onClick={handleSubmit}>
-              Confirmar Solicitação
-            </button>
-          </div>
+              {formErrors.description && (
+                <p className="error-message">{formErrors.description}</p>
+              )}
+            </div>
+
+            <div className="form-section">
+              <h3 className="section-title">Documento (PDF)</h3>
+              <label className="file-upload">
+                <input
+                  type="file"
+                  accept=".pdf"
+                  onChange={handleFileChange}
+                  className="file-input"
+                />
+                <div className="file-upload-label">
+                  <File size={16} />
+                  <span>{file ? file.name : 'Selecionar arquivo'}</span>
+                </div>
+              </label>
+              {formErrors.file && <p className="error-message">{formErrors.file}</p>}
+            </div>
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="action-button cancel"
+                onClick={onClose}
+              >
+                Voltar
+              </button>
+              <button
+                type="submit"
+                className="action-button confirm"
+              >
+                Confirmar Solicitação
+              </button>
+            </div>
+          </form>
         </div>
       </div>
 
-      {/* Diálogo de confirmação genérico */}
       <ConfirmationDialog
         isOpen={showConfirmation}
         onClose={() => setShowConfirmation(false)}
         onConfirm={handleConfirmReservation}
         title="Confirmar Reserva"
-        message="Tem certeza que deseja confirmar esta reserva?"
+        message={
+          <div>
+            <p className='mensage-reservation'>Tem certeza que deseja confirmar esta reserva?</p>
+            {date && <p><strong>Data:</strong> {date.toLocaleDateString('pt-BR')}</p>}
+            <p><strong>Horários:</strong> {selectedSlots.join(', ') || "Nenhum horário selecionado"}</p>
+          </div>
+        }
         confirmText="Confirmar"
         cancelText="Voltar"
       />
