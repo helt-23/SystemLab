@@ -1,79 +1,88 @@
+// src/hooks/useAuthForm.js
 import { useState } from "react";
 
-export const useAuthForm = (initialState, validate) => {
+export const useAuthForm = (initialState, validationRules) => {
   const [formData, setFormData] = useState(initialState);
-  const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [submitError, setSubmitError] = useState(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Limpa erros quando o usuário começa a digitar
+    if (fieldErrors[name]) {
+      setFieldErrors((prev) => ({ ...prev, [name]: null }));
+    }
+  };
+
+  const validateField = (name, value) => {
+    if (!validationRules[name]) return null;
+
+    for (const rule of validationRules[name]) {
+      if (!rule.validator(value, formData)) {
+        return rule.message;
+      }
+    }
+    return null;
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    let isValid = true;
+
+    Object.keys(validationRules).forEach((field) => {
+      const error = validateField(field, formData[field]);
+      if (error) {
+        newErrors[field] = error;
+        isValid = false;
+      }
     });
 
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: null }));
-    }
-
-    // Marcar como tocado após primeira interação
-    if (!touched[name]) {
-      setTouched((prev) => ({ ...prev, [name]: true }));
-    }
+    setFieldErrors(newErrors);
+    return isValid;
   };
 
-  const handleBlur = (e) => {
-    const { name } = e.target;
-    setTouched((prev) => ({ ...prev, [name]: true }));
-
-    // Validar campo ao sair
-    const error = validate(name, formData[name], formData);
-    setErrors((prev) => ({ ...prev, [name]: error }));
-  };
-
-  const handleSubmit = async (callback) => {
+  const handleSubmit = async (authAction) => {
+    setSubmitError(null);
     setIsSubmitting(true);
 
-    // Marcar todos campos como tocados
-    const newTouched = {};
-    Object.keys(formData).forEach((key) => {
-      newTouched[key] = true;
-    });
-    setTouched(newTouched);
-
-    // Validar todos os campos
-    const newErrors = {};
-    Object.keys(formData).forEach((key) => {
-      const error = validate(key, formData[key], formData);
-      if (error) newErrors[key] = error;
-    });
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length > 0) {
+    if (!validateForm()) {
       setIsSubmitting(false);
-      return { success: false, errors: newErrors };
+      return { success: false };
     }
 
     try {
-      const result = await callback(formData);
-      return { success: true, data: result };
+      await authAction(formData);
+      setSubmitSuccess(true);
+      return { success: true };
     } catch (error) {
-      return { success: false, error: error.message };
+      setSubmitError(error.message || "Erro na operação");
+      return { success: false, error };
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const resetForm = () => {
+    setFormData(initialState);
+    setFieldErrors({});
+    setSubmitError(null);
+    setSubmitSuccess(false);
+  };
+
   return {
     formData,
-    errors,
-    touched,
+    fieldErrors,
+    submitError,
+    submitSuccess,
     isSubmitting,
     handleChange,
-    handleBlur,
     handleSubmit,
+    resetForm,
     setFormData,
+    setSubmitSuccess,
   };
 };

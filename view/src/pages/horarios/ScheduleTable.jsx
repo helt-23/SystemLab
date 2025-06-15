@@ -1,7 +1,4 @@
-import React from "react";
-
 const ScheduleTable = ({ diasSemana, horariosUnicos, horarios, onCellClick }) => {
-  // Mapeamento dos tipos para classes CSS
   const statusClassMap = {
     livre: "available",
     reservado: "reserved",

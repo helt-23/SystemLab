@@ -1,81 +1,55 @@
 // src/pages/RegisterForm.jsx
-import React, { useState } from "react";
 import { InputField } from "../../components/inputField";
 import { FaUser, FaEnvelope, FaIdBadge, FaLock, FaKey } from "react-icons/fa";
 import { useAuth } from "../../context/authContext";
+import { useAuthForm } from "../../customHooks/useAuthForm";
+import { registerValidations } from "./validations";
 
 export const RegisterForm = () => {
   const { register } = useAuth();
-  const [success, setSuccess] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const {
+    formData,
+    fieldErrors,
+    submitError,
+    submitSuccess,
+    isSubmitting,
+    handleChange,
+    handleSubmit,
+    resetForm
+  } = useAuthForm(
+    {
+      name: "",
+      email: "",
+      matricula: "",
+      password: "",
+      passwordConfirm: "",
+      role: "student",
+    },
+    registerValidations
+  );
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    matricula: "",
-    password: "",
-    passwordConfirm: "",
-    role: "student",
-  });
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const result = await handleSubmit(register);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    setError(null);
-  };
-
-  const handleSubmit = async () => {
-    setError(null);
-
-    if (formData.password !== formData.passwordConfirm) {
-      setError("As senhas não coincidem");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      await register(formData);
-      setSuccess(true);
-      setTimeout(() => {
-        setSuccess(false);
-      }, 3000);
-      setFormData({
-        name: "",
-        email: "",
-        matricula: "",
-        password: "",
-        passwordConfirm: "",
-        role: "student",
-      });
-    } catch (err) {
-      setError(err.message || "Ocorreu um erro no registro");
-    } finally {
-      setLoading(false);
+    if (result.success) {
+      resetForm();
     }
   };
 
   return (
     <div className="form-box register active">
-      <form
-        className="w-full"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-      >
+      <form className="w-full" onSubmit={handleRegister}>
         <h1 className="title">AUTOREGISTRO</h1>
 
-        {success && (
+        {submitSuccess && (
           <div className="success-message bg-green-400">
-            realizado com sucesso!
+            Cadastro realizado com sucesso!
           </div>
         )}
 
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
+        {submitError && (
+          <div className="error-message">{submitError}</div>
         )}
 
         <InputField
@@ -85,6 +59,7 @@ export const RegisterForm = () => {
           icon={FaUser}
           value={formData.name}
           onChange={handleChange}
+          error={fieldErrors.name}
           required
         />
 
@@ -95,6 +70,7 @@ export const RegisterForm = () => {
           icon={FaEnvelope}
           value={formData.email}
           onChange={handleChange}
+          error={fieldErrors.email}
           required
         />
 
@@ -105,6 +81,7 @@ export const RegisterForm = () => {
           icon={FaIdBadge}
           value={formData.matricula}
           onChange={handleChange}
+          error={fieldErrors.matricula}
           required
         />
 
@@ -115,6 +92,7 @@ export const RegisterForm = () => {
           icon={FaLock}
           value={formData.password}
           onChange={handleChange}
+          error={fieldErrors.password}
           required
         />
 
@@ -125,6 +103,7 @@ export const RegisterForm = () => {
           icon={FaKey}
           value={formData.passwordConfirm}
           onChange={handleChange}
+          error={fieldErrors.passwordConfirm}
           required
         />
 
@@ -139,8 +118,12 @@ export const RegisterForm = () => {
           <option value="admin">Bolsista</option>
         </select>
 
-        <button type="submit" className="btn" disabled={loading}>
-          {loading ? "Carregando..." : "Registrar"}
+        <button
+          type="submit"
+          className="btn"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Carregando..." : "Registrar"}
         </button>
       </form>
     </div>

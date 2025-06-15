@@ -1,57 +1,44 @@
 // src/pages/LoginForm.jsx
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputField } from "../../components/inputField";
 import { FaUser, FaLock } from "react-icons/fa";
 import { useAuth } from "../../context/authContext";
+import { useAuthForm } from "../../customHooks/useAuthForm";
+import { loginValidations } from "./validations";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
   const { login, isLoading: authLoading } = useAuth();
-  const [error, setError] = useState(null);
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
-  const [fieldErrors, setFieldErrors] = useState({});
+  const {
+    formData,
+    fieldErrors,
+    submitError,
+    isSubmitting,
+    handleChange,
+    handleSubmit
+  } = useAuthForm(
+    { username: "", password: "" },
+    loginValidations
+  );
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    if (fieldErrors[name]) {
-      setFieldErrors((prev) => ({ ...prev, [name]: null }));
-    }
-  };
-
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setError(null);
+    const result = await handleSubmit(login);
 
-    const newErrors = {};
-    if (!formData.username.trim()) newErrors.username = "Usuário é obrigatório";
-    if (!formData.password) newErrors.password = "Senha é obrigatória";
-
-    if (Object.keys(newErrors).length > 0) {
-      setFieldErrors(newErrors);
-      return;
-    }
-    try {
-      await login(formData);
+    if (result.success) {
       navigate("/laboratorios");
-    } catch {
-      setError("Credenciais inválidas. Tente novamente.");
     }
   };
 
   return (
     <div className="form-box login active">
-      <form className="w-full" onSubmit={handleSubmit}>
+      <form className="w-full" onSubmit={handleLogin}>
         <h1 className="title">LOGIN</h1>
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
+
+        {submitError && (
+          <div className="error-message">{submitError}</div>
         )}
+
         <InputField
           name="username"
           type="text"
@@ -62,6 +49,7 @@ export const LoginForm = () => {
           error={fieldErrors.username}
           required
         />
+
         <InputField
           name="password"
           type="password"
@@ -72,17 +60,19 @@ export const LoginForm = () => {
           error={fieldErrors.password}
           required
         />
+
         <div className="my-6">
           <a href="#" className="text-sm hover:underline">
             Esqueceu sua Senha?
           </a>
         </div>
+
         <button
           type="submit"
           className="btn"
-          disabled={authLoading}
+          disabled={authLoading || isSubmitting}
         >
-          {authLoading ? "Carregando..." : "Acessar"}
+          {(authLoading || isSubmitting) ? "Carregando..." : "Acessar"}
         </button>
       </form>
     </div>

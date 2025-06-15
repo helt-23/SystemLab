@@ -44,7 +44,7 @@ export function LabScheduleComponent() {
     handleReserveSubmit
   } = useReservation(labId, addUserBooking);
   useFinishLoadingOnLabChange();
-  const handleBackToLabs = () => navigate("/laboratorios");
+  {/* const handleBackToLabs = () => navigate("/laboratorios"); */ }
   const handleCellClick = (dia) => {
     const daySlots = horarios.filter(
       (h) => h.diaSemana === dia && h.tipo === "livre"

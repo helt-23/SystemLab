@@ -72,7 +72,6 @@ html.dark {
 
 /* Header fixo */
 .app-header {
-  position: sticky;
   top: 0;
   display: flex;
   align-items: center;
@@ -93,10 +92,9 @@ html.dark {
 }
 
 .header-spacer {
-  width: 40px; /* Mesma largura do botão para equilibrar */
+  width: 40px;
 }
 
-/* Botão Hamburguer */
 .menu-toggle {
   width: 40px;
   height: 40px;
@@ -139,69 +137,4 @@ html.dark {
   width: 50px;
   height: 26px;
   margin-right: 1rem; /* Espaço entre o toggle e o menu */
-}
-
-/* Input checkbox oculto */
-.theme-switch-input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  position: absolute;
-}
-
-/* Label que faz o papel de track/background */
-.theme-switch-label {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: #e5e7eb; /* cinza-claro */
-  border-radius: 13px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  position: relative;
-}
-
-/* Círculo interno que se move */
-.switch-circle {
-  display: block;
-  width: 22px;
-  height: 22px;
-  background-color: #ffffff;
-  border-radius: 50%;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-/* Quando o checkbox estiver marcado, muda o background e move o círculo */
-.theme-switch-input:checked + .theme-switch-label {
-  background-color: #2563eb; /* azul principal */
-}
-
-.theme-switch-input:checked + .theme-switch-label .switch-circle {
-  transform: translateX(24px);
-  background-color: #1e3a8a; /* tom mais escuro do azul */
-}
-
-/* Ajustes ao passar hover no label */
-.theme-switch-label:hover {
-  background-color: #d1d5db; /* levemente mais escuro */
-}
-
-/* Se quiser inverter cores no modo dark (opcional) */
-html.dark .theme-switch-label {
-  background-color: #4b5563; /* track cinza-escuro no dark */
-}
-
-html.dark .theme-switch-input:checked + .theme-switch-label {
-  background-color: #93c5fd; /* track azul-claro no dark */
-}
-
-html.dark .switch-circle {
-  background-color: #1f2937; /* círculo escuro no dark */
-}
-
-html.dark .theme-switch-input:checked + .theme-switch-label .switch-circle {
-  background-color: #ffffff; /* círculo claro quando marcado no dark */
 }

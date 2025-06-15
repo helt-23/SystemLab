@@ -1,4 +1,3 @@
-// src/customHooks/useReservation.js
 import { useState } from "react";
 
 export const useReservation = (labId, addUserBooking) => {

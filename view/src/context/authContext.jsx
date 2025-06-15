@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  // Simular registro
+  // Simulando registro
   const register = async (userData) => {
     setIsLoading(true);
 
