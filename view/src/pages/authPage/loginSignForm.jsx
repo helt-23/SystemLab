@@ -1,3 +1,4 @@
+// src/pages/LoginSignForm.jsx
 import { useState } from 'react';
 import { useFinishLoadingOnLabChange } from '../../public/usingLoadingScreen';
 import { LoginForm } from './loginForm';
@@ -16,7 +17,7 @@ export const LoginSignForm = () => {
     <div className="login-sign-container flex justify-center items-center min-h-screen bg-gradient-to-r from-gray-200 to-blue-100">
       <div className={`form-container ${isActive ? 'active' : ''}`}>
         <LoginForm />
-        <RegisterForm />
+        <RegisterForm onSuccess={handleLoginClick} />
         <ToggleBox
           isActive={isActive}
           handleRegisterClick={handleRegisterClick}

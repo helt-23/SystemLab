@@ -1,11 +1,13 @@
 // src/pages/RegisterForm.jsx
+import { useState, useEffect } from "react";
+import ReactDOM from 'react-dom';
 import { InputField } from "../../components/inputField";
-import { FaUser, FaEnvelope, FaIdBadge, FaLock, FaKey } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaIdBadge, FaLock, FaKey, FaCheckCircle } from "react-icons/fa";
 import { useAuth } from "../../context/authContext";
 import { useAuthForm } from "../../customHooks/useAuthForm";
 import { registerValidations } from "./validations";
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ onSuccess }) => {
   const { register } = useAuth();
   const {
     formData,
@@ -28,28 +30,45 @@ export const RegisterForm = () => {
     registerValidations
   );
 
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  useEffect(() => {
+    if (submitSuccess) {
+      setShowSuccessModal(true);
+
+      // Fecha o modal após 3 segundos e redireciona para login
+      const timer = setTimeout(() => {
+        setShowSuccessModal(false);
+        resetForm();
+        if (onSuccess) onSuccess();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [submitSuccess, resetForm, onSuccess]);
+
+  const Portal = ({ children }) => {
+    const portalRoot = document.getElementById('portal-root');
+    return portalRoot ? ReactDOM.createPortal(children, portalRoot) : null;
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
-    const result = await handleSubmit(register);
-
-    if (result.success) {
-      resetForm();
-    }
+    await handleSubmit(register);
   };
 
   return (
-    <div className="form-box register active">
+    <div className="form-box register active relative">
       <form className="w-full" onSubmit={handleRegister}>
         <h1 className="title">AUTOREGISTRO</h1>
 
-        {submitSuccess && (
-          <div className="success-message bg-green-400">
-            Cadastro realizado com sucesso!
-          </div>
-        )}
-
         {submitError && (
-          <div className="error-message">{submitError}</div>
+          <div className="error-message animate-shake">
+            <div className="error-content">
+              <h3 className="error-title">Erro no cadastro</h3>
+              <p className="error-text">{submitError}</p>
+            </div>
+          </div>
         )}
 
         <InputField
@@ -126,6 +145,23 @@ export const RegisterForm = () => {
           {isSubmitting ? "Carregando..." : "Registrar"}
         </button>
       </form>
+
+      {/* Modal de sucesso */}
+      {showSuccessModal && (
+        <Portal>
+          <div className="register-success-overlay">
+            <div className="register-success-modal">
+              <div className="register-success-icon">
+                <FaCheckCircle size={48} className="text-green-500" />
+              </div>
+              <div className="register-success-body">
+                <h3 className="register-success-title">Cadastro realizado com sucesso!</h3>
+                <p className="register-success-text">Redirecionando para o login...</p>
+              </div>
+            </div>
+          </div>
+        </Portal>
+      )}
     </div>
   );
 };

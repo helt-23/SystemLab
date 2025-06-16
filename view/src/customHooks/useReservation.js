@@ -1,4 +1,3 @@
-// src/customHooks/useReservation.js
 import { useState, useCallback } from "react";
 
 export const useReservation = (labId, addUserBooking) => {
@@ -18,6 +17,7 @@ export const useReservation = (labId, addUserBooking) => {
   const [file, setFile] = useState(null);
   const [formErrors, setFormErrors] = useState({});
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [reservationSuccess, setReservationSuccess] = useState(false);
 
   const reservationTypes = [
     { value: "aula", label: "Aula" },
@@ -107,6 +107,7 @@ export const useReservation = (labId, addUserBooking) => {
     setDescription("");
     setFile(null);
     setFormErrors({});
+    setReservationSuccess(false);
   }, []);
 
   // Submissão da reserva: cria uma reserva para cada horário selecionado
@@ -145,7 +146,6 @@ export const useReservation = (labId, addUserBooking) => {
       addUserBooking(newBooking);
     });
 
-    closeReservationModal();
     return true;
   }, [
     validateForm,
@@ -156,15 +156,21 @@ export const useReservation = (labId, addUserBooking) => {
     reservationType,
     description,
     file,
-    closeReservationModal,
   ]);
 
   const handleConfirmReservation = useCallback(() => {
     const success = handleReserveSubmit();
     if (success) {
       setShowConfirmation(false);
+      setReservationSuccess(true);
+
+      // Fecha automaticamente após 3 segundos
+      setTimeout(() => {
+        setReservationSuccess(false);
+        closeReservationModal();
+      }, 3000);
     }
-  }, [handleReserveSubmit]);
+  }, [handleReserveSubmit, closeReservationModal]);
 
   return {
     // Estados
@@ -176,6 +182,8 @@ export const useReservation = (labId, addUserBooking) => {
     formErrors,
     showConfirmation,
     reservationTypes,
+    reservationSuccess,
+    setReservationSuccess,
 
     // Funções
     openReservationModal,

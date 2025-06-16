@@ -1,4 +1,4 @@
-// src/hooks/useAuthForm.js
+// src/customHooks/useAuthForm.js
 import { useState } from "react";
 
 export const useAuthForm = (initialState, validationRules) => {
@@ -15,6 +15,11 @@ export const useAuthForm = (initialState, validationRules) => {
     // Limpa erros quando o usuário começa a digitar
     if (fieldErrors[name]) {
       setFieldErrors((prev) => ({ ...prev, [name]: null }));
+    }
+
+    // Se houver sucesso anterior, reseta o estado de sucesso
+    if (submitSuccess) {
+      setSubmitSuccess(false);
     }
   };
 
@@ -47,6 +52,7 @@ export const useAuthForm = (initialState, validationRules) => {
 
   const handleSubmit = async (authAction) => {
     setSubmitError(null);
+    setSubmitSuccess(false);
     setIsSubmitting(true);
 
     if (!validateForm()) {

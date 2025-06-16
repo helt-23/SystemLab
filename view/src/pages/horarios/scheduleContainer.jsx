@@ -1,4 +1,3 @@
-// src/components/LabScheduleComponent.js
 import { useState, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Breadcrumb } from "../../components";
@@ -61,7 +60,9 @@ export function LabScheduleComponent() {
     resetForm,
     handleReserveSubmit,
     handleConfirmReservation,
-    setShowConfirmation
+    setShowConfirmation,
+    reservationSuccess,
+    setReservationSuccess
   } = useReservation(labId, addUserBooking);
 
   useFinishLoadingOnLabChange();
@@ -167,7 +168,6 @@ export function LabScheduleComponent() {
           date={reservationModal.date}
           timeSlots={reservationModal.timeSlots}
           labDetails={reservationModal.labDetails}
-
           selectedSlots={selectedSlots}
           handleSlotChange={handleSlotChange}
           reservationType={reservationType}
@@ -182,6 +182,8 @@ export function LabScheduleComponent() {
           showConfirmation={showConfirmation}
           setShowConfirmation={setShowConfirmation}
           handleConfirmReservation={handleConfirmReservation}
+          reservationSuccess={reservationSuccess}
+          setReservationSuccess={setReservationSuccess}
         />
 
         <BookingReservs />

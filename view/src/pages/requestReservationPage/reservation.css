@@ -226,3 +226,70 @@
 .time-slots::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+.reservation-success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4000;
+}
+
+.reservation-success-modal {
+  background-color: white;
+  border-radius: 12px;
+  padding: 40px 30px; /* Mais padding vertical para melhor espaçamento */
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza horizontalmente */
+}
+
+.success-icon {
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center; /* Centraliza o ícone horizontalmente */
+  width: 100%; /* Ocupa toda a largura para centralização */
+}
+
+.success-icon svg {
+  display: block; /* Garante que o ícone se comporte como bloco */
+}
+
+.success-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #2f855a;
+  width: 100%; /* Ocupa toda a largura para centralização */
+}
+
+.success-text {
+  font-size: 1rem;
+  color: #4a5568;
+  width: 100%; /* Ocupa toda a largura para centralização */
+}
+
+@keyframes success-modal-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.reservation-success-modal {
+  animation: success-modal-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    forwards;
+}

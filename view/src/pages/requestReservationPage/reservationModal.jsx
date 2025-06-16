@@ -1,5 +1,5 @@
-// src/components/requestReservationPage/reservationModal.jsx
 import React from 'react';
+import { FaCheckCircle } from 'react-icons/fa';
 import './reservation.css';
 import { X, File } from 'lucide-react';
 import ConfirmationDialog from '../../public/ConfirmationDialog ';
@@ -26,7 +26,9 @@ const ReservationModal = ({
   validateForm,
   showConfirmation,
   setShowConfirmation,
-  handleConfirmReservation
+  handleConfirmReservation,
+  reservationSuccess,
+  setReservationSuccess
 }) => {
   const availableSlots = timeSlots.filter(slot => slot?.tipo === "livre");
 
@@ -150,6 +152,7 @@ const ReservationModal = ({
         </div>
       </div>
 
+      {/* Modal de Confirmação de Reserva */}
       <ConfirmationDialog
         isOpen={showConfirmation}
         onClose={() => setShowConfirmation(false)}
@@ -165,6 +168,23 @@ const ReservationModal = ({
         confirmText="Confirmar"
         cancelText="Voltar"
       />
+
+      {/* Modal de Sucesso */}
+      {reservationSuccess && (
+        <div className="reservation-success-overlay">
+          <div className="reservation-success-modal">
+            <div className="success-icon">
+              <FaCheckCircle size={48} className="text-green-500" />
+            </div>
+            <div className="success-content">
+              <h3 className="success-title">Reserva realizada com sucesso!</h3>
+              <p className="success-text">
+                Você já pode visualizar a reserva em "Minhas Reservas" no menu.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
