@@ -34,7 +34,6 @@ const MenuAside = ({ user, isOpen, onClose }) => {
       {/* Overlay de fundo */}
       {isOpen && <div className="menu-overlay" onClick={onClose} aria-hidden="true" />}
 
-      {/* Menu Lateral */}
       <aside className={`menu-aside ${isOpen ? 'open' : ''}`}>
         <div className="menu-header">
           <button className="close-menu" onClick={onClose} aria-label="Fechar menu">
@@ -61,11 +60,6 @@ const MenuAside = ({ user, isOpen, onClose }) => {
             <Calendar size={20} />
             <span>Minhas Reservas</span>
           </button>
-
-          <Link to="/configuracoes" className="menu-item">
-            <Settings size={20} />
-            <span>Configurações</span>
-          </Link>
 
           <Link to="/" className="menu-item">
             <LogOut size={20} />
