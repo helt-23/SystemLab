@@ -1,3 +1,4 @@
+// src/customHooks/useSchedule.js
 import { useMemo } from "react";
 
 // Extrai um par { start, end } de uma string “HH:mm - HH:mm”
@@ -34,11 +35,21 @@ export const useSchedule = (scheduleData, currentShift, labBookings) => {
     [scheduleData]
   );
 
-  // Horários de cada “slot” para o turno selecionado
+  // Horários de cada "slot" para o turno selecionado
   const horariosUnicos = useMemo(
     () => scheduleData?.shifts?.[currentShift] || [],
     [scheduleData, currentShift]
   );
+
+  // Filtra apenas reservas confirmadas
+  const reservasConfirmadas = useMemo(() => {
+    return (
+      labBookings?.filter(
+        (booking) =>
+          booking.status && booking.status.toLowerCase() === "confirmado"
+      ) || []
+    );
+  }, [labBookings]);
 
   // Monta a lista completa de células
   const horarios = useMemo(() => {
@@ -64,13 +75,11 @@ export const useSchedule = (scheduleData, currentShift, labBookings) => {
           };
         }
 
-        // 2) Verifica se existe alguma reserva (ovrelap) para este dia/hora
-        // Para cada reserva do labBookings, puxa início/fim da string reserva.horario (ex: "14:00 - 15:50")
-        const reserva = labBookings?.find((r) => {
+        // 2) Verifica se existe alguma reserva (overlap) CONFIRMADA para este dia/hora
+        const reserva = reservasConfirmadas?.find((r) => {
           if (r.dia !== dia) return false;
           // Extrai início e fim da reserva
           const { start: resStart, end: resEnd } = extractTimeRange(r.horario);
-          // Comparação de strings “HH:mm” funciona quando sempre estão no formato 24h com zero à esquerda
           // Verifica se slot está totalmente dentro do intervalo [resStart, resEnd]
           return slotStart >= resStart && slotEnd <= resEnd;
         });
@@ -88,7 +97,7 @@ export const useSchedule = (scheduleData, currentShift, labBookings) => {
           };
         }
 
-        // 3) Se não for aula nem reserva → “livre”
+        // 3) Se não for aula nem reserva → "livre"
         return {
           horaInicio: slotStart,
           horaFim: slotEnd,
@@ -99,7 +108,7 @@ export const useSchedule = (scheduleData, currentShift, labBookings) => {
         };
       });
     });
-  }, [scheduleData, diasSemana, horariosUnicos, labBookings]);
+  }, [scheduleData, diasSemana, horariosUnicos, reservasConfirmadas]);
 
   return { diasSemana, horariosUnicos, horarios };
 };

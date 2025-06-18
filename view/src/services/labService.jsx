@@ -295,7 +295,7 @@ export const getUserBookings = () => [
   {
     id: 1,
     labId: 'lab-24',
-    status: "Em análise",
+    status: "pendente",
     labSala: "Sala 24 - Bloco 1",
     requestDate: "2024-05-28T14:30:00",
     bookingDate: "2024-06-15",
@@ -332,3 +332,120 @@ export const getUserBookings = () => [
     usuario: { nome: "João Silva", matricula: "2023001" }
   }
 ];
+
+// Nova função para obter todas as reservas (do usuário e de outros)
+export const getAllBookings = () => {
+  return [
+    // Reservas do usuário (convertidas para o formato padrão)
+    ...getUserBookings().map(booking => ({
+      ...booking,
+      status: booking.status.toLowerCase().replace("confirmada", "confirmado")
+    })),
+
+    // Reservas de outros usuários
+    {
+      id: 100,
+      labId: 'lab-24',
+      status: "confirmado",
+      labSala: "Sala 24 - Bloco 1",
+      requestDate: "2024-05-01T08:00:00",
+      bookingDate: "2024-06-17",
+      startTime: "08:00",
+      endTime: "08:50",
+      dia: "Seg",
+      horario: "08:00 - 08:50",
+      usuario: { nome: "Maria Oliveira", matricula: "2023002" }
+    },
+    {
+      id: 101,
+      labId: 'lab-24',
+      status: "confirmado",
+      labSala: "Sala 24 - Bloco 1",
+      requestDate: "2024-05-01T09:00:00",
+      bookingDate: "2024-06-17",
+      startTime: "09:00",
+      endTime: "09:50",
+      dia: "Seg",
+      horario: "09:00 - 09:50",
+      usuario: { nome: "Carlos Santos", matricula: "2023003" }
+    },
+    {
+      id: 102,
+      labId: 'lab-24',
+      status: "confirmado",
+      labSala: "Sala 24 - Bloco 1",
+      requestDate: "2024-05-02T10:00:00",
+      bookingDate: "2024-06-18",
+      startTime: "10:00",
+      endTime: "10:50",
+      dia: "Ter",
+      horario: "10:00 - 10:50",
+      usuario: { nome: "Ana Costa", matricula: "2023004" }
+    },
+    {
+      id: 103,
+      labId: 'lab-24',
+      status: "confirmado",
+      labSala: "Sala 24 - Bloco 1",
+      requestDate: "2024-05-03T14:00:00",
+      bookingDate: "2024-06-19",
+      startTime: "14:00",
+      endTime: "15:50",
+      dia: "Qua",
+      horario: "14:00 - 15:50",
+      usuario: { nome: "Pedro Almeida", matricula: "2023005" }
+    },
+    {
+      id: 104,
+      labId: 'lab-102',
+      status: "confirmado",
+      labSala: "Sala 102 - Bloco 1",
+      requestDate: "2024-05-04T15:00:00",
+      bookingDate: "2024-06-20",
+      startTime: "15:00",
+      endTime: "16:50",
+      dia: "Qui",
+      horario: "15:00 - 16:50",
+      usuario: { nome: "Juliana Pereira", matricula: "2023006" }
+    },
+    {
+      id: 105,
+      labId: 'lab-201',
+      status: "confirmado",
+      labSala: "Sala 201 - Bloco B",
+      requestDate: "2024-05-05T19:00:00",
+      bookingDate: "2024-06-21",
+      startTime: "19:00",
+      endTime: "20:50",
+      dia: "Sex",
+      horario: "19:00 - 20:50",
+      usuario: { nome: "Fernando Costa", matricula: "2023007" }
+    },
+    {
+      id: 106,
+      labId: 'lab-24',
+      status: "pendente",
+      labSala: "Sala 24 - Bloco 1",
+      requestDate: "2024-05-06T10:00:00",
+      bookingDate: "2024-06-22",
+      startTime: "10:00",
+      endTime: "11:50",
+      dia: "Sab",
+      horario: "10:00 - 11:50",
+      usuario: { nome: "Roberto Silva", matricula: "2023008" }
+    },
+    {
+      id: 107,
+      labId: 'lab-302',
+      status: "pendente",
+      labSala: "Sala 302 - Bloco C",
+      requestDate: "2024-05-07T11:00:00",
+      bookingDate: "2024-06-23",
+      startTime: "11:00",
+      endTime: "12:50",
+      dia: "Dom",
+      horario: "11:00 - 12:50",
+      usuario: { nome: "Camila Oliveira", matricula: "2023009" }
+    }
+  ];
+};

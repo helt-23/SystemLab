@@ -1,6 +1,8 @@
+// src/pages/labSchedulePage/LabScheduleComponent.jsx
 import { useState, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Breadcrumb } from "../../components";
+import LabNotFound from "../../components/labNotFound";
 import { BookingReservs } from "../../pages";
 import { useLabData } from "../../context/LabDataContext";
 import { useSchedule } from "../../customHooks/useSchedule";
@@ -27,17 +29,21 @@ export function LabScheduleComponent() {
     getLabDetails,
     getLabSchedule,
     addUserBooking,
-    userBookings
+    userBookings,
+    getAllBookingsForLab // Adicione esta função ao contexto
   } = useLabData();
 
   const labDetails = getLabDetails(labId);
   const scheduleData = getLabSchedule(labId);
-  const labBookings = userBookings.filter((b) => b.labId === labId);
+
+  // Obter TODAS as reservas do laboratório, não apenas do usuário
+  const allLabBookings = getAllBookingsForLab(labId) || [];
+  const userLabBookings = userBookings.filter((b) => b.labId === labId);
 
   const { horarios, horariosUnicos, diasSemana } = useSchedule(
     scheduleData,
     currentShift,
-    labBookings
+    allLabBookings // Passar todas as reservas, não apenas do usuário
   );
 
   // Usando o hook unificado
@@ -57,8 +63,6 @@ export function LabScheduleComponent() {
     setReservationType,
     setDescription,
     validateForm,
-    resetForm,
-    handleReserveSubmit,
     handleConfirmReservation,
     setShowConfirmation,
     reservationSuccess,
@@ -121,9 +125,8 @@ export function LabScheduleComponent() {
   };
 
   if (!labDetails || !scheduleData) {
-    return <div className="lab-not-found">Laboratório não encontrado</div>;
+    return <LabNotFound />;
   }
-
   return (
     <div className="lab-schedule">
       <main className="main-content">

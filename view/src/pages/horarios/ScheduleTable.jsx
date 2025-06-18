@@ -22,9 +22,6 @@ const ScheduleTable = ({ diasSemana, horariosUnicos, horarios, onCellClick }) =>
               {horario.isUserBooking ? "Sua Reserva" : "Reservado"}
             </div>
             <div className="cell-subtitle">{horario.dados.usuario.nome}</div>
-            {/*<div className={`cell-status-badge status-${horario.dados.status.toLowerCase().replace(" ", "-")}`}>
-              {horario.dados.status}
-            </div>*/}
           </div>
         );
 

@@ -4,7 +4,8 @@ import {
   getBlocos,
   getLaboratorios,
   getSchedules,
-  getUserBookings
+  getUserBookings,
+  getAllBookings // Adicione esta nova função no labService
 } from '../services/labService';
 
 const LabDataContext = createContext();
@@ -14,6 +15,7 @@ export const LabDataProvider = ({ children }) => {
   const [laboratorios, setLaboratorios] = useState({});
   const [schedules, setSchedules] = useState({});
   const [userBookings, setUserBookings] = useState([]);
+  const [allBookings, setAllBookings] = useState([]); // Novo estado para todas as reservas
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isBookingsModalOpen, setIsBookingsModalOpen] = useState(false);
@@ -26,7 +28,15 @@ export const LabDataProvider = ({ children }) => {
         setBlocos(getBlocos());
         setLaboratorios(getLaboratorios());
         setSchedules(getSchedules());
-        setUserBookings(getUserBookings());
+
+        // Busca reservas do usuário
+        const userBookingsData = getUserBookings();
+        setUserBookings(userBookingsData);
+
+        // Busca TODAS as reservas
+        const allBookingsData = getAllBookings();
+        setAllBookings(allBookingsData);
+
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -45,17 +55,51 @@ export const LabDataProvider = ({ children }) => {
   const getLabDetails = (labId) => laboratorios[labId] || null;
   const getLabSchedule = (labId) => schedules[labId] || null;
 
+  // Função para obter todas as reservas de um laboratório específico
+  const getAllBookingsForLab = (labId) => {
+    return allBookings.filter(booking => booking.labId === labId);
+  };
+
   const addUserBooking = (newBooking) => {
-    const newId = userBookings.length > 0
-      ? Math.max(...userBookings.map(b => b.id)) + 1
+    const newId = allBookings.length > 0
+      ? Math.max(...allBookings.map(b => b.id)) + 1
       : 1;
-    const bookingToAdd = { ...newBooking, id: newId };
+
+    const bookingToAdd = {
+      ...newBooking,
+      id: newId,
+      status: "pendente" // Status padrão para novas reservas
+    };
+
+    // Atualiza ambas as listas
     setUserBookings(prev => [...prev, bookingToAdd]);
+    setAllBookings(prev => [...prev, bookingToAdd]);
+
     return bookingToAdd;
   };
 
   const removeUserBooking = (bookingId) => {
     setUserBookings(prev => prev.filter(b => b.id !== bookingId));
+    setAllBookings(prev => prev.filter(b => b.id !== bookingId));
+  };
+
+  // Função para atualizar o status de uma reserva (ex: de pendente para confirmado)
+  const updateBookingStatus = (bookingId, newStatus) => {
+    setAllBookings(prev =>
+      prev.map(booking =>
+        booking.id === bookingId
+          ? { ...booking, status: newStatus }
+          : booking
+      )
+    );
+
+    setUserBookings(prev =>
+      prev.map(booking =>
+        booking.id === bookingId
+          ? { ...booking, status: newStatus }
+          : booking
+      )
+    );
   };
 
   return (
@@ -66,6 +110,7 @@ export const LabDataProvider = ({ children }) => {
       loading,
       error,
       userBookings,
+      allBookings, // Disponibiliza todas as reservas
       isBookingsModalOpen,
       isProfileModalOpen,
       openBookingsModal,
@@ -74,8 +119,10 @@ export const LabDataProvider = ({ children }) => {
       closeProfileModal,
       getLabDetails,
       getLabSchedule,
+      getAllBookingsForLab, // Nova função
       addUserBooking,
-      removeUserBooking
+      removeUserBooking,
+      updateBookingStatus // Nova função para atualizar status
     }}>
       {children}
     </LabDataContext.Provider>

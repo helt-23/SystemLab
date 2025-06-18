@@ -128,7 +128,7 @@ export const useReservation = (labId, addUserBooking) => {
       const newBooking = {
         id: Date.now() + Math.random(), // ID único
         labId,
-        status: "Em análise",
+        status: "pendente",
         labSala:
           reservationModal.labDetails?.sala || "Laboratório Desconhecido",
         requestDate: new Date().toISOString(),
