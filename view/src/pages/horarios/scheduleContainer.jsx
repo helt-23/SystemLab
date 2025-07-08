@@ -46,7 +46,6 @@ export function LabScheduleComponent() {
     allLabBookings // Passar todas as reservas, não apenas do usuário
   );
 
-  // Usando o hook unificado
   const {
     reservationModal,
     openReservationModal,

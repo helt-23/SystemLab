@@ -114,25 +114,23 @@ export const useReservation = (labId, addUserBooking) => {
   const handleReserveSubmit = useCallback(() => {
     if (!validateForm()) return false;
 
-    // Verificar se a data é válida
     const bookingDate = reservationModal.date;
     if (!bookingDate || isNaN(bookingDate.getTime())) {
       console.error("Data de reserva inválida");
       return false;
     }
 
-    // Para cada horário selecionado, criar uma reserva
-    selectedSlots.forEach((slot) => {
+    // Cria uma reserva para cada slot selecionado
+    const newBookings = selectedSlots.map((slot) => {
       const [startTime, endTime] = slot.split(" - ");
 
-      const newBooking = {
-        id: Date.now() + Math.random(), // ID único
+      return {
         labId,
         status: "pendente",
         labSala:
           reservationModal.labDetails?.sala || "Laboratório Desconhecido",
         requestDate: new Date().toISOString(),
-        bookingDate: bookingDate.toISOString(),
+        bookingDate: bookingDate.toISOString().split("T")[0], // Apenas a data
         startTime,
         endTime,
         dia: reservationModal.day,
@@ -142,8 +140,11 @@ export const useReservation = (labId, addUserBooking) => {
         description,
         file: file ? file.name : null,
       };
+    });
 
-      addUserBooking(newBooking);
+    // Adiciona todas as reservas de uma vez
+    newBookings.forEach((booking) => {
+      addUserBooking(booking);
     });
 
     return true;

@@ -23,6 +23,7 @@ export const getBlocos = () => [
     laboratorios: ['lab-401', 'lab-402', 'lab-403']
   }
 ];
+
 export const getLaboratorios = () => ({
   'lab-24': {
     id: 'lab-24',
@@ -242,7 +243,6 @@ export const getLaboratorios = () => ({
   }
 });
 
-
 export const getSchedules = () => ({
   'lab-24': {
     diasSemana: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
@@ -286,9 +286,308 @@ export const getSchedules = () => ({
         materia: "Redes",
         professor: "Prof. Pedro",
         turma: "CC 2023"
+      },
+      {
+        dia: "Ter",
+        horario: "13:00 - 13:50",
+        materia: "Banco de Dados",
+        professor: "Prof. Ricardo",
+        turma: "CC 2024"
+      },
+      {
+        dia: "Qua",
+        horario: "15:00 - 15:50",
+        materia: "Programação Web",
+        professor: "Prof. Ana",
+        turma: "SI 2023"
       }
     ]
   },
+  'lab-102': {
+    diasSemana: ["Seg", "Ter", "Qua", "Qui", "Sex"],
+    shifts: {
+      manhã: ["07:00 - 07:50", "08:00 - 08:50", "09:00 - 09:50", "10:00 - 10:50"],
+      tarde: ["13:00 - 13:50", "14:00 - 14:50", "15:00 - 15:50", "16:00 - 16:50"],
+      noite: ["18:00 - 18:50", "19:00 - 19:50", "20:00 - 20:50"]
+    },
+    aulas: [
+      {
+        dia: "Seg",
+        horario: "07:00 - 07:50",
+        materia: "Circuitos Elétricos",
+        professor: "Prof. Carlos",
+        turma: "Eng. Elétrica 2023"
+      },
+      {
+        dia: "Qua",
+        horario: "10:00 - 10:50",
+        materia: "Eletrônica Digital",
+        professor: "Prof. Fernanda",
+        turma: "Eng. Comp 2024"
+      },
+      {
+        dia: "Sex",
+        horario: "14:00 - 15:50",
+        materia: "Laboratório de Eletrônica",
+        professor: "Prof. Roberto",
+        turma: "Eng. Elétrica 2023"
+      }
+    ]
+  },
+  'lab-103': {
+    diasSemana: ["Seg", "Ter", "Qua", "Qui"],
+    shifts: {
+      manhã: ["07:00 - 08:50", "09:00 - 10:50"],
+      tarde: ["13:00 - 14:50", "15:00 - 16:50"],
+      noite: ["18:00 - 19:50", "20:00 - 21:50"]
+    },
+    aulas: [
+      {
+        dia: "Ter",
+        horario: "07:00 - 08:50",
+        materia: "Redes de Computadores",
+        professor: "Prof. Carlos",
+        turma: "CC 2023"
+      },
+      {
+        dia: "Qui",
+        horario: "13:00 - 14:50",
+        materia: "Segurança de Redes",
+        professor: "Prof. Mariana",
+        turma: "CC 2024"
+      }
+    ]
+  },
+  'lab-104': {
+    diasSemana: ["Seg", "Qua", "Sex"],
+    shifts: {
+      manhã: ["07:00 - 08:50", "09:00 - 10:50"],
+      tarde: ["13:00 - 14:50", "15:00 - 16:50"]
+    },
+    aulas: [
+      {
+        dia: "Seg",
+        horario: "07:00 - 08:50",
+        materia: "Arquitetura de Computadores",
+        professor: "Prof. Renato",
+        turma: "CC 2023"
+      },
+      {
+        dia: "Qua",
+        horario: "13:00 - 14:50",
+        materia: "Manutenção de Hardware",
+        professor: "Prof. José",
+        turma: "SI 2024"
+      }
+    ]
+  },
+  'lab-201': {
+    diasSemana: ["Ter", "Qui", "Sab"],
+    shifts: {
+      manhã: ["08:00 - 09:50", "10:00 - 11:50"],
+      tarde: ["14:00 - 15:50", "16:00 - 17:50"]
+    },
+    aulas: [
+      {
+        dia: "Ter",
+        horario: "08:00 - 09:50",
+        materia: "Química Geral",
+        professor: "Prof. Fábio",
+        turma: "Química 2023"
+      },
+      {
+        dia: "Qui",
+        horario: "14:00 - 15:50",
+        materia: "Química Analítica",
+        professor: "Prof. Beatriz",
+        turma: "Química 2024"
+      }
+    ]
+  },
+  'lab-202': {
+    diasSemana: ["Seg", "Qua", "Sex"],
+    shifts: {
+      manhã: ["07:00 - 07:50", "08:00 - 08:50", "09:00 - 09:50", "10:00 - 10:50"],
+      tarde: ["13:00 - 13:50", "14:00 - 14:50", "15:00 - 15:50", "16:00 - 16:50"]
+    },
+    aulas: [
+      {
+        dia: "Seg",
+        horario: "09:00 - 09:50",
+        materia: "Física I",
+        professor: "Prof. Ana",
+        turma: "Eng. Civil 2023"
+      },
+      {
+        dia: "Qua",
+        horario: "14:00 - 14:50",
+        materia: "Física II",
+        professor: "Prof. Ricardo",
+        turma: "Eng. Mecânica 2024"
+      },
+      {
+        dia: "Sex",
+        horario: "10:00 - 10:50",
+        materia: "Física III",
+        professor: "Prof. Marcos",
+        turma: "Eng. Elétrica 2023"
+      }
+    ]
+  },
+  'lab-203': {
+    diasSemana: ["Ter", "Qui"],
+    shifts: {
+      tarde: ["13:00 - 14:50", "15:00 - 16:50"],
+      noite: ["18:00 - 19:50", "20:00 - 21:50"]
+    },
+    aulas: [
+      {
+        dia: "Ter",
+        horario: "13:00 - 14:50",
+        materia: "Química Orgânica I",
+        professor: "Prof. Fábio",
+        turma: "Química 2023"
+      },
+      {
+        dia: "Qui",
+        horario: "18:00 - 19:50",
+        materia: "Química Orgânica II",
+        professor: "Prof. Carolina",
+        turma: "Química 2024"
+      }
+    ]
+  },
+  'lab-301': {
+    diasSemana: ["Seg", "Ter", "Qua", "Qui", "Sex"],
+    shifts: {
+      manhã: ["07:00 - 07:50", "08:00 - 08:50", "09:00 - 09:50", "10:00 - 10:50"],
+      tarde: ["13:00 - 13:50", "14:00 - 14:50", "15:00 - 15:50", "16:00 - 16:50"],
+      noite: ["18:00 - 18:50", "19:00 - 19:50", "20:00 - 20:50"]
+    },
+    aulas: [
+      {
+        dia: "Seg",
+        horario: "08:00 - 08:50",
+        materia: "Algoritmos",
+        professor: "Prof. Mariana",
+        turma: "CC 2023"
+      },
+      {
+        dia: "Qua",
+        horario: "14:00 - 14:50",
+        materia: "Estrutura de Dados",
+        professor: "Prof. Carlos",
+        turma: "CC 2024"
+      },
+      {
+        dia: "Sex",
+        horario: "10:00 - 10:50",
+        materia: "Programação Orientada a Objetos",
+        professor: "Prof. Renato",
+        turma: "SI 2023"
+      }
+    ]
+  },
+  'lab-302': {
+    diasSemana: ["Seg", "Qua", "Sex"],
+    shifts: {
+      manhã: ["08:00 - 09:50", "10:00 - 11:50"],
+      tarde: ["14:00 - 15:50", "16:00 - 17:50"],
+      noite: ["19:00 - 20:50", "21:00 - 22:50"]
+    },
+    aulas: [
+      {
+        dia: "Seg",
+        horario: "08:00 - 09:50",
+        materia: "Aprendizado de Máquina",
+        professor: "Prof. Mariana",
+        turma: "CC 2024"
+      },
+      {
+        dia: "Qua",
+        horario: "14:00 - 15:50",
+        materia: "Visão Computacional",
+        professor: "Prof. Rafael",
+        turma: "CC 2023"
+      },
+      {
+        dia: "Sex",
+        horario: "19:00 - 20:50",
+        materia: "Processamento de Linguagem Natural",
+        professor: "Prof. Juliana",
+        turma: "Mestrado IA"
+      }
+    ]
+  },
+  'lab-401': {
+    diasSemana: ["Ter", "Qui"],
+    shifts: {
+      manhã: ["08:00 - 10:50"],
+      tarde: ["13:00 - 15:50"]
+    },
+    aulas: [
+      {
+        dia: "Ter",
+        horario: "08:00 - 10:50",
+        materia: "Pesquisa em Biotecnologia",
+        professor: "Prof. Luiz",
+        turma: "Doutorado"
+      },
+      {
+        dia: "Qui",
+        horario: "13:00 - 15:50",
+        materia: "Metodologia Científica",
+        professor: "Prof. Carolina",
+        turma: "Mestrado"
+      }
+    ]
+  },
+  'lab-402': {
+    diasSemana: ["Seg", "Qua", "Sex"],
+    shifts: {
+      manhã: ["07:00 - 09:50"],
+      tarde: ["13:00 - 15:50"]
+    },
+    aulas: [
+      {
+        dia: "Seg",
+        horario: "07:00 - 09:50",
+        materia: "Genética Molecular",
+        professor: "Prof. Luiz",
+        turma: "Biotecnologia 2023"
+      },
+      {
+        dia: "Qua",
+        horario: "13:00 - 15:50",
+        materia: "Biotecnologia Aplicada",
+        professor: "Prof. Ana",
+        turma: "Biotecnologia 2024"
+      }
+    ]
+  },
+  'lab-403': {
+    diasSemana: ["Ter", "Qui", "Sab"],
+    shifts: {
+      manhã: ["08:00 - 10:50"],
+      tarde: ["14:00 - 16:50"]
+    },
+    aulas: [
+      {
+        dia: "Ter",
+        horario: "08:00 - 10:50",
+        materia: "Microscopia Avançada",
+        professor: "Prof. Carolina",
+        turma: "Biologia 2023"
+      },
+      {
+        dia: "Qui",
+        horario: "14:00 - 16:50",
+        materia: "Técnicas Laboratoriais",
+        professor: "Prof. Roberto",
+        turma: "Biologia 2024"
+      }
+    ]
+  }
 });
 
 export const getUserBookings = () => [
@@ -333,16 +632,15 @@ export const getUserBookings = () => [
   }
 ];
 
-// Nova função para obter todas as reservas (do usuário e de outros)
 export const getAllBookings = () => {
   return [
-    // Reservas do usuário (convertidas para o formato padrão)
+    // Reservas do usuário
     ...getUserBookings().map(booking => ({
       ...booking,
       status: booking.status.toLowerCase().replace("confirmada", "confirmado")
     })),
 
-    // Reservas de outros usuários
+    // Lab-24
     {
       id: 100,
       labId: 'lab-24',
@@ -382,11 +680,13 @@ export const getAllBookings = () => {
       horario: "10:00 - 10:50",
       usuario: { nome: "Ana Costa", matricula: "2023004" }
     },
+
+    // Lab-102
     {
-      id: 103,
-      labId: 'lab-24',
+      id: 200,
+      labId: 'lab-102',
       status: "confirmado",
-      labSala: "Sala 24 - Bloco 1",
+      labSala: "Sala 102 - Bloco 1",
       requestDate: "2024-05-03T14:00:00",
       bookingDate: "2024-06-19",
       startTime: "14:00",
@@ -396,7 +696,7 @@ export const getAllBookings = () => {
       usuario: { nome: "Pedro Almeida", matricula: "2023005" }
     },
     {
-      id: 104,
+      id: 201,
       labId: 'lab-102',
       status: "confirmado",
       labSala: "Sala 102 - Bloco 1",
@@ -408,11 +708,13 @@ export const getAllBookings = () => {
       horario: "15:00 - 16:50",
       usuario: { nome: "Juliana Pereira", matricula: "2023006" }
     },
+
+    // Lab-103
     {
-      id: 105,
-      labId: 'lab-201',
+      id: 300,
+      labId: 'lab-103',
       status: "confirmado",
-      labSala: "Sala 201 - Bloco B",
+      labSala: "Sala 103 - Bloco 1",
       requestDate: "2024-05-05T19:00:00",
       bookingDate: "2024-06-21",
       startTime: "19:00",
@@ -421,11 +723,13 @@ export const getAllBookings = () => {
       horario: "19:00 - 20:50",
       usuario: { nome: "Fernando Costa", matricula: "2023007" }
     },
+
+    // Lab-104
     {
-      id: 106,
-      labId: 'lab-24',
-      status: "pendente",
-      labSala: "Sala 24 - Bloco 1",
+      id: 400,
+      labId: 'lab-104',
+      status: "confirmado",
+      labSala: "Sala 104 - Bloco 1",
       requestDate: "2024-05-06T10:00:00",
       bookingDate: "2024-06-22",
       startTime: "10:00",
@@ -434,11 +738,13 @@ export const getAllBookings = () => {
       horario: "10:00 - 11:50",
       usuario: { nome: "Roberto Silva", matricula: "2023008" }
     },
+
+    // Lab-201
     {
-      id: 107,
-      labId: 'lab-302',
-      status: "pendente",
-      labSala: "Sala 302 - Bloco C",
+      id: 500,
+      labId: 'lab-201',
+      status: "confirmado",
+      labSala: "Sala 201 - Bloco B",
       requestDate: "2024-05-07T11:00:00",
       bookingDate: "2024-06-23",
       startTime: "11:00",
@@ -446,6 +752,151 @@ export const getAllBookings = () => {
       dia: "Dom",
       horario: "11:00 - 12:50",
       usuario: { nome: "Camila Oliveira", matricula: "2023009" }
+    },
+    {
+      id: 501,
+      labId: 'lab-201',
+      status: "confirmado",
+      labSala: "Sala 201 - Bloco B",
+      requestDate: "2024-05-08T14:00:00",
+      bookingDate: "2024-06-24",
+      startTime: "14:00",
+      endTime: "15:50",
+      dia: "Seg",
+      horario: "14:00 - 15:50",
+      usuario: { nome: "Rafael Mendes", matricula: "2023010" }
+    },
+
+    // Lab-202
+    {
+      id: 600,
+      labId: 'lab-202',
+      status: "confirmado",
+      labSala: "Sala 202 - Bloco 2",
+      requestDate: "2024-05-09T16:00:00",
+      bookingDate: "2024-06-25",
+      startTime: "16:00",
+      endTime: "17:50",
+      dia: "Ter",
+      horario: "16:00 - 17:50",
+      usuario: { nome: "Patricia Lima", matricula: "2023011" }
+    },
+
+    // Lab-203
+    {
+      id: 700,
+      labId: 'lab-203',
+      status: "confirmado",
+      labSala: "Sala 203 - Bloco 2",
+      requestDate: "2024-05-10T18:00:00",
+      bookingDate: "2024-06-26",
+      startTime: "18:00",
+      endTime: "19:50",
+      dia: "Qua",
+      horario: "18:00 - 19:50",
+      usuario: { nome: "Lucas Souza", matricula: "2023012" }
+    },
+
+    // Lab-301
+    {
+      id: 800,
+      labId: 'lab-301',
+      status: "confirmado",
+      labSala: "Sala 301 - Bloco C",
+      requestDate: "2024-05-11T19:00:00",
+      bookingDate: "2024-06-27",
+      startTime: "19:00",
+      endTime: "20:50",
+      dia: "Qui",
+      horario: "19:00 - 20:50",
+      usuario: { nome: "Gabriel Alves", matricula: "2023013" }
+    },
+
+    // Lab-302
+    {
+      id: 900,
+      labId: 'lab-302',
+      status: "confirmado",
+      labSala: "Sala 302 - Bloco C",
+      requestDate: "2024-05-12T20:00:00",
+      bookingDate: "2024-06-28",
+      startTime: "20:00",
+      endTime: "21:50",
+      dia: "Sex",
+      horario: "20:00 - 21:50",
+      usuario: { nome: "Isabela Costa", matricula: "2023014" }
+    },
+
+    // Lab-401
+    {
+      id: 1000,
+      labId: 'lab-401',
+      status: "confirmado",
+      labSala: "Sala 401 - Bloco D",
+      requestDate: "2024-05-13T09:00:00",
+      bookingDate: "2024-06-29",
+      startTime: "09:00",
+      endTime: "10:50",
+      dia: "Sab",
+      horario: "09:00 - 10:50",
+      usuario: { nome: "Marcos Silva", matricula: "2023015" }
+    },
+
+    // Lab-402
+    {
+      id: 1100,
+      labId: 'lab-402',
+      status: "confirmado",
+      labSala: "Sala 402 - Bloco 4",
+      requestDate: "2024-05-14T11:00:00",
+      bookingDate: "2024-06-30",
+      startTime: "11:00",
+      endTime: "12:50",
+      dia: "Dom",
+      horario: "11:00 - 12:50",
+      usuario: { nome: "Carolina Oliveira", matricula: "2023016" }
+    },
+
+    // Lab-403
+    {
+      id: 1200,
+      labId: 'lab-403',
+      status: "confirmado",
+      labSala: "Sala 403 - Bloco 4",
+      requestDate: "2024-05-15T14:00:00",
+      bookingDate: "2024-07-01",
+      startTime: "14:00",
+      endTime: "15:50",
+      dia: "Seg",
+      horario: "14:00 - 15:50",
+      usuario: { nome: "Bruno Mendes", matricula: "2023017" }
+    },
+
+    {
+      id: 1300,
+      labId: 'lab-24',
+      status: "pendente",
+      labSala: "Sala 24 - Bloco 1",
+      requestDate: "2024-05-16T10:00:00",
+      bookingDate: "2024-07-02",
+      startTime: "10:00",
+      endTime: "11:50",
+      dia: "Ter",
+      horario: "10:00 - 11:50",
+      usuario: { nome: "Roberto Silva", matricula: "2023018" }
+    },
+    {
+      id: 1400,
+      labId: 'lab-302',
+      status: "pendente",
+      labSala: "Sala 302 - Bloco C",
+      requestDate: "2024-05-17T11:00:00",
+      bookingDate: "2024-07-03",
+      startTime: "11:00",
+      endTime: "12:50",
+      dia: "Qua",
+      horario: "11:00 - 12:50",
+      usuario: { nome: "Camila Oliveira", matricula: "2023019" }
     }
   ];
 };

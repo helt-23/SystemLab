@@ -61,7 +61,7 @@ export const LoginForm = () => {
           required
         />
 
-        <div className="my-6">
+        <div className="my-3">
           <a href="#" className="text-sm hover:underline">
             Esqueceu sua Senha?
           </a>

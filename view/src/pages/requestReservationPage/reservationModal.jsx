@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import './reservation.css';
 import { X, File } from 'lucide-react';
 import ConfirmationDialog from '../../public/ConfirmationDialog ';
+import emailjs from '@emailjs/browser';
 
 const ReservationModal = ({
   isOpen,
@@ -11,8 +12,6 @@ const ReservationModal = ({
   date,
   timeSlots = [],
   labDetails,
-
-  // Propriedades do hook
   selectedSlots,
   handleSlotChange,
   reservationType,
@@ -30,12 +29,66 @@ const ReservationModal = ({
   reservationSuccess,
   setReservationSuccess
 }) => {
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const [emailError, setEmailError] = useState(null);
+
   const availableSlots = timeSlots.filter(slot => slot?.tipo === "livre");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
       setShowConfirmation(true);
+    }
+  };
+
+  // Função para enviar o e-mail de confirmação
+  const sendConfirmationEmail = async () => {
+    setIsSendingEmail(true);
+    setEmailError(null);
+
+    try {
+      // Dados para o template de e-mail
+      const templateParams = {
+        to_name: "Helton Pessoa", // Substitua pelo nome do usuário real
+        to_email: "usuario.teste@example.com", // Substitua pelo e-mail do usuário
+        lab_name: labDetails?.sala || "Laboratório",
+        reservation_date: date ? date.toLocaleDateString('pt-BR') : "Data não especificada",
+        reservation_day: day || "Dia não especificado",
+        reservation_time: selectedSlots.join(', ') || "Horário não especificado",
+        reservation_type: reservationType || "Tipo não especificado",
+        description: description || "Sem descrição"
+      };
+
+      // Envia o e-mail usando EmailJS
+      await emailjs.send(
+        'SIRLAB', // Substitua pelo seu Service ID
+        'sirlab2023', // Substitua pelo seu Template ID
+        templateParams,
+        'HcEdOzpfoQ0X-DLUk' // Substitua pelo seu User ID
+      );
+
+      console.log('E-mail de confirmação enviado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao enviar e-mail:', error);
+      setEmailError('Falha ao enviar e-mail de confirmação. A reserva foi criada, mas o e-mail não foi enviado.');
+    } finally {
+      setIsSendingEmail(false);
+    }
+  };
+
+  // Função que combina confirmação de reserva e envio de e-mail
+  const handleConfirmAndSendEmail = async () => {
+    try {
+      // Primeiro cria a reserva
+      await handleConfirmReservation();
+
+      // Depois envia o e-mail
+      await sendConfirmationEmail();
+
+      // Fecha o modal de confirmação
+      setShowConfirmation(false);
+    } catch (error) {
+      console.error('Erro ao processar reserva:', error);
     }
   };
 
@@ -144,8 +197,9 @@ const ReservationModal = ({
               <button
                 type="submit"
                 className="action-button confirm"
+                disabled={isSendingEmail}
               >
-                Confirmar Solicitação
+                {isSendingEmail ? 'Enviando...' : 'Confirmar Solicitação'}
               </button>
             </div>
           </form>
@@ -156,17 +210,19 @@ const ReservationModal = ({
       <ConfirmationDialog
         isOpen={showConfirmation}
         onClose={() => setShowConfirmation(false)}
-        onConfirm={handleConfirmReservation}
+        onConfirm={handleConfirmAndSendEmail}
         title="Confirmar Reserva"
         message={
           <div>
             <p className='mensage-reservation'>Tem certeza que deseja confirmar esta reserva?</p>
             {date && <p><strong>Data:</strong> {date.toLocaleDateString('pt-BR')}</p>}
             <p><strong>Horários:</strong> {selectedSlots.join(', ') || "Nenhum horário selecionado"}</p>
+            <p><strong>Um e-mail de confirmação será enviado.</strong></p>
           </div>
         }
-        confirmText="Confirmar"
+        confirmText={isSendingEmail ? "Enviando..." : "Confirmar"}
         cancelText="Voltar"
+        confirmDisabled={isSendingEmail}
       />
 
       {/* Modal de Sucesso */}
@@ -181,6 +237,9 @@ const ReservationModal = ({
               <p className="success-text">
                 Você já pode visualizar a reserva em "Minhas Reservas" no menu.
               </p>
+              {emailError && (
+                <p className="error-message mt-2">{emailError}</p>
+              )}
             </div>
           </div>
         </div>

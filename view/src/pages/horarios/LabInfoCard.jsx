@@ -24,7 +24,7 @@ const LabInfoCard = ({ labDetails, setShowDetail, showDetail }) => {
             <div className="lab-info-card__details-item">
               <Clock size={16} className="icon" />
               <div>
-                <strong>Sala {labDetails.sala}</strong>
+                <strong>{labDetails.sala}</strong>
                 <span>Localização</span>
               </div>
             </div>

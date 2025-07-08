@@ -46,7 +46,7 @@ export const useSchedule = (scheduleData, currentShift, labBookings) => {
     return (
       labBookings?.filter(
         (booking) =>
-          booking.status && booking.status.toLowerCase() === "confirmado"
+          booking.status && booking.status.toLowerCase() === "pendente"
       ) || []
     );
   }, [labBookings]);

@@ -1,12 +1,6 @@
 // src/context/LabDataContext.js
 import { createContext, useContext, useState, useEffect } from 'react';
-import {
-  getBlocos,
-  getLaboratorios,
-  getSchedules,
-  getUserBookings,
-  getAllBookings // Adicione esta nova função no labService
-} from '../services/labService';
+import { getBlocos, getLaboratorios, getSchedules, getUserBookings, getAllBookings } from '../services/labService';
 
 const LabDataContext = createContext();
 

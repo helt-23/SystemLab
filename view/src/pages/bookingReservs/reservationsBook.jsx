@@ -99,7 +99,7 @@ export function BookingReservs() {
                       </div>
 
                       <div className="reservation-detail">
-                        <strong>Dia:</strong> {booking.dia || "Não especificado"}
+                        <strong>Dia da Semana:</strong> {booking.dia || "Não especificado"}
                       </div>
 
                       <div className="reservation-detail">
