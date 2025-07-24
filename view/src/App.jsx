@@ -16,7 +16,7 @@ function Layout() {
       <main>
         <AppRoutes />
       </main>
-      {!isHomePage && !isLoginPage && <Footer />}
+      {!isLoginPage && <Footer />}
     </>
   );
 }
