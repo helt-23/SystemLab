@@ -1,6 +1,5 @@
-import React from 'react';
-import { Users, CalendarClock } from 'lucide-react';
-import './BlockLabs.css'; // Importando o arquivo CSS
+import { Users, CalendarClock } from "lucide-react";
+import "../styles/labcard.css"; // Importando o arquivo CSS
 
 export function LaboratoryCard({ lab, handleVerHorarios }) {
   return (
@@ -18,9 +17,7 @@ export function LaboratoryCard({ lab, handleVerHorarios }) {
           </div>
         )}
         <div className="lab-card-image-overlay">
-          <h3 className="lab-card-title">
-            {lab.sala || lab.descricao}
-          </h3>
+          <h3 className="lab-card-title">{lab.sala || lab.descricao}</h3>
         </div>
       </div>
 

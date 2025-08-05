@@ -1,5 +1,5 @@
 // src/components/requestReservationPage/ConfirmationDialog.jsx
-import './confirmationDialog.css'; // Arquivo CSS separado
+import '../assets/styles/confirmationDialog.css'; // Arquivo CSS separado
 import { X } from 'lucide-react';
 
 const ConfirmationDialog = ({

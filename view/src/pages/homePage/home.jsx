@@ -1,13 +1,9 @@
-import { Link } from 'react-router-dom';
-import './home.css';
-import { LogoSystem } from '../../public/icones/SystemLogo'
-import { useFinishLoadingOnLabChange } from '../../public/usingLoadingScreen';
-import mapImage from '../../assets/images/mapUnfifesspa.jpeg'
-
+import { Link } from "react-router-dom";
+import "./home.css";
+import { LogoSystem } from "../../public/icones/SystemLogo";
+import mapImage from "../../assets/images/mapUnfifesspa.jpeg";
 
 export function HomePage() {
-  useFinishLoadingOnLabChange();
-
   return (
     <div className="home-container">
       <div className="hero-section">
@@ -17,7 +13,10 @@ export function HomePage() {
           </div>
           <h1>Seja bem Vindo ao SIRLAB!</h1>
           <h2> SISTEMA INTEGRADO DE RESERVAS DE LABORATÓRIO</h2>
-          <p>Plataforma integrada para administração, reserva e monitoramento de laboratórios e recursos tecnológicos</p>
+          <p>
+            Plataforma integrada para administração, reserva e monitoramento de
+            laboratórios e recursos tecnológicos
+          </p>
           <Link to="/login" className="explore-btn">
             Explorar Laboratórios
           </Link>
@@ -27,7 +26,10 @@ export function HomePage() {
       <div className="features-section">
         <div className="section-header">
           <h2>Recursos Principais</h2>
-          <p>O SIRLAB oferece tudo que você precisa para uma gestão eficiente de laboratórios</p>
+          <p>
+            O SIRLAB oferece tudo que você precisa para uma gestão eficiente de
+            laboratórios
+          </p>
         </div>
 
         <div className="features-grid">
@@ -38,7 +40,10 @@ export function HomePage() {
               </svg>
             </div>
             <h3>Visão Geral em Tempo Real</h3>
-            <p>Acesso instantâneo ao status de todos os laboratórios e equipamentos com atualizações em tempo real</p>
+            <p>
+              Acesso instantâneo ao status de todos os laboratórios e
+              equipamentos com atualizações em tempo real
+            </p>
             <ul className="feature-details">
               <li>Monitoramento de disponibilidade</li>
               <li>Status de equipamentos</li>
@@ -53,7 +58,10 @@ export function HomePage() {
               </svg>
             </div>
             <h3>Sistema de Reservas Inteligente</h3>
-            <p>Agendamento simplificado de salas e equipamentos com calendário integrado e confirmação automática</p>
+            <p>
+              Agendamento simplificado de salas e equipamentos com calendário
+              integrado e confirmação automática
+            </p>
             <ul className="feature-details">
               <li>Calendário visual integrado</li>
               <li>Conflitos de agenda detectados automaticamente</li>
@@ -68,7 +76,10 @@ export function HomePage() {
               </svg>
             </div>
             <h3>Gestão de Ativos Técnicos</h3>
-            <p>Controle completo sobre hardwares, softwares e configurações dos laboratórios</p>
+            <p>
+              Controle completo sobre hardwares, softwares e configurações dos
+              laboratórios
+            </p>
             <ul className="feature-details">
               <li>Inventário detalhado</li>
               <li>Histórico de manutenção</li>
@@ -82,7 +93,14 @@ export function HomePage() {
         <div className="details-content">
           <div className="details-text">
             <h2>Sobre o SIRLAB</h2>
-            <p>O SIRLAB é uma plataforma desenvolvida para otimizar a gestão de laboratórios acadêmicos e de pesquisa. Nossa solução integra todas as funcionalidades necessárias para administrar recursos, agendar espaços e monitorar equipamentos de forma eficiente. Uma nova forma de auxiliar tanto os discentes quanto os docentes da Universiade Federal do Sul e Sudeste do PARÁ.</p>
+            <p>
+              O SIRLAB é uma plataforma desenvolvida para otimizar a gestão de
+              laboratórios acadêmicos e de pesquisa. Nossa solução integra todas
+              as funcionalidades necessárias para administrar recursos, agendar
+              espaços e monitorar equipamentos de forma eficiente. Uma nova
+              forma de auxiliar tanto os discentes quanto os docentes da
+              Universiade Federal do Sul e Sudeste do PARÁ.
+            </p>
 
             <div className="stats-container">
               <div className="stat-item">
@@ -101,14 +119,24 @@ export function HomePage() {
 
             <h3>Benefícios do Sistema</h3>
             <ul className="benefits-list">
-              <li><span>Otimização de recursos:</span> Maximize o uso dos laboratórios e equipamentos</li>
-              <li><span>Controle centralizado:</span> Gerencie todos os laboratórios em uma única plataforma</li>
-              <li><span>Relatórios detalhados:</span> Gere análises de uso e ocupação para tomada de decisão</li>
-              <li><span>Acesso remoto:</span> Gerencie laboratórios de qualquer lugar, a qualquer momento</li>
+              <li>
+                <span>Otimização de recursos:</span> Maximize o uso dos
+                laboratórios e equipamentos
+              </li>
+              <li>
+                <span>Controle centralizado:</span> Gerencie todos os
+                laboratórios em uma única plataforma
+              </li>
+              <li>
+                <span>Relatórios detalhados:</span> Gere análises de uso e
+                ocupação para tomada de decisão
+              </li>
+              <li>
+                <span>Acesso remoto:</span> Gerencie laboratórios de qualquer
+                lugar, a qualquer momento
+              </li>
             </ul>
           </div>
-
-
         </div>
       </div>
 
@@ -133,27 +161,50 @@ export function HomePage() {
           <div className="blocks-grid">
             <div className="block-card">
               <h4>Bloco 1</h4>
-              <p>Salas 01, 02 e 03 – Engenharia Civil; Laboratório de Desenho Técnico</p>
+              <p>
+                Salas 01, 02 e 03 – Engenharia Civil; Laboratório de Desenho
+                Técnico
+              </p>
             </div>
 
             <div className="block-card">
               <h4>Bloco 2</h4>
-              <p>Sala 04 – Sala de estudos; Sala 05 – Metodologias ativas; Salas 06, 07 e 08 – Engenharia de Materiais; Laboratório de Simulação Computacional APSE; Laboratório de Física Experimental</p>
+              <p>
+                Sala 04 – Sala de estudos; Sala 05 – Metodologias ativas; Salas
+                06, 07 e 08 – Engenharia de Materiais; Laboratório de Simulação
+                Computacional APSE; Laboratório de Física Experimental
+              </p>
             </div>
 
             <div className="block-card">
               <h4>Bloco 3</h4>
-              <p>Salas 09, 10 e 11 – Geologia; Miniauditório; Galpão de Laboratórios</p>
+              <p>
+                Salas 09, 10 e 11 – Geologia; Miniauditório; Galpão de
+                Laboratórios
+              </p>
             </div>
 
             <div className="block-card">
               <h4>Bloco 4</h4>
-              <p>Salas 12, 13, 14 e 15 – Engenharia Elétrica e Engenharia de Minas; Laboratório de Química Experimental; Laboratório de Planejamento e Lavra de Mina; Laboratório de Análise e Desenvolvimento de Sistemas</p>
+              <p>
+                Salas 12, 13, 14 e 15 – Engenharia Elétrica e Engenharia de
+                Minas; Laboratório de Química Experimental; Laboratório de
+                Planejamento e Lavra de Mina; Laboratório de Análise e
+                Desenvolvimento de Sistemas
+              </p>
             </div>
 
             <div className="block-card">
               <h4>Bloco 5</h4>
-              <p>Secretaria Acadêmica / Sala de reuniões; Direção do Instituto / Coordenadoria Administrativa; Sala 18 – Mestrado em Ciências Forenses; Salas 19 e 20 – Sistemas de Informação; Laboratório de Programação; Salas 22, 23 e 26 – Engenharia da Computação; Sala 24 – Metodologias Ativas; Sala 27 – Mestrado PROFNIT; Salas 28, 29 e 30 – Engenharia Química; Salas 31, 32 e 33 – Engenharia Mecânica</p>
+              <p>
+                Secretaria Acadêmica / Sala de reuniões; Direção do Instituto /
+                Coordenadoria Administrativa; Sala 18 – Mestrado em Ciências
+                Forenses; Salas 19 e 20 – Sistemas de Informação; Laboratório de
+                Programação; Salas 22, 23 e 26 – Engenharia da Computação; Sala
+                24 – Metodologias Ativas; Sala 27 – Mestrado PROFNIT; Salas 28,
+                29 e 30 – Engenharia Química; Salas 31, 32 e 33 – Engenharia
+                Mecânica
+              </p>
             </div>
 
             <div className="block-card">
@@ -165,4 +216,4 @@ export function HomePage() {
       </div>
     </div>
   );
-};
+}

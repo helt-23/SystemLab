@@ -1,0 +1,164 @@
+/* Boas-vindas */
+.welcome-screen {
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.welcome-header h1 {
+  font-size: 2.5rem;
+  color: #1e3a8a;
+  margin-bottom: 0.5rem;
+  animation: fadeIn 1s;
+}
+.welcome-header p {
+  font-size: 1.25rem;
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+}
+.animated-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: bounce 2s infinite;
+  display: grid;
+  place-items: center;
+}
+.welcome-steps {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 3rem 0;
+}
+.step {
+  flex: 1;
+  min-width: 250px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
+}
+.step:hover {
+  transform: translateY(-5px);
+}
+.step-number {
+  width: 40px;
+  height: 40px;
+  background: #3b82f6;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 0 auto 1rem;
+}
+.step-content h3 {
+  color: #1e40af;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+.step-content p {
+  color: #4b5563;
+  margin: 0;
+}
+.welcome-cta {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #dbeafe;
+  border-radius: 12px;
+  display: inline-block;
+  animation: highlight 3s infinite;
+}
+.cta-text {
+  font-weight: bold;
+  color: #1e40af;
+  font-size: 1.2rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pulse-animation {
+  display: inline-block;
+  animation: pulse 1.5s infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes highlight {
+  0%,
+  100% {
+    background-color: #dbeafe;
+    transform: scale(1);
+  }
+  50% {
+    background-color: #bfdbfe;
+    transform: scale(1.02);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  .menu-button {
+    display: block;
+  }
+  .main-content-lab {
+    flex-direction: column;
+  }
+  .block-select {
+    display: block;
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+    background-position: right 0.75rem center;
+    transform: scale(0.95);
+    transform-origin: center top;
+  }
+  .labs-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  .section-title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-header {
+    padding: 0.75rem;
+  }
+  .labs-section {
+    padding: 1rem;
+  }
+}

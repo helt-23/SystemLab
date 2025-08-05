@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import '../assets/styles/labNot.css'
 
+
+{/*ESSA TELA NÃO IMPORTA, JÁ QUE SE NÃO TIVER LABORATÓRIO, ELE NÃO IRÁ APARECER NA INTERFACE */}
 function LabNotFound() {
   return (
     <div className="lab-not-found-container">

@@ -1,8 +1,38 @@
-const ScheduleTable = ({ diasSemana, horariosUnicos, horarios, onCellClick }) => {
-  const statusClassMap = {
-    livre: "available",
-    reservado: "reserved",
-    aula: "class"
+const ScheduleTable = ({
+  diasSemana,
+  horariosUnicos,
+  horarios,
+  onCellClick,
+}) => {
+  // Mapeamento de status para estilos
+  const statusStyles = {
+    livre: {
+      className: "available",
+      style: {
+        background: "#dcfce7",
+        border: "1px solid #22c55e",
+        color: "#166534",
+      },
+      label: "Disponível",
+    },
+    reservado: {
+      className: "reserved",
+      style: {
+        background: "#d1e1f0",
+        border: "1px solid #3b82f6",
+        color: "#031273",
+      },
+      label: "Reservado",
+    },
+    aula: {
+      className: "class",
+      style: {
+        background: "#ffffe0",
+        border: "1px solid #eab308",
+        color: "#c49102",
+      },
+      label: "Aula",
+    },
   };
 
   const renderCellContent = (horario) => {
@@ -69,7 +99,12 @@ const ScheduleTable = ({ diasSemana, horariosUnicos, horarios, onCellClick }) =>
                       }
                     }}
                   >
-                    <div className={`cell-status ${statusClassMap[horario.tipo]}`}>
+                    <div
+                      className={`cell-status ${
+                        statusStyles[horario.tipo].className
+                      }`}
+                      style={statusStyles[horario.tipo].style}
+                    >
                       {renderCellContent(horario)}
                     </div>
                   </td>
@@ -79,6 +114,24 @@ const ScheduleTable = ({ diasSemana, horariosUnicos, horarios, onCellClick }) =>
           ))}
         </tbody>
       </table>
+
+      {/* Legenda de cores */}
+      <div className="legend-container mt-8">
+        <div className="flex flex-wrap justify-center gap-4">
+          {Object.entries(statusStyles).map(([key, style]) => (
+            <div key={key} className="flex items-center">
+              <div
+                className="legend-color-box w-5 h-5 rounded-sm mr-2"
+                style={{
+                  background: style.style.background,
+                  border: style.style.border,
+                }}
+              ></div>
+              <span className="text-sm">{style.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import "./app.css";
 
 const ShiftSelector = ({ scheduleData, currentShift, setCurrentShift }) => {
@@ -11,8 +10,9 @@ const ShiftSelector = ({ scheduleData, currentShift, setCurrentShift }) => {
           <button
             key={shift}
             onClick={() => setCurrentShift(shift)}
-            className={`shift-selector__button ${currentShift === shift ? "shift-selector__button--active" : ""
-              }`}
+            className={`shift-selector__button ${
+              currentShift === shift ? "shift-selector__button--active" : ""
+            }`}
           >
             {shift.charAt(0).toUpperCase() + shift.slice(1)}
           </button>

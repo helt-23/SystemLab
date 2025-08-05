@@ -1,6 +1,9 @@
-import React from 'react';
-import { X } from 'lucide-react';
+import React from "react";
+import { X } from "lucide-react";
 
+{
+  /*PROVAVELMENTE FAREMOS ESSA TELA OU MODAL DO ZERO, NÃO PRECISA MEXER AQUI!!!!!! PROVAVELMENTE FAREMOS ESSA TELA OU MODAL DO ZERO, NÃO PRECISA MEXER AQUI!!!!!! PROVAVELMENTE FAREMOS ESSA TELA OU MODAL DO ZERO, NÃO PRECISA MEXER AQUI!!!!!! PROVAVELMENTE FAREMOS ESSA TELA OU MODAL DO ZERO, NÃO PRECISA MEXER AQUI!!!!!! PROVAVELMENTE FAREMOS ESSA TELA OU MODAL DO ZERO, NÃO PRECISA MEXER AQUI!!!!!!*/
+}
 const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
   if (!isOpen || !labDetails) return null;
 
@@ -21,12 +24,14 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
         <div className="modal-header">
           <h2 className="modal__title">{labDetails.nome || "Laboratório"}</h2>
           <div className="lab-status-container">
-            <span className={`lab-status ${labDetails.disponivel ? 'available' : 'occupied'}`}>
-              {labDetails.disponivel ? 'Disponível' : 'Ocupado'}
+            <span
+              className={`lab-status ${
+                labDetails.disponivel ? "available" : "occupied"
+              }`}
+            >
+              {labDetails.disponivel ? "Disponível" : "Ocupado"}
             </span>
-            <span className="lab-capacity">
-              {labDetails.lugares} lugares
-            </span>
+            <span className="lab-capacity">{labDetails.lugares} lugares</span>
           </div>
         </div>
 
@@ -36,8 +41,12 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
               <h3>Descrição</h3>
             </div>
             <div className="info-card-content">
-              <p className="modal__text">{labDetails.descricao || "Sem descrição disponível"}</p>
-              <p className="modal__text">{labDetails.detalhe || "Sem detalhe disponível"}</p>
+              <p className="modal__text">
+                {labDetails.descricao || "Sem descrição disponível"}
+              </p>
+              <p className="modal__text">
+                {labDetails.detalhe || "Sem detalhe disponível"}
+              </p>
             </div>
           </div>
 
@@ -53,9 +62,13 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
                       <li key={index} className="item">
                         <div className="item-info">
                           <span className="item-name">{hardware.nome}</span>
-                          <span className="item-spec">{hardware.especificacao}</span>
+                          <span className="item-spec">
+                            {hardware.especificacao}
+                          </span>
                         </div>
-                        <span className="item-quantity">{hardware.quantidade} unidades</span>
+                        <span className="item-quantity">
+                          {hardware.quantidade} unidades
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -76,7 +89,9 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
                       <li key={index} className="item">
                         <div className="item-info">
                           <span className="item-name">{software.nome}</span>
-                          <span className="item-spec">Versão {software.versao}</span>
+                          <span className="item-spec">
+                            Versão {software.versao}
+                          </span>
                         </div>
                         <span className="item-license">{software.licenca}</span>
                       </li>
@@ -98,15 +113,21 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
                 <div className="contact-info">
                   <div className="contact-item">
                     <span className="contact-label">Nome:</span>
-                    <span className="contact-value">{labDetails.responsavel.nome}</span>
+                    <span className="contact-value">
+                      {labDetails.responsavel.nome}
+                    </span>
                   </div>
                   <div className="contact-item">
                     <span className="contact-label">Email:</span>
-                    <span className="contact-value">{labDetails.responsavel.email}</span>
+                    <span className="contact-value">
+                      {labDetails.responsavel.email}
+                    </span>
                   </div>
                   <div className="contact-item">
                     <span className="contact-label">Telefone:</span>
-                    <span className="contact-value">{labDetails.responsavel.telefone}</span>
+                    <span className="contact-value">
+                      {labDetails.responsavel.telefone}
+                    </span>
                   </div>
                 </div>
               </div>
