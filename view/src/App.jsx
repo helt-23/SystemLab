@@ -5,8 +5,7 @@ import { AuthProvider } from "./context/authContext";
 import AppRoutes from "./routes/routes";
 import LoadingScreen from "./components/loading";
 import { Header, Footer } from "./components";
-import ProfileEditModal from "./components/profileEditModal";
-import { BookingReservs } from "./pages/bookingReservs/reservationsBook";
+import { BookingReservs, ProfileEditModal } from "./pages/modais";
 function Layout() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";

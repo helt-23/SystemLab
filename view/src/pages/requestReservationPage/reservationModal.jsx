@@ -26,7 +26,6 @@ const ReservationModal = ({
   setShowConfirmation,
   handleConfirmReservation,
   reservationSuccess,
-  setReservationSuccess,
 }) => {
   const availableSlots = timeSlots.filter((slot) => slot?.tipo === "livre");
 

@@ -5,8 +5,7 @@ import { Breadcrumb } from "../../components";
 import { useLabData } from "../../context/LabDataContext";
 import { useSchedule } from "../../customHooks/useSchedule";
 import LabInfoCard from "./LabInfoCard";
-import ShiftSelector from "./ShiftSelector";
-import WeekControls from "./WeekControls";
+import ScheduleControls from "./scheduleManage";
 import ScheduleTable from "./ScheduleTable";
 import ReservationModal from "../requestReservationPage/reservationModal";
 import AbbreviationPanel from "./AbbreviationPanel";
@@ -14,6 +13,9 @@ import LabDetailModal from "./LabDetailModal";
 import { useReservation } from "../../customHooks/useReservation";
 import "./app.css";
 
+{
+  /*SEGUINTE, EM CASO DE PROBLEMAS NO CÓDIGO ATUAL, PDOE UTIIZAR ESSE QUE ELE ESTÁ NO PADRÃO ANTIGO SEM O WEEKCONTROL E ESTÁ TODO JUNTO EM UM LUGAR SÓ. */
+}
 export function LabScheduleComponent() {
   const { labId } = useParams();
   const [currentShift, setCurrentShift] = useState("manhã");
@@ -134,21 +136,13 @@ export function LabScheduleComponent() {
             showDetail={showDetail}
           />
 
-          {scheduleData && (
-            <div className="schedule-controls-container">
-              <div className="schedule-controls">
-                <ShiftSelector
-                  scheduleData={scheduleData}
-                  currentShift={currentShift}
-                  setCurrentShift={setCurrentShift}
-                />
-                <WeekControls
-                  currentWeek={currentWeek}
-                  setCurrentWeek={setCurrentWeek}
-                />
-              </div>
-            </div>
-          )}
+          <ScheduleControls
+            scheduleData={scheduleData}
+            currentShift={currentShift}
+            setCurrentShift={setCurrentShift}
+            currentWeek={currentWeek}
+            setCurrentWeek={setCurrentWeek}
+          />
 
           <ScheduleTable
             diasSemana={diasSemana}

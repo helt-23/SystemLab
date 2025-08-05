@@ -1,9 +1,11 @@
-const ScheduleTable = ({
+export function ScheduleTable({
   diasSemana,
   horariosUnicos,
   horarios,
   onCellClick,
-}) => {
+  currentShift,
+  currentWeek,
+}) {
   // Mapeamento de status para estilos
   const statusStyles = {
     livre: {
@@ -67,7 +69,7 @@ const ScheduleTable = ({
 
   return (
     <div className="schedule-table-wrapper">
-      <table className="schedule-table">
+      <table className="schedule-table" key={`${currentShift}-${currentWeek}`}>
         <thead>
           <tr>
             <th>Horário</th>
@@ -134,6 +136,4 @@ const ScheduleTable = ({
       </div>
     </div>
   );
-};
-
-export default ScheduleTable;
+}

@@ -1,3 +1,4 @@
+// pages/labSelection/index.js
 import { useState, useEffect } from "react";
 import { Breadcrumb } from "../../components";
 import { useLabData } from "../../context/LabDataContext";
@@ -11,12 +12,7 @@ export function LabSelection() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    if (location.pathname === "/laboratorios" && !location.search) {
-      setBlocoSelecionado(null);
-    }
-  }, [location]);
-
+  // Resetar seleção quando o breadcrumb for clicado
   useEffect(() => {
     if (location.state?.resetSelection) {
       setBlocoSelecionado(null);

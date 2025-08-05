@@ -1,15 +1,8 @@
-import { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import {
-  X,
-  User,
-  Calendar,
-  Settings,
-  LogOut,
-  Info
-} from 'lucide-react';
-import { useLabData } from '../context/LabDataContext';
-import '../assets/styles/menuaside.css'
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { X, User, Calendar, LogOut, Info } from "lucide-react";
+import { useLabData } from "../context/LabDataContext";
+import "../assets/styles/menuaside.css";
 
 const MenuAside = ({ user, isOpen, onClose }) => {
   const location = useLocation();
@@ -32,18 +25,30 @@ const MenuAside = ({ user, isOpen, onClose }) => {
   return (
     <>
       {/* Overlay de fundo */}
-      {isOpen && <div className="menu-overlay" onClick={onClose} aria-hidden="true" />}
+      {isOpen && (
+        <div className="menu-overlay" onClick={onClose} aria-hidden="true" />
+      )}
 
-      <aside className={`menu-aside ${isOpen ? 'open' : ''}`}>
+      <aside className={`menu-aside ${isOpen ? "open" : ""}`}>
         <div className="menu-header">
-          <button className="close-menu" onClick={onClose} aria-label="Fechar menu">
+          <button
+            className="close-menu"
+            onClick={onClose}
+            aria-label="Fechar menu"
+          >
             <X size={24} />
           </button>
         </div>
 
         <div className="user-profile">
           <div className="avatar">
-            {user.photo ? <img src={user.photo} alt={user.name} /> : <div className="avatar-placeholder"><User size={40} /></div>}
+            {user.photo ? (
+              <img src={user.photo} alt={user.name} />
+            ) : (
+              <div className="avatar-placeholder">
+                <User size={40} />
+              </div>
+            )}
           </div>
           <h3 className="user-name">{user.name}</h3>
           <p className="user-role">{user.role}</p>

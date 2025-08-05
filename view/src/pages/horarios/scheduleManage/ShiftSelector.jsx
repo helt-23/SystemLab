@@ -1,5 +1,3 @@
-import "./app.css";
-
 const ShiftSelector = ({ scheduleData, currentShift, setCurrentShift }) => {
   if (!scheduleData) return null;
 

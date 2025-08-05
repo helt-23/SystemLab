@@ -1,5 +1,5 @@
 export { LabSelection } from "./blocksAndLabs";
 export { LoginSignForm } from "./authPage/loginSignForm";
-export { LabScheduleComponent } from "./horarios/scheduleContainer";
-export { BookingReservs } from "./bookingReservs/reservationsBook";
+export { LabScheduleManager } from "./horarios";
+export { BookingReservs } from "./modais/bookingReservs/reservationsBook";
 export { HomePage } from "./homePage/home";

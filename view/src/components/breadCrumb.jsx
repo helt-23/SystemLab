@@ -1,3 +1,4 @@
+// components/Breadcrumb.js
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight, Home } from "lucide-react";
@@ -8,7 +9,6 @@ export function Breadcrumb() {
   const breadcrumbs = useBreadcrumb();
   const navigate = useNavigate();
 
-  // Função para resetar o estado ao clicar em Home
   const handleHomeClick = (e) => {
     e.preventDefault();
     // Navega para a rota base e reseta o estado
@@ -39,7 +39,6 @@ export function Breadcrumb() {
             </React.Fragment>
           ))}
 
-          {/* Último item (página atual) */}
           <li className="breadcrumb-separator">
             <ChevronRight size={16} />
           </li>

@@ -1,10 +1,9 @@
-import React from "react";
 import { X } from "lucide-react";
 
 {
   /*PROVAVELMENTE FAREMOS ESSA TELA OU MODAL DO ZERO, NÃO PRECISA MEXER AQUI!!!!!! PROVAVELMENTE FAREMOS ESSA TELA OU MODAL DO ZERO, NÃO PRECISA MEXER AQUI!!!!!! PROVAVELMENTE FAREMOS ESSA TELA OU MODAL DO ZERO, NÃO PRECISA MEXER AQUI!!!!!! PROVAVELMENTE FAREMOS ESSA TELA OU MODAL DO ZERO, NÃO PRECISA MEXER AQUI!!!!!! PROVAVELMENTE FAREMOS ESSA TELA OU MODAL DO ZERO, NÃO PRECISA MEXER AQUI!!!!!!*/
 }
-const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
+export function LabDetailModal({ isOpen, onClose, labDetails }) {
   if (!isOpen || !labDetails) return null;
 
   const handleOverlayClick = (e) => {
@@ -137,6 +136,4 @@ const LabDetailModal = ({ isOpen, onClose, labDetails }) => {
       </div>
     </div>
   );
-};
-
-export default LabDetailModal;
+}

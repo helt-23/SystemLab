@@ -1,8 +1,8 @@
 // src/pages/LoginSignForm.jsx
 import { useState } from "react";
-import { LoginForm } from "./loginForm";
-import { RegisterForm } from "./registerForm";
-import { ToggleBox } from "./toggleBox";
+import { LoginForm } from "./formsComponents/loginForm";
+import { RegisterForm } from "./formsComponents/registerForm";
+import { ToggleBox } from "./formsComponents/toggleBox";
 import "./authlogin.css";
 
 export const LoginSignForm = () => {

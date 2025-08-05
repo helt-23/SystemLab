@@ -5,6 +5,7 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* garante espaçamento */
   height: 100%;
   transition: box-shadow 0.2s;
 }
@@ -36,6 +37,10 @@
   font-weight: 700;
   color: #fff;
 }
+.lab-card-details-content {
+  margin: 10px 5px;
+}
+
 .lab-card-details {
   padding: 1rem;
   display: flex;
@@ -62,8 +67,9 @@
   overflow: hidden;
   line-height: 1.625;
 }
+
 .lab-card-button {
-  margin-top: 1rem;
+  margin-top: auto; /* empurra o botão para o rodapé */
   width: 100%;
   padding: 0.625rem 1rem;
   border: none;
