@@ -11,16 +11,6 @@ export const getBlocos = () => [
     id: 'bloco-b',
     nome: 'Bloco 2',
     laboratorios: ['lab-201', 'lab-202', 'lab-203']
-  },
-  {
-    id: 'bloco-c',
-    nome: 'Bloco 3',
-    laboratorios: ['lab-301', 'lab-302']
-  },
-  {
-    id: 'bloco-d',
-    nome: 'Bloco 4',
-    laboratorios: ['lab-401', 'lab-402', 'lab-403']
   }
 ];
 export const getLaboratorios = () => ({
@@ -70,36 +60,6 @@ export const getLaboratorios = () => ({
     lugares: 20,
     descricao: "Laboratório de Química",
     detalhe: "Equipado com sistema de exaustão e bancadas resistentes.",
-    hardwares: [],
-    softwares: [],
-    responsavel: {
-      nome: "Prof. Responsável Genérico",
-      email: "responsavel.generico@unifesspa.edu.br",
-      telefone: "(xx) xxxxx-xxxx"
-    }
-  },
-  'lab-301': {
-    id: 'lab-301',
-    blocoId: 'bloco-c',
-    sala: "Sala 301 - Bloco C",
-    lugares: 35,
-    descricao: "Computação",
-    detalhe: "Espaço flexível para projetos integrados e atividades diversas.",
-    hardwares: [],
-    softwares: [],
-    responsavel: {
-      nome: "Prof. Responsável Genérico",
-      email: "responsavel.generico@unifesspa.edu.br",
-      telefone: "(xx) xxxxx-xxxx"
-    }
-  },
-  'lab-401': {
-    id: 'lab-401',
-    blocoId: 'bloco-d',
-    sala: "Sala 401 - Bloco D",
-    lugares: 15,
-    descricao: "Laboratório de Pesquisa",
-    detalhe: "Equipamentos avançados para pesquisas científicas.",
     hardwares: [],
     softwares: [],
     responsavel: {
@@ -181,67 +141,7 @@ export const getLaboratorios = () => ({
       telefone: "(94) 99234-5678"
     }
   },
-  'lab-302': {
-    id: 'lab-302',
-    blocoId: 'bloco-c',
-    sala: "Sala 302 - Bloco 3",
-    lugares: 30,
-    descricao: "Laboratório de Inteligência Artificial",
-    detalhe: "Workstations com GPUs para treinamento de modelos",
-    image: Imagem,
-    hardwares: [
-      { nome: "Workstations Dell", quantidade: 10, especificacao: "RTX 4090, 64GB RAM" }
-    ],
-    softwares: [
-      { nome: "PyTorch", versao: "2.1", licenca: "Open Source" },
-      { nome: "TensorFlow", versao: "2.15", licenca: "Apache 2.0" }
-    ],
-    responsavel: {
-      nome: "Prof. Mariana Costa",
-      email: "mariana.costa@unifesspa.edu.br",
-      telefone: "(94) 98123-4567"
-    }
-  },
-  'lab-402': {
-    id: 'lab-402',
-    blocoId: 'bloco-d',
-    sala: "Sala 402 - Bloco 4",
-    lugares: 15,
-    descricao: "Laboratório de Genética",
-    detalhe: "Equipamentos para análise de DNA",
-    image: Imagem,
-    hardwares: [
-      { nome: "Termocicladores", quantidade: 3, especificacao: "PCR em tempo real" }
-    ],
-    softwares: [
-      { nome: "BioEdit", versao: "7.2", licenca: "Academic" }
-    ],
-    responsavel: {
-      nome: "Prof. Luiz Mendes",
-      email: "luiz.mendes@unifesspa.edu.br",
-      telefone: "(94) 99876-1234"
-    }
-  },
-  'lab-403': {
-    id: 'lab-403',
-    blocoId: 'bloco-d',
-    sala: "Sala 403 - Bloco 4",
-    lugares: 18,
-    descricao: "Laboratório de Microscopia",
-    detalhe: "Microscópios de alta resolução para análises celulares",
-    image: Imagem,
-    hardwares: [
-      { nome: "Microscópios Eletrônicos", quantidade: 4, especificacao: "Aumento 100.000x" }
-    ],
-    softwares: [],
-    responsavel: {
-      nome: "Prof. Carolina Ribeiro",
-      email: "carolina.ribeiro@unifesspa.edu.br",
-      telefone: "(94) 98765-1122"
-    }
-  }
 });
-
 
 export const getSchedules = () => ({
   'lab-24': {
@@ -333,7 +233,6 @@ export const getUserBookings = () => [
   }
 ];
 
-// Nova função para obter todas as reservas (do usuário e de outros)
 export const getAllBookings = () => {
   return [
     // Reservas do usuário (convertidas para o formato padrão)

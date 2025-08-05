@@ -1,8 +1,8 @@
-import React from 'react';
-import { FaCheckCircle } from 'react-icons/fa';
-import './reservation.css';
-import { X, File } from 'lucide-react';
-import ConfirmationDialog from '../../public/ConfirmationDialog ';
+import React from "react";
+import { FaCheckCircle } from "react-icons/fa";
+import "./reservation.css";
+import { X, File } from "lucide-react";
+import ConfirmationDialog from "../../components/ConfirmationDialog ";
 
 const ReservationModal = ({
   isOpen,
@@ -10,8 +10,6 @@ const ReservationModal = ({
   day,
   date,
   timeSlots = [],
-  labDetails,
-
   // Propriedades do hook
   selectedSlots,
   handleSlotChange,
@@ -28,9 +26,8 @@ const ReservationModal = ({
   setShowConfirmation,
   handleConfirmReservation,
   reservationSuccess,
-  setReservationSuccess
 }) => {
-  const availableSlots = timeSlots.filter(slot => slot?.tipo === "livre");
+  const availableSlots = timeSlots.filter((slot) => slot?.tipo === "livre");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,7 +49,7 @@ const ReservationModal = ({
           <h2 className="modal-title">Solicitar Reserva</h2>
           <div className="modal-subtitle">
             <p>Dia: {day || "Não especificado"}</p>
-            {date && <p>Data: {date.toLocaleDateString('pt-BR')}</p>}
+            {date && <p>Data: {date.toLocaleDateString("pt-BR")}</p>}
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -80,7 +77,9 @@ const ReservationModal = ({
                   })}
                 </div>
               )}
-              {formErrors.slots && <p className="error-message">{formErrors.slots}</p>}
+              {formErrors.slots && (
+                <p className="error-message">{formErrors.slots}</p>
+              )}
             </div>
 
             <div className="form-section">
@@ -127,10 +126,12 @@ const ReservationModal = ({
                 />
                 <div className="file-upload-label">
                   <File size={16} />
-                  <span>{file ? file.name : 'Selecionar arquivo'}</span>
+                  <span>{file ? file.name : "Selecionar arquivo"}</span>
                 </div>
               </label>
-              {formErrors.file && <p className="error-message">{formErrors.file}</p>}
+              {formErrors.file && (
+                <p className="error-message">{formErrors.file}</p>
+              )}
             </div>
 
             <div className="modal-actions">
@@ -141,10 +142,7 @@ const ReservationModal = ({
               >
                 Voltar
               </button>
-              <button
-                type="submit"
-                className="action-button confirm"
-              >
+              <button type="submit" className="action-button confirm">
                 Confirmar Solicitação
               </button>
             </div>
@@ -160,9 +158,18 @@ const ReservationModal = ({
         title="Confirmar Reserva"
         message={
           <div>
-            <p className='mensage-reservation'>Tem certeza que deseja confirmar esta reserva?</p>
-            {date && <p><strong>Data:</strong> {date.toLocaleDateString('pt-BR')}</p>}
-            <p><strong>Horários:</strong> {selectedSlots.join(', ') || "Nenhum horário selecionado"}</p>
+            <p className="mensage-reservation">
+              Tem certeza que deseja confirmar esta reserva?
+            </p>
+            {date && (
+              <p>
+                <strong>Data:</strong> {date.toLocaleDateString("pt-BR")}
+              </p>
+            )}
+            <p>
+              <strong>Horários:</strong>{" "}
+              {selectedSlots.join(", ") || "Nenhum horário selecionado"}
+            </p>
           </div>
         }
         confirmText="Confirmar"

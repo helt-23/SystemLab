@@ -1,10 +1,24 @@
-import React from 'react';
-import useLoadingAnimation from '../customHooks/useLoadingAnimation'; // Novo caminho
-import './loading.css';
+import React, { useEffect } from 'react';
+import { useLoading } from '../context/LoadingContext';
+import { useParams } from 'react-router-dom';
+import useLoadingAnimation from '../customHooks/useLoadingAnimation';
+import '../assets/styles/loading.css';
 
 const LoadingScreen = () => {
   const { shouldRender, animationProps } = useLoadingAnimation();
   const { filledParts, expand, showText } = animationProps;
+  const { finishLoading } = useLoading();
+  const { labId } = useParams();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      finishLoading();
+    }, 1500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [labId, finishLoading]);
 
   if (!shouldRender) return null;
 

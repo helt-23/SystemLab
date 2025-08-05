@@ -1,6 +1,5 @@
-import React from 'react';
-import { Building } from 'lucide-react';
-import './BlockLabs.css';
+import { Building } from "lucide-react";
+import "../styles/sidebar.css";
 
 export function Sidebar({ blocos, blocoSelecionado, setBlocoSelecionado }) {
   return (
@@ -15,10 +14,9 @@ export function Sidebar({ blocos, blocoSelecionado, setBlocoSelecionado }) {
           {blocos.map((bloco) => (
             <li key={bloco.id}>
               <button
-                className={
-                  `sidebar-button ${blocoSelecionado === bloco.id ? 'selected' : 'unselected'
-                  }`
-                }
+                className={`sidebar-button ${
+                  blocoSelecionado === bloco.id ? "selected" : "unselected"
+                }`}
                 onClick={() => setBlocoSelecionado(bloco.id)}
               >
                 <Building className="icon" />

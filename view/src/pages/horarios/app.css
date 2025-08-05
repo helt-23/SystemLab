@@ -337,24 +337,6 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.cell-status.available {
-  background: #dcfce7;
-  border: 1px solid var(--success-color);
-  color: #166534;
-}
-
-.cell-status.reserved {
-  background: #d1e1f0;
-  border: 1px solid var(--danger-color);
-  color: #031273;
-}
-
-.cell-status.class {
-  background: #ffffe0;
-  border: 1px solid var(--class-color);
-  color: #c49102;
-}
-
 .cell-content {
   width: 100%;
   height: 100%;
@@ -466,18 +448,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-}
-
-.lab-status.available {
-  background-color: #dcfce7;
-  color: #166534;
-  box-shadow: 0 2px 4px rgba(22, 101, 52, 0.1);
-}
-
-.lab-status.occupied {
-  background-color: #fee2e2;
-  color: #b91c1c;
-  box-shadow: 0 2px 4px rgba(185, 28, 28, 0.1);
 }
 
 .lab-capacity {
@@ -859,4 +829,17 @@ body {
 .back-to-labs-button:active {
   background-color: #1d4ed8;
   transform: translateY(0);
+}
+
+/* Estilos para a legenda */
+.legend-container {
+  padding: 12px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.legend-color-box {
+  min-width: 20px;
+  min-height: 20px;
 }

@@ -1,16 +1,13 @@
-import { Users, Clock, Info, ChevronDown, ChevronUp } from "lucide-react";
-import "./app.css";
+import { Users, Clock, Info } from "lucide-react";
 
-const LabInfoCard = ({ labDetails, setShowDetail, showDetail }) => {
+export function LabInfoCard({ labDetails, setShowDetail, showDetail }) {
   if (!labDetails) return null;
 
   return (
     <>
       <div className="lab-info-card">
         <div className="lab-info-card__content">
-          <h2 className="lab-info-card__title">
-            {labDetails.descricao}
-          </h2>
+          <h2 className="lab-info-card__title">{labDetails.descricao}</h2>
 
           <div className="lab-info-card__details">
             <div className="lab-info-card__details-item">
@@ -41,9 +38,8 @@ const LabInfoCard = ({ labDetails, setShowDetail, showDetail }) => {
           </button>
         </div>
       </div>
-
     </>
   );
-};
+}
 
 export default LabInfoCard;

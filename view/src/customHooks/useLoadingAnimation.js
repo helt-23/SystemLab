@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLoading } from "../context/LoadingContext";
 
 const useLoadingAnimation = () => {
@@ -11,31 +11,48 @@ const useLoadingAnimation = () => {
     loadingCompleted: false,
   });
 
-  // Controla o preenchimento progressivo das partes do ícone
+  // Referência para controlar timeouts
+  const timers = useRef([]);
+
+  // Limpeza de timers ao desmontar
   useEffect(() => {
-    if (!animationState.isVisible) return;
+    return () => {
+      timers.current.forEach((timerId) => clearTimeout(timerId));
+    };
+  }, []);
 
-    if (animationState.filledParts < 3) {
-      const timer = setTimeout(() => {
-        setAnimationState((prev) => ({
-          ...prev,
-          filledParts: prev.filledParts + 1,
-        }));
-      }, 500);
+  // Controla o preenchimento progressivo em loop
+  useEffect(() => {
+    if (!animationState.isVisible || animationState.loadingCompleted) return;
 
-      return () => clearTimeout(timer);
-    }
-  }, [animationState.filledParts, animationState.isVisible]);
+    const timer = setTimeout(() => {
+      setAnimationState((prev) => {
+        // Reinicia após chegar em 3 (0-1-2-3-0...)
+        const nextPart = prev.filledParts >= 3 ? 0 : prev.filledParts + 1;
+        return { ...prev, filledParts: nextPart };
+      });
+    }, 500);
+
+    timers.current.push(timer);
+
+    return () => clearTimeout(timer);
+  }, [
+    animationState.filledParts,
+    animationState.isVisible,
+    animationState.loadingCompleted,
+  ]);
 
   // Monitora mudanças no estado global de loading
   useEffect(() => {
     if (!isLoading) {
+      // Sinaliza conclusão e força preenchimento completo
       setAnimationState((prev) => ({
         ...prev,
         loadingCompleted: true,
+        filledParts: 3,
       }));
     } else {
-      // Reset para novo ciclo de loading
+      // Reinicia completamente para novo ciclo
       setAnimationState({
         filledParts: 0,
         expand: false,
@@ -48,23 +65,48 @@ const useLoadingAnimation = () => {
 
   // Controla a sequência final da animação
   useEffect(() => {
-    if (animationState.loadingCompleted && animationState.filledParts >= 3) {
+    if (!animationState.loadingCompleted) return;
+
+    const timer1 = setTimeout(() => {
       setAnimationState((prev) => ({
         ...prev,
         showText: false,
         expand: true,
       }));
+    }, 300);
 
-      const timer = setTimeout(() => {
+    const timer2 = setTimeout(() => {
+      setAnimationState((prev) => ({
+        ...prev,
+        isVisible: false,
+      }));
+    }, 1000);
+
+    timers.current.push(timer1, timer2);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, [animationState.loadingCompleted]);
+
+  // Reinicia automaticamente se demorar muito (safety net)
+  useEffect(() => {
+    if (!isLoading) return;
+
+    const safetyTimer = setTimeout(() => {
+      if (isLoading) {
         setAnimationState((prev) => ({
           ...prev,
-          isVisible: false,
+          filledParts: 0,
         }));
-      }, 700);
+      }
+    }, 5000);
 
-      return () => clearTimeout(timer);
-    }
-  }, [animationState.loadingCompleted, animationState.filledParts]);
+    timers.current.push(safetyTimer);
+
+    return () => clearTimeout(safetyTimer);
+  }, [isLoading]);
 
   return {
     shouldRender: animationState.isVisible,

@@ -1,9 +1,8 @@
 // src/pages/LoginSignForm.jsx
-import { useState } from 'react';
-import { useFinishLoadingOnLabChange } from '../../public/usingLoadingScreen';
-import { LoginForm } from './loginForm';
-import { RegisterForm } from './registerForm';
-import { ToggleBox } from './toggleBox';
+import { useState } from "react";
+import { LoginForm } from "./formsComponents/loginForm";
+import { RegisterForm } from "./formsComponents/registerForm";
+import { ToggleBox } from "./formsComponents/toggleBox";
 import "./authlogin.css";
 
 export const LoginSignForm = () => {
@@ -11,11 +10,9 @@ export const LoginSignForm = () => {
   const handleRegisterClick = () => setIsActive(true);
   const handleLoginClick = () => setIsActive(false);
 
-  useFinishLoadingOnLabChange();
-
   return (
     <div className="login-sign-container flex justify-center items-center min-h-screen bg-gradient-to-r from-gray-200 to-blue-100">
-      <div className={`form-container ${isActive ? 'active' : ''}`}>
+      <div className={`form-container ${isActive ? "active" : ""}`}>
         <LoginForm />
         <RegisterForm onSuccess={handleLoginClick} />
         <ToggleBox

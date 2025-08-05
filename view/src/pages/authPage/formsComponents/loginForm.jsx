@@ -1,10 +1,10 @@
 // src/pages/LoginForm.jsx
 import { useNavigate } from "react-router-dom";
-import { InputField } from "../../components/inputField";
+import { InputField } from "../../../components/inputField";
 import { FaUser, FaLock } from "react-icons/fa";
-import { useAuth } from "../../context/authContext";
-import { useAuthForm } from "../../customHooks/useAuthForm";
-import { loginValidations } from "./validations";
+import { useAuth } from "../../../context/authContext";
+import { useAuthForm } from "../../../customHooks/useAuthForm";
+import { loginValidations } from "../validations";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
@@ -15,11 +15,8 @@ export const LoginForm = () => {
     submitError,
     isSubmitting,
     handleChange,
-    handleSubmit
-  } = useAuthForm(
-    { username: "", password: "" },
-    loginValidations
-  );
+    handleSubmit,
+  } = useAuthForm({ username: "", password: "" }, loginValidations);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,9 +32,7 @@ export const LoginForm = () => {
       <form className="w-full" onSubmit={handleLogin}>
         <h1 className="title">LOGIN</h1>
 
-        {submitError && (
-          <div className="error-message">{submitError}</div>
-        )}
+        {submitError && <div className="error-message">{submitError}</div>}
 
         <InputField
           name="username"
@@ -72,7 +67,7 @@ export const LoginForm = () => {
           className="btn"
           disabled={authLoading || isSubmitting}
         >
-          {(authLoading || isSubmitting) ? "Carregando..." : "Acessar"}
+          {authLoading || isSubmitting ? "Carregando..." : "Acessar"}
         </button>
       </form>
     </div>

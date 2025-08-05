@@ -1,18 +1,17 @@
-import React from 'react';
-import { Info } from 'lucide-react';
+import { Info } from "lucide-react";
 
 // Dicionário de abreviações acadêmicas
 const academicAbbreviations = {
-  "IHC": "Interação Humano Computador",
-  "ES": "Engenharia de Software",
-  "BD": "Banco de Dados",
-  "SO": "Sistemas Operacionais",
-  "ML": "Machine Learning",
-  "EC": "Engenharia da Computação",
-  "SI": "Sistemas de Informação"
+  IHC: "Interação Humano Computador",
+  ES: "Engenharia de Software",
+  BD: "Banco de Dados",
+  SO: "Sistemas Operacionais",
+  ML: "Machine Learning",
+  EC: "Engenharia da Computação",
+  SI: "Sistemas de Informação",
 };
 
-const AbbreviationPanel = () => {
+export function AbbreviationPanel() {
   // Converter o dicionário em array para mapeamento
   const abbreviationsList = Object.entries(academicAbbreviations);
 
@@ -48,6 +47,4 @@ const AbbreviationPanel = () => {
       </div>
     </section>
   );
-};
-
-export default AbbreviationPanel;
+}

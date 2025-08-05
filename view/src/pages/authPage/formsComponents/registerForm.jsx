@@ -1,11 +1,18 @@
 // src/pages/RegisterForm.jsx
 import { useState, useEffect } from "react";
-import ReactDOM from 'react-dom';
-import { InputField } from "../../components/inputField";
-import { FaUser, FaEnvelope, FaIdBadge, FaLock, FaKey, FaCheckCircle } from "react-icons/fa";
-import { useAuth } from "../../context/authContext";
-import { useAuthForm } from "../../customHooks/useAuthForm";
-import { registerValidations } from "./validations";
+import ReactDOM from "react-dom";
+import { InputField } from "../../../components/inputField";
+import {
+  FaUser,
+  FaEnvelope,
+  FaIdBadge,
+  FaLock,
+  FaKey,
+  FaCheckCircle,
+} from "react-icons/fa";
+import { useAuth } from "../../../context/authContext";
+import { useAuthForm } from "../../../customHooks/useAuthForm";
+import { registerValidations } from "../validations";
 
 export const RegisterForm = ({ onSuccess }) => {
   const { register } = useAuth();
@@ -17,7 +24,7 @@ export const RegisterForm = ({ onSuccess }) => {
     isSubmitting,
     handleChange,
     handleSubmit,
-    resetForm
+    resetForm,
   } = useAuthForm(
     {
       name: "",
@@ -48,7 +55,7 @@ export const RegisterForm = ({ onSuccess }) => {
   }, [submitSuccess, resetForm, onSuccess]);
 
   const Portal = ({ children }) => {
-    const portalRoot = document.getElementById('portal-root');
+    const portalRoot = document.getElementById("portal-root");
     return portalRoot ? ReactDOM.createPortal(children, portalRoot) : null;
   };
 
@@ -137,11 +144,7 @@ export const RegisterForm = ({ onSuccess }) => {
           <option value="admin">Bolsista</option>
         </select>
 
-        <button
-          type="submit"
-          className="btn"
-          disabled={isSubmitting}
-        >
+        <button type="submit" className="btn" disabled={isSubmitting}>
           {isSubmitting ? "Carregando..." : "Registrar"}
         </button>
       </form>
@@ -155,8 +158,12 @@ export const RegisterForm = ({ onSuccess }) => {
                 <FaCheckCircle size={48} className="text-green-500" />
               </div>
               <div className="register-success-body">
-                <h3 className="register-success-title">Cadastro realizado com sucesso!</h3>
-                <p className="register-success-text">Redirecionando para o login...</p>
+                <h3 className="register-success-title">
+                  Cadastro realizado com sucesso!
+                </h3>
+                <p className="register-success-text">
+                  Redirecionando para o login...
+                </p>
               </div>
             </div>
           </div>
